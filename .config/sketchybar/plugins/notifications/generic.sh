@@ -1,8 +1,6 @@
 #!/usr/bin/env sh
 
 STATUS_LABEL=$(lsappinfo info -only StatusLabel "$1")
-echo $1
-echo $STATUS_LABEL
 if [[ $STATUS_LABEL =~ \"label\"=\"([^\"]*)\" ]]; then
     LABEL="${BASH_REMATCH[1]}"
 
