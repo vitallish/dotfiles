@@ -1,20 +1,12 @@
 # dotfiles
 
-I have not made an install script yet but will keep track of as many necessary steps as I can here in the README.
+
+The `.install.sh` script should 
 
 
+Influence:
 
 
-I am basing my workflow of off the dotfiles found here:
-
-https://github.com/FelixKratz/dotfiles/tree/master
-
-
-
-Currently the following must be manually symlinked
-
-
-``` bash
-ln -s ~/dotfiles/.config/sketchybar ~/.config/sketchybar
-```
+1. https://www.atlassian.com/git/tutorials/dotfiles
+2. https://github.com/FelixKratz/dotfiles/tree/master
 
