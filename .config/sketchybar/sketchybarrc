@@ -12,13 +12,17 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
 
-sketchybar --bar height=35        \
-                 blur_radius=30   \
-                 position=top     \
-                 sticky=off       \
-                 padding_left=10  \
-                 padding_right=10 \
-                 color=0x44000000
+sb_bar=(
+		height=35
+		blur_radius=30
+		position=top
+		sticky=off
+		padding_left=10
+		padding_right=10
+		color=0x44000000
+)
+
+sketchybar --bar "${sb_bar[@]}"
 
 ##### Changing Defaults #####
 # We now change some default values that are applied to all further items
@@ -99,49 +103,53 @@ sketchybar --add item clock right                              \
            --subscribe battery system_woke power_source_change
 ### Notifications
 
+sketchybar --default background.color=0x44ffffff                \
+					background.corner_radius=5                 \
+					background.height=30                       \
+					background.drawing=off 
+
 sketchybar  --add   item slack right \
             --set   slack \
                     update_freq=180 \
-                    script="$PLUGIN_DIR/notifications/slack.sh" \
-					click_script="osascript -e 'tell application \"Slack\" to activate'" \
+                    script="$PLUGIN_DIR/notifications/generic.sh Slack" \
+					icon="󰒱"\
                     background.padding_left=15  \
                     icon.font.size=18 \
-           --subscribe slack system_woke mouse.entered
+           --subscribe slack system_woke mouse.entered mouse.clicked mouse.exited
 
 sketchybar  --add   item outlook right \
             --set   outlook \
                     update_freq=180 \
-                    script="$PLUGIN_DIR/notifications/outlook.sh" \
-					click_script="osascript -e 'tell application \"Microsoft Outlook\" to activate'" \
+					icon="󰴢"\
+                    script="$PLUGIN_DIR/notifications/generic.sh Microsoft\ Outlook" \
                     background.padding_left=15  \
                     icon.font.size=18 \
-           --subscribe outlook system_woke mouse.entered
+           --subscribe outlook system_woke mouse.entered mouse.clicked mouse.exited
 
 sketchybar  --add   item beeper right \
             --set   beeper \
                     update_freq=15 \
                     script="$PLUGIN_DIR/notifications/generic.sh Beeper" \
-					icon="󰵅"	\
-					click_script="osascript -e 'tell application \"Beeper\" to activate'" \
+					icon="󰵅" \
                     background.padding_left=15  \
                     icon.font.size=18 \
-           --subscribe beeper system_woke mouse.entered
+           --subscribe beeper system_woke mouse.entered mouse.clicked mouse.exited
+
+
+sketchybar --add event clockifyupdate
 
 sketchybar  --add   item clockify right \
             --set   clockify \
                     update_freq=60 \
+					icon="󱃑" \
                     script="$PLUGIN_DIR/clockify.sh" \
                     icon.font.size=18 \
-					background.color=0x44ffffff                \
-					background.corner_radius=5                 \
-					background.height=30                       \
-					background.drawing=off\
 					label.drawing=off \
 				popup.background.color=0xff000000                  \
 				--add item clockify.month.report popup.clockify \
 				--set clockify.month.report \
 						label="$(clockify-cli report this-month --billable -D)" \
-           --subscribe clockify system_woke mouse.entered mouse.exited
+           --subscribe clockify system_woke mouse.entered mouse.exited clockifyupdate mouse.clicked
 media=(
   script="$PLUGIN_DIR/media.sh"
   updates=on
@@ -149,7 +157,7 @@ media=(
 
 sketchybar --add item media right \
            --set media "${media[@]}" \
-           --subscribe media media_change
+           --subscribe media media_change mouse.entered mouse.exited mouse.clicked
 
 
 ##### Collapsible stats
