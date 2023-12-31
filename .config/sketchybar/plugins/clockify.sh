@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-if [[ $SENDER == "routine" ]] || [[ $SENDER == "clockifyupdate" ]]; then
+if [ $SENDER = "routine" ] || [ $SENDER = "clockifyupdate" ]; then
 		CUR_DURATION=$(clockify-cli show current -D)
 
 		if [[ $CUR_DURATION == "" ]]; then
@@ -33,6 +33,8 @@ if [[ $SENDER == "mouse.clicked" ]]; then
 				clockify-cli clone last -i=0
 		else
 				clockify-cli out
+				sketchybar --set clockify.month.report \
+						label="$(clockify-cli report this-month --billable -D)" 
 		fi
 		sketchybar --trigger clockifyupdate
 fi
