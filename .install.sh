@@ -24,6 +24,7 @@ brew install ifstat
 brew install switchaudio-osx
 brew install skhd
 brew install sketchybar
+brew install tmux
 
 
 [ ! -d "$HOME/.cfg" ] && git clone --bare git@github.com:vitallish/dotfiles.git $HOME/.cfg
