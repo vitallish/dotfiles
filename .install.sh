@@ -25,6 +25,7 @@ brew install switchaudio-osx
 brew install skhd
 brew install sketchybar
 brew install tmux
+brew install kitty
 
 
 [ ! -d "$HOME/.cfg" ] && git clone --bare git@github.com:vitallish/dotfiles.git $HOME/.cfg
