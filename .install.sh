@@ -22,15 +22,18 @@ brew install jq
 brew install mas
 brew install ifstat
 brew install switchaudio-osx
-brew install skhd
-brew install sketchybar
+brew install koekeishiya/formulae/skhd
+skhd --start-service
 brew install tmux
 brew install kitty
 
+#DISABLE SIP first
+brew install koekeishiya/formulae/yabai
+yabai --start-service
 
 brew tap FelixKratz/formulae
 brew install borders
-
+brew install sketchybar
 
 [ ! -d "$HOME/.cfg" ] && git clone --bare git@github.com:vitallish/dotfiles.git $HOME/.cfg
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
