@@ -2,7 +2,7 @@
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/vitalydruker/.oh-my-zsh"
+export ZSH="/Users/kctf809/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -108,18 +108,3 @@ alias vi=nvim
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-
-
-export PATH=$PATH:/Users/vitalydruker/Library/Python/3.9/bin
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# added by Snowflake SnowSQL installer v1.2
-export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
-
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-export LANG="en_US.UTF-8"
-
-
-# The next line updates PATH for egcli command.
-if [ -f '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc' ]; then . '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc'; fi

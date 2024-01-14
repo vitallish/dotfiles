@@ -13,13 +13,19 @@ brew analytics off
 ## Formulae
 echo "Installing Brew Formulae..."
 ### Essentials
+brew install zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 brew install wget
+brew install nvim
 brew install jq
 brew install mas
 brew install ifstat
 brew install switchaudio-osx
 brew install skhd
 brew install sketchybar
+brew install tmux
+brew install kitty
 
 
 brew tap FelixKratz/formulae
@@ -31,6 +37,10 @@ git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
 
 source $HOME/.zshrc
 config config --local status.showUntrackedFiles no
+# If this is on another computer then update the local repos user.name and user.email
+# config config --local user.name
+# config config --local user.email
+
 
 
 brew services start borders
