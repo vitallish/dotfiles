@@ -28,6 +28,10 @@ brew install tmux
 brew install kitty
 
 
+brew tap FelixKratz/formulae
+brew install borders
+
+
 [ ! -d "$HOME/.cfg" ] && git clone --bare git@github.com:vitallish/dotfiles.git $HOME/.cfg
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
 
@@ -36,3 +40,8 @@ config config --local status.showUntrackedFiles no
 # If this is on another computer then update the local repos user.name and user.email
 # config config --local user.name
 # config config --local user.email
+
+
+
+brew services start borders
+
