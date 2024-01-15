@@ -111,3 +111,5 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 # The next line updates PATH for egcli command.
 if [ -f '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc' ]; then . '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc'; fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
