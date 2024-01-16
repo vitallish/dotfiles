@@ -68,8 +68,9 @@ shift + ctrl - k    : yabai -m window north --stack $(yabai -m query --windows -
 shift + ctrl - l : yabai -m window  east --stack $(yabai -m query --windows --window | jq -r '.id')
 
 # Stack Navigation: shift + ctrl - {n, p}
-shift + ctrl - n : yabai -m window --focus stack.next
-shift + ctrl - p : yabai -m window --focus stack.prev
+# added ability to circle back 
+shift + ctrl - n : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+shift + ctrl - p : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 
 ## Resize (ctrl + lalt - ...)
 # Resize windows: ctrl + lalt - {j, k, l, ö}
