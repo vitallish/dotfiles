@@ -37,7 +37,7 @@ brew install sketchybar
 
 brew install fzf
 # To install useful key bindings and fuzzy completion:
-$(brew --prefix)/opt/fzf/install
+$(brew --prefix)/opt/fzf/install --all
 
 [ ! -d "$HOME/.cfg" ] && git clone --bare git@github.com:vitallish/dotfiles.git $HOME/.cfg
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
