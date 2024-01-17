@@ -4,10 +4,11 @@ STATUS_LABEL=$(lsappinfo info -only StatusLabel "$1")
 if [[ $STATUS_LABEL =~ \"label\"=\"([^\"]*)\" ]]; then
     LABEL="${BASH_REMATCH[1]}"
 
+    sketchybar --set $NAME icon.drawing=on
     if [[ $LABEL == "" ]]; then
-        ICON_COLOR="0xff9b9b9b"
+        ICON_COLOR="0xffe6e6e6"
     elif [[ $LABEL == "•" ]]; then
-        ICON_COLOR="0xff9b9b9b"
+        ICON_COLOR="0xffe6e6e6"
     elif [[ $LABEL =~ ^[0-9]+$ ]]; then
         ICON_COLOR="0xffa6da95"
     else
