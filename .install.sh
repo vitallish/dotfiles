@@ -33,7 +33,10 @@ yabai --start-service
 
 brew tap FelixKratz/formulae
 brew install borders
+brew services start felixkratz/formulae/borders
 brew install sketchybar
+
+brew install --cask alfred
 
 brew install fzf
 # To install useful key bindings and fuzzy completion:
@@ -48,7 +51,4 @@ config config --local status.showUntrackedFiles no
 # config config --local user.name
 # config config --local user.email
 
-
-
-brew services start borders
 
