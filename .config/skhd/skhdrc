@@ -94,8 +94,8 @@ shift + ctrl + lalt - s : yabai -m window --insert stack
 # restart yabai
 alt + shift - c : yabai --restart-service
 # Open new window for kitty
-alt - return : kitty --single-instance -d ~
+alt - return : /usr/local/bin/kitty --single-instance -d ~
 
 # Open new window for firefox
-alt + shift - return : firefox --new-window
+alt + shift - return : /usr/local/bin/firefox --new-window
 
