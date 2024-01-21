@@ -13,5 +13,13 @@ return {
           vim.cmd([[colorscheme catppuccin]])
         end
   },
+  {
+  'preservim/vim-markdown',
+  branch = 'master',
+  require = {'godlygeek/tabular'}
+},{
+  'chrisbra/csv.vim',
+  branch = 'master'}
+
 }
 
