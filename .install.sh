@@ -38,6 +38,18 @@ brew install sketchybar
 
 brew install --cask alfred
 
+## Install dragterm
+brew install cocoapods
+
+git clone https://github.com/Wevah/dragterm.git  
+cd dragterm/dragterm
+g++ DTDraggingSourceView.m main.m  -framework Cocoa -o drag
+chmod +x drag
+sudo cp drag /usr/local/bin
+cd ../..
+rm -rf dragterm
+
+
 brew install fzf
 # To install useful key bindings and fuzzy completion:
 $(brew --prefix)/opt/fzf/install --all
