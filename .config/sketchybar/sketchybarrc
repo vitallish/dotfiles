@@ -65,17 +65,15 @@ done
 ##### Adding Left Items #####
 # We add some regular items to the left side of the bar
 # only the properties deviating from the current defaults need to be set
+# E V E N T S
+# The above are launched by yabai - see .config/yabai/yabairc
+# https://github.com/FelixKratz/SketchyBar/discussions/12?sort=top#discussioncomment-1215932
+sketchybar -m --add event window_focus \
+              --add event title_change
 
-sketchybar --add item space_separator left                         \
-           --set space_separator icon=                            \
-                                 padding_left=10                   \
-                                 padding_right=10                  \
-                                 label.drawing=off                 \
-                                                                   \
-           --add item front_app left                               \
-           --set front_app       script="$PLUGIN_DIR/front_app.sh" \
-                                 icon.drawing=off                  \
-           --subscribe front_app front_app_switched
+sketchybar    --add item title left \
+              --set title script="$PLUGIN_DIR/window_title.sh" \
+              --subscribe title window_focus front_app_switched space_change title_change
 
 ##### Adding Right Items #####
 # In the same way as the left items we can add items to the right side.
