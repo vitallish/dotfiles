@@ -14,8 +14,8 @@ return {
     -- Required.
     "nvim-lua/plenary.nvim",
     "hrsh7th/nvim-cmp", -- for completion of note references
+    "nvim-telescope/telescope.nvim" -- For quick pick of files
 
-    -- see below for full list of optional dependencies 👇
   },
   opts = {
     workspaces = {
@@ -25,6 +25,5 @@ return {
       },
     },
 
-    -- see below for full list of options 👇
   },
 }
