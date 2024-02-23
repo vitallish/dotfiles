@@ -13,5 +13,6 @@ vim.g.maplocalleader = " "
 
 
 -- navigate buffers
+-- This should just go into which key somehow as well?
 keymap("n", "<tab>", ":bnext<cr>", opts) -- Next Tab 
 keymap("n", "<s-tab>", ":bprevious<cr>", opts) -- Previous tab
