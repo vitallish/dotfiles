@@ -17,13 +17,35 @@ return {
     "nvim-telescope/telescope.nvim" -- For quick pick of files
 
   },
-  opts = {
-    workspaces = {
-      {
-        name = "personal",
-        path = "~/Notes/personal",
-      },
-    },
 
-  },
+  config = function() 
+    vim.opt.conceallevel = 2 
+    local wk = require("which-key")
+    wk.register({
+      o = {
+        name = "obsidian",
+        s = { "<cmd>ObsidianQuickSwitch<cr>", "QuickSwitch"},
+      }
+    }, { 
+      prefix = "<localleader>"
+  })
+
+    -- do this here instead of as described in documentation
+    -- this allows for more flexibility during configuration I think?
+    -- If I didn't include it here, the the plugin didn't load correctly
+    -- For example, the plugin commands didn't load - i dunno
+    local opts = {
+      workspaces = {
+        {
+          name = "personal",
+          path = "~/Notes/personal",
+        },
+      },
+
+    }
+
+
+    require("obsidian").setup(opts)
+
+  end,
 }
