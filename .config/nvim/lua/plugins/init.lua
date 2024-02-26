@@ -24,6 +24,7 @@ return {
   {
   'preservim/vim-markdown',
   -- for some reason plugin does not automatically load with filetim
+  enabled = true,
   ft = "markdown",
   config = function()
 	  -- https://github.com/preservim/vim-markdown?tab=readme-ov-file#options
