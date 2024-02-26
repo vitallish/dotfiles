@@ -57,6 +57,8 @@ $(brew --prefix)/opt/fzf/install --all
 # used to by nvim.obsidian plugin for quick switching
 brew install ripgrep 
 
+# Install tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 [ ! -d "$HOME/.cfg" ] && git clone --bare git@github.com:vitallish/dotfiles.git $HOME/.cfg
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
