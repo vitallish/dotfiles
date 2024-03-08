@@ -1,14 +1,14 @@
-return {
+eturn {
   "epwalsh/obsidian.nvim",
   version = "*",  -- recommended, use latest release instead of latest commit
   lazy = true,
   --ft = "markdown",
-   event = {
-     -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-     "BufReadPre " .. vim.fn.expand "~" .. "/Notes/personal/**.md",
-     "BufNewFile " .. vim.fn.expand "~" .. "/Notes/personal/**.md",
-   },
+  event = {
+    -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+    -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+    "BufReadPre " .. vim.fn.expand "~" .. "/Notes/personal/**.md",
+    "BufNewFile " .. vim.fn.expand "~" .. "/Notes/personal/**.md",
+  },
   dependencies = {
     -- Required.
     "nvim-lua/plenary.nvim",
@@ -26,8 +26,8 @@ return {
         s = { "<cmd>ObsidianQuickSwitch<cr>", "QuickSwitch"},
       }
     }, { 
-      prefix = "<localleader>"
-  })
+        prefix = "<localleader>"
+      })
 
     -- do this here instead of as described in documentation
     -- this allows for more flexibility during configuration I think?
