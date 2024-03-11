@@ -14,15 +14,18 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Configure lazy.nvim
 require("lazy").setup("plugins", {
-  defaults = { lazy = true, version = nil },
+  defaults = { lazy = false, version = nil },
   install = { missing = true , colorscheme = {"catpuccin"}},
-  checker = { enabled = true },
+  -- do not check for updates on startup
+  checker = { enabled = false },
+  -- do not notify when there are changes to config
+  change_detection = {enabled = false},
   performance = {
     rtp = {
       disabled_plugins = {
         "gzip",
         "matchit",
-        "matchparen",
+        --"matchparen",
         "netrwPlugin",
         "tarPlugin",
         "tohtml",

@@ -19,6 +19,7 @@ return {
             -- of files supported by R.nvim. This is an
             -- opportunity to create mappings local to buffers.
             if vim.o.syntax ~= "rbrowser" then
+              --vim.api.nvim_buf_set_keymap(0, "n", "<localleader>rf", "<Plug>RStart", {})
               vim.api.nvim_buf_set_keymap(0, "n", "<Enter>", "<Plug>RDSendLine", {})
               vim.api.nvim_buf_set_keymap(0, "v", "<Enter>", "<Plug>RSendSelection", {})
             end
@@ -36,10 +37,9 @@ return {
       -- Check if the environment variable "R_AUTO_START" exists.
       -- If using fish shell, you could put in your config.fish:
       -- alias r "R_AUTO_START=true nvim"
-      if vim.env.R_AUTO_START == "true" then
-        opts.auto_start = 1
-        opts.objbr_auto_start = true
-      end
+      --if vim.env.R_AUTO_START == "true" then
+      --opts.auto_start = 1
+      --end
       require("r").setup(opts)
     end,
     lazy = false
@@ -59,6 +59,7 @@ return {
       cmp.setup {
         mapping = cmp.mapping.preset.insert({
           ['<Tab>'] = {
+            -- use tab to confirm completeion 
             i = cmp.mapping.confirm({ select = true }),
           },
         }),
