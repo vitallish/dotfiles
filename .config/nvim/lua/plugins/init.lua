@@ -9,11 +9,11 @@ return {
     name = "catppuccin",
     priority = 1000,
     config = function()
-          -- load the colorscheme here
-          vim.cmd([[colorscheme catppuccin]])
-          -- make the vertical window seperator white
-          vim.cmd([[hi WinSeparator guifg=#ffffff]])
-        end
+      -- load the colorscheme here
+      vim.cmd([[colorscheme catppuccin]])
+      -- make the vertical window seperator white
+      vim.cmd([[hi WinSeparator guifg=#ffffff]])
+    end
   },
   {
     'godlygeek/tabular', 
@@ -21,7 +21,7 @@ return {
     -- however it doesn't work onless tabular is loaded alread
     -- I think this needs to be done by loading this 
     -- in the config file or something?
-     lazy = false
+    lazy = false
   },
   {
   'preservim/vim-markdown',
@@ -38,10 +38,15 @@ return {
   branch = 'master',
   dependencies = {'godlygeek/tabular'}
 },
---{
-  --'chrisbra/csv.vim',
-  --lazy = false,
-  --branch = 'master'}
-
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
 }
 

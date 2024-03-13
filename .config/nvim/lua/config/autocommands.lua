@@ -12,6 +12,11 @@ vim.api.nvim_create_autocmd({ 'TermOpen' }, {
   command = 'startinsert',
 })
 
+-- always enter terminal in insert mode
+vim.api.nvim_create_autocmd({ "WinEnter" }, { 
+  pattern = "term://*", 
+  group = term_group,
+  command = "startinsert" })
 
 
 
