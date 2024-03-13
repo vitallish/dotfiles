@@ -26,17 +26,17 @@ return {
   {
   'preservim/vim-markdown',
   -- for some reason plugin does not automatically load with filetim
-  enabled = true,
+  enabled = false,
   ft = "markdown",
   config = function()
-	  -- https://github.com/preservim/vim-markdown?tab=readme-ov-file#options
+	--   https://github.com/preservim/vim-markdown?tab=readme-ov-file#options
 	vim.cmd([[let g:vim_markdown_folding_disabled = 0]])
 	vim.cmd([[let g:vim_markdown_folding_level = 2]])
 	vim.cmd([[let g:vim_markdown_math = 1]])
 	end,
 
   branch = 'master',
-  require = {'godlygeek/tabular'}
+  dependencies = {'godlygeek/tabular'}
 },
 --{
   --'chrisbra/csv.vim',
