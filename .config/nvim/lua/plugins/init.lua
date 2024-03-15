@@ -24,20 +24,20 @@ return {
     lazy = false
   },
   {
-  'preservim/vim-markdown',
-  -- for some reason plugin does not automatically load with filetim
-  enabled = false,
-  ft = "markdown",
-  config = function()
-	--   https://github.com/preservim/vim-markdown?tab=readme-ov-file#options
-	vim.cmd([[let g:vim_markdown_folding_disabled = 0]])
-	vim.cmd([[let g:vim_markdown_folding_level = 2]])
-	vim.cmd([[let g:vim_markdown_math = 1]])
-	end,
+    'preservim/vim-markdown',
+    -- for some reason plugin does not automatically load with filetim
+    enabled = false,
+    ft = "markdown",
+    config = function()
+      --   https://github.com/preservim/vim-markdown?tab=readme-ov-file#options
+      vim.cmd([[let g:vim_markdown_folding_disabled = 0]])
+      vim.cmd([[let g:vim_markdown_folding_level = 2]])
+      vim.cmd([[let g:vim_markdown_math = 1]])
+    end,
 
-  branch = 'master',
-  dependencies = {'godlygeek/tabular'}
-},
+    branch = 'master',
+    dependencies = {'godlygeek/tabular'}
+  },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -49,13 +49,49 @@ return {
     end
   },
   {
-  'stevearc/aerial.nvim',
-  opts = {},
+    'stevearc/aerial.nvim',
+    opts = {},
+    config = function() 
+      require("aerial").setup({
+        backends = {
+          ['_'] = {"treesitter", "lsp"},
+          rmd = {"lsp", "treesitter"},
+        },
+        filter_kind = {
+          ['_'] = {"Class",
+            "Constructor",
+            "Enum",
+            "Function",
+            "Interface",
+            "Module",
+            "Method",
+            "Struct",
+          },
+          rmd = false,
+        }
+
+      })
+      vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>")
+    end,
+
+  },
   -- Optional dependencies
   dependencies = {
-     "nvim-treesitter/nvim-treesitter",
-     "nvim-tree/nvim-web-devicons"
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons"
   },
-}
+  {
+    "hedyhli/outline.nvim",
+    enabled = false,
+    config = function()
+      -- Example mapping to toggle outline
+      vim.keymap.set("n", "<leader>o", "<cmd>Outline<CR>",
+        { desc = "Toggle Outline" })
+
+      require("outline").setup {
+        -- Your setup opts here (leave empty to use defaults)
+      }
+    end,
+  },
 }
 
