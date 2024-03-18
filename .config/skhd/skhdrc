@@ -100,3 +100,7 @@ alt + ctrl - return : kitty --single-instance --title "Floating: Quick File" -d 
 # Open new window for firefox
 alt + shift - return : /usr/local/bin/firefox --new-window
 
+# System Commands
+alt + shift - u : pmset displaysleepnow
+
+
