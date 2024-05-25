@@ -1,67 +1,80 @@
 #!/bin/zsh
 
-# Install xCode cli tools
-echo "Installing commandline tools..."
-xcode-select --install
+sudo apt-get install -y \
+	kitty \
+	tmux \
+	vim 
 
-# Homebrew
-## Install
-echo "Installing Brew..."
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew analytics off
+sudo apt-get install -y zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+sudo mkdir -p /opt/nvim
+mv nvim.appimage /opt/nvim/nvim
+
+
+curl -o beeper https://download.beeper.com/linux/appImage/x64
+chmod u+x beeper
+sudo mkdir -p /opt/beeper
+sudo mv beeper /opt/beeper/beeper
+
+
+sudo apt install openssh-server
 ## Formulae
 echo "Installing Brew Formulae..."
 ### Essentials
-brew install zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-brew install wget
-brew install nvim
-brew install jq
-brew install mas
-brew install ifstat
-brew install switchaudio-osx
-brew install koekeishiya/formulae/skhd
-skhd --start-service
-brew install tmux
-brew install kitty
-
-#DISABLE SIP first
-brew install koekeishiya/formulae/yabai
-yabai --start-service
-
-brew tap FelixKratz/formulae
-brew install borders
-brew services start felixkratz/formulae/borders
-brew install sketchybar
-
-brew install --cask alfred
-
-## Install dragterm
-brew install cocoapods
-
-git clone https://github.com/Wevah/dragterm.git  
-cd dragterm/dragterm
-g++ DTDraggingSourceView.m main.m  -framework Cocoa -o drag
-chmod +x drag
-sudo cp drag /usr/local/bin
-cd ../..
-rm -rf dragterm
-
-
-brew install fzf
-# To install useful key bindings and fuzzy completion:
-$(brew --prefix)/opt/fzf/install --all
-
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+##sudo apt-get -y install podman
+curl -o ~/Downloads/code.deb -L https://code.visualstudio.com/sha/download\?build\=stable\&os\=linux-deb-x64
+sudo apt install ~/Downloads/code.deb
+rm ~/Downloads/code.deb
 # used to by nvim.obsidian plugin for quick switching
-brew install ripgrep 
-
+sudo apt install ripgrep 
+curl -fsSL https://tailscale.com/install.sh | sh
 # Install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+sudo apt install -y htop
+
+# Install latest R version
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+sudo add-apt-repository "deb https://cloud.r-project.org/bin/linux/ubuntu $(lsb_release -cs)-cran40/"
+sudo apt update
+sudo apt install r-base
+
+# docker setup
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+
+# add user to docker
+
+
+
+# podman setup
+#
+# sudo apt install qemu-utils
+#sudo mkdir -p /opt/podman/
+#sudo mv ~/Downloads/podman-remote-static-linux_amd64 /opt/podman/podman
+#podman machine init --cpus 4 -m 16384
+# https://github.com/containers/gvisor-tap-vsock/releases
+
+# get git setup
 [ ! -d "$HOME/.cfg" ] && git clone --bare git@github.com:vitallish/dotfiles.git $HOME/.cfg
-git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
+git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout popos
 
 source $HOME/.zshrc
 config config --local status.showUntrackedFiles no
@@ -69,4 +82,12 @@ config config --local status.showUntrackedFiles no
 # config config --local user.name
 # config config --local user.email
 
+# install weston
+#  install waydroid
+#
+curl https://repo.waydro.id | sudo bash
+sudo apt install waydroid -y
 
+# Manual Work
+# plex and plexamp from store
+#
