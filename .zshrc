@@ -98,7 +98,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="$PATH:/opt/nvim/"
-export PATH="$PATH:/opt/podman/"
+# export PATH="$PATH:/opt/podman/"
 export PATH="$PATH:/opt/beeper/"
 
 export VIMCONFIG=~/.config/nvim
@@ -114,3 +114,5 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

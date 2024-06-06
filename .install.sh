@@ -58,12 +58,25 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-
-
 # add user to docker
 
+# Install homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/vitalydruker/.zshrc
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+sudo apt-get install build-essential
+
+sudo apt-get install podman
 
 
+wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/FiraCode.zip \
+&& cd ~/.local/share/fonts \
+&& unzip FiraCode.zip \
+&& rm FireCode.zip \
+&& fc-cache -fv
+
+#
 # podman setup
 #
 # sudo apt install qemu-utils
