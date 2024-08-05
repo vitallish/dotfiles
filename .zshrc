@@ -108,9 +108,9 @@ alias vi=nvim
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-
-# The next line updates PATH for egcli command.
-if [ -f '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc' ]; then . '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc'; fi
+# Temp workaround to disable punycode deprecation logging to stderr
+# https://github.com/bitwarden/clients/issues/6689
+alias bw='NODE_OPTIONS="--no-deprecation" bw'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

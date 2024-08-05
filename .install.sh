@@ -27,8 +27,13 @@ skhd --start-service
 brew install tmux
 brew install kitty
 brew install rsync
-brew install borg
+
+
+brew install --cask macfuse
+brew install borgbackup/tap/borgbackup-fuse
+
 brew install borgmatic
+brew install node
 
 #DISABLE SIP first
 brew install koekeishiya/formulae/yabai
@@ -39,7 +44,48 @@ brew install borders
 brew services start felixkratz/formulae/borders
 brew install sketchybar
 
+# Alfredsxdffew21 requires registration from bitwarden
+npm install -g @bitwarden/cli
+alias bw='NODE_OPTIONS="--no-deprecation" bw'
+echo -n Bitwarden Master: 
+read -s BW_PASSWORD
+echo
+
+bw login vdruker@gmail.com --passwordenv BW_PASSWORD 
+BW_SESSION=$(bw unlock --passwordenv BW_PASSWORD --raw)
+
+
+echo Install and setup Alfred:
+
 brew install --cask alfred
+open /Applications/Alfred\ 5.app
+bw get notes alfred
+printf "%s " "Press enter to continue:"
+read ans
+
+echo install and setup tailscale:
+brew install --cask tailscale
+Tailscale rungui -d
+bw get password 180f93ef-e7c3-4eb8-bbd8-acea00f775fa
+printf "%s " "Press enter to continue:"
+read ans
+# Make sure to make start on login with system preferences
+
+brew install stats
+# Rerstore backup from ~/backups/Stats.plist
+
+
+
+brew install --cask firefox
+brew install --cask bitwarden
+brew install --cask visual-studio-code
+
+brew tap r-lib/rig
+brew install --cask rig
+rig add release
+brew install --cask rstudio
+brew install --cask obsidian
+# Place Obsidian into ~/Notes which may need to be created
 
 ## Install dragterm
 brew install cocoapods
@@ -63,6 +109,9 @@ brew install ripgrep
 # Install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# Make sure to first copy the .ssh folder from a working computer/set up key
+# Also remove the current .zshrc file as it needs to be overwritten
+
 [ ! -d "$HOME/.cfg" ] && git clone --bare git@github.com:vitallish/dotfiles.git $HOME/.cfg
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
 
@@ -71,5 +120,26 @@ config config --local status.showUntrackedFiles no
 # If this is on another computer then update the local repos user.name and user.email
 # config config --local user.name
 # config config --local user.email
+
+# Create new borgamatic backup
+# Update the repo information in 
+#
+# Other apps to install 
+# Adobe Lightroom Classic
+#   https://creativecloud.adobe.com/apps/download/lightroom-classic
+#   Login with google vitaly@westendstats.com
+# Other Items
+#   Automatically add home to login
+#
+#
+# Restore from borgmatic:
+#   ~/Photos
+#
+#
+#
+
+
+borgmatic extract --archive latest --path Users/vitalydruker/backups --destination ~/tmp/
+mv ~/tmp/Users/vitalydruker/backups ~
 
 
