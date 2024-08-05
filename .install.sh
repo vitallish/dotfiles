@@ -26,6 +26,9 @@ brew install koekeishiya/formulae/skhd
 skhd --start-service
 brew install tmux
 brew install kitty
+brew install rsync
+brew install borg
+brew install borgmatic
 
 #DISABLE SIP first
 brew install koekeishiya/formulae/yabai
