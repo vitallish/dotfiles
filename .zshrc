@@ -116,3 +116,6 @@ alias bw='NODE_OPTIONS="--no-deprecation" bw'
 
 # added by Snowflake SnowSQL installer v1.2
 export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
+
+# Created by `pipx` on 2024-08-12 02:33:02
+export PATH="$PATH:/Users/vitalydruker/.local/bin"

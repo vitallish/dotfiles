@@ -43,6 +43,7 @@ brew tap FelixKratz/formulae
 brew install borders
 brew services start felixkratz/formulae/borders
 brew install sketchybar
+brew services start sketchybar
 
 # Alfredsxdffew21 requires registration from bitwarden
 npm install -g @bitwarden/cli
@@ -74,18 +75,32 @@ read ans
 brew install stats
 # Rerstore backup from ~/backups/Stats.plist
 
-
+brew install beeper
+brew install --cask font-sauce-code-pro-nerd-font
 
 brew install --cask firefox
+brew install --cask docker
 brew install --cask bitwarden
 brew install --cask visual-studio-code
+brew install --cask slack
+brew install onlyoffice
+brew install thunderbird
+brew install --cask clockify
+brew install pipx
+
+pipx install ranger-fm
 
 brew tap r-lib/rig
 brew install --cask rig
+# install latest version of R
 rig add release
+
 brew install --cask rstudio
 brew install --cask obsidian
+brew install spotify
+brew install plexamp
 # Place Obsidian into ~/Notes which may need to be created
+brew install zotero
 
 ## Install dragterm
 brew install cocoapods
@@ -137,9 +152,16 @@ config config --local status.showUntrackedFiles no
 #
 #
 #
+#
+# https://stackoverflow.com/questions/39972335/how-do-i-press-and-hold-a-key-and-have-it-repeat-in-vscode
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
 
 borgmatic extract --archive latest --path Users/vitalydruker/backups --destination ~/tmp/
 mv ~/tmp/Users/vitalydruker/backups ~
+
+borgmatic extract --archive latest --path "Users/vitalydruker/Application Settings" --destination ~/tmp/
+mv ~/tmp/Users/vitalydruker/Application\ Settings ~
+
 
 
