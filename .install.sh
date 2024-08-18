@@ -97,8 +97,9 @@ rig add release
 
 brew install --cask rstudio
 brew install --cask obsidian
-brew install spotify
-brew install plexamp
+brew install --cask parallels
+brew install --cask spotify
+brew install --cask plexamp
 # Place Obsidian into ~/Notes which may need to be created
 brew install zotero
 

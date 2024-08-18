@@ -98,7 +98,7 @@ alt - return : /opt/homebrew/bin/kitty --single-instance -d ~
 alt + ctrl - return : kitty --title "Floating: Quick File" -d ~ ranger
 
 # Open new window for firefox
-alt + shift - return : /usr/local/bin/firefox --new-window
+alt + shift - return : /opt/homebrew/bin/firefox --new-window
 
 # System Commands
 alt + shift - u : pmset displaysleepnow
