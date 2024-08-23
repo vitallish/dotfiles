@@ -118,8 +118,8 @@ sketchybar  --add   item slack right \
 sketchybar  --add   item outlook right \
             --set   outlook \
                     update_freq=180 \
-					icon="󰴢"\
-                    script="$PLUGIN_DIR/notifications/generic.sh Microsoft\ Outlook" \
+					icon=""\
+                    script="$PLUGIN_DIR/notifications/generic.sh Thunderbird" \
                     background.padding_left=15  \
                     icon.font.size=18 \
            --subscribe outlook system_woke mouse.entered mouse.clicked mouse.exited

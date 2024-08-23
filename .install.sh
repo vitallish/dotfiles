@@ -35,6 +35,7 @@ brew install borgbackup/tap/borgbackup-fuse
 brew install borgmatic
 brew install node
 
+brew install htop
 #DISABLE SIP first
 brew install koekeishiya/formulae/yabai
 yabai --start-service
@@ -101,7 +102,9 @@ brew install --cask parallels
 brew install --cask spotify
 brew install --cask plexamp
 # Place Obsidian into ~/Notes which may need to be created
+brew install --cask alt-tab
 brew install zotero
+brew install lucassabreu/tap/clockify-cli
 
 ## Install dragterm
 brew install cocoapods
