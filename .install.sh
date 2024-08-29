@@ -40,6 +40,7 @@ brew install htop
 brew install koekeishiya/formulae/yabai
 yabai --start-service
 
+brew install --cask google-drive
 brew tap FelixKratz/formulae
 brew install borders
 brew services start felixkratz/formulae/borders
