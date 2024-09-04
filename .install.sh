@@ -36,6 +36,8 @@ brew install borders
 brew services start felixkratz/formulae/borders
 brew install sketchybar
 
+brew install --cask nikitabobko/tap/aerospace
+
 brew install --cask alfred
 
 ## Install dragterm
