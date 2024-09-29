@@ -17,17 +17,18 @@ return {
       --  * <leader>fe edit file
       -- and hide <leader>1
 
-      wk.register({
-        f = {
-          name = "file", -- optional group name
-          s = { 
-            name = "Scratch", 
-            e = { "<cmd>edit ~/Notes/personal/zzz/Scratch.md<cr>", "Open"},
-            v = { "<cmd>vsplit ~/Notes/personal/zzz/Scratch.md<cr>", "Open vertical split"},
-            h = { "<cmd>split ~/Notes/personal/zzz/Scratch.md<cr>", "Open vertical split"},
-          },
-        },
-      }, { prefix = "<leader>" })
+      wk.add(
+        {
+    { "<leader>f", group = "file" },
+    { "<leader>fs", group = "Scratch" },
+    { "<leader>fse", "<cmd>edit ~/Notes/personal/zzz/Scratch.md<cr>", desc = "Open" },
+    { "<leader>fsh", "<cmd>split ~/Notes/personal/zzz/Scratch.md<cr>", desc = "Open vertical split" },
+    { "<leader>fsv", "<cmd>vsplit ~/Notes/personal/zzz/Scratch.md<cr>", desc = "Open vertical split" },
+  }
+
+
+
+        , { prefix = "<leader>" })
     end, 
     opts = {
       -- your configuration comes here

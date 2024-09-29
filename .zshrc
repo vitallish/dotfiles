@@ -119,3 +119,5 @@ export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
 
 # Created by `pipx` on 2024-08-12 02:33:02
 export PATH="$PATH:/Users/vitalydruker/.local/bin"
+
+export PROMPT="%F{cyan}[mba]%f$PROMPT"
