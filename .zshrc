@@ -104,6 +104,9 @@ export VISUAL=nvim
 alias vim=nvim
 alias vi=nvim
 
+export TASKRC=~/.config/task/taskrc
+
+
 # For use with dotfile config
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
