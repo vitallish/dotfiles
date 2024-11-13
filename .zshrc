@@ -104,6 +104,10 @@ export VISUAL=nvim
 alias vim=nvim
 alias vi=nvim
 
+alias tt=taskwarrior-tui
+
+alias nvim-kickstart='NVIM_APPNAME="nvim-vscode" nvim'
+
 # For use with dotfile config
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'

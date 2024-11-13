@@ -94,7 +94,7 @@ shift + ctrl + lalt - s : yabai -m window --insert stack
 # restart yabai
 alt + shift - c : yabai --restart-service
 # Open new window for kitty
-alt - return : kitty --single-instance -d ~
+alt - return : /opt/homebrew/bin/kitty --single-instance -d ~
 alt + ctrl - return : kitty --single-instance --title "Floating: Quick File" -d ~ ranger
 
 # Open new window for firefox
