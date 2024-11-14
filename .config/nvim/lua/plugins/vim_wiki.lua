@@ -3,6 +3,7 @@ return {
     -- The plugin location on GitHub
     "vimwiki/vimwiki",
     lazy = true,
+    enabled = true,
     -- The event that triggers the plugin
 
     -- The keys that trigger the plugin
@@ -18,14 +19,22 @@ return {
           ext = "md",
         },
       }
-      vim.g.vimwiki_ext2syntax = {
-        ['.dumpit'] = 'markdown', 
-      }
+      vim.g.vimwiki_global_ext = 0
+
+      vim.cmd [[
+        let g:vimwiki_key_mappings = { 'all_maps': 0, }
+        let g:vimwiki_ext2syntax = {}
+
+      ]]
     end,
   },
   {  "tools-life/taskwiki",
     init = function() 
       vim.g.taskwiki_taskrc_location = "~/.config/task/taskrc"
+      -- run this autocommand here so it's after the vimwiki plugin loads
+    vim.cmd [[
+        autocmd BufNewFile,BufReadPost,BufEnter *.md set ft=markdown
+      ]]
     end,
     event = {
       -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.

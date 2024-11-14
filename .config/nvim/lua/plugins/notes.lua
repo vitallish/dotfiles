@@ -14,21 +14,30 @@ return {
     -- Required.
     "nvim-lua/plenary.nvim",
     "hrsh7th/nvim-cmp", -- for completion of note references
-    "nvim-telescope/telescope.nvim" -- For quick pick of files
+    "nvim-telescope/telescope.nvim", -- For quick pick of files
+    -- overwrite anything vimwiki does - just in case
+    "vimwiki/vimwiki"
+    
 
   },
 
   config = function() 
+    print("loading obsidian...")
     vim.opt.conceallevel = 2 
-    local wk = require("which-key")
-    wk.register({
-      o = {
-        name = "obsidian",
-        s = { "<cmd>ObsidianQuickSwitch<cr>", "QuickSwitch"},
-      }
-    }, { 
-        prefix = "<localleader>"
-      })
+    local map = vim.keymap.set
+
+    map("n", "<localleader>os", "<cmd>ObsidianQuickSwitch<cr>", {desc = "QuickSwitch"})
+
+    -- run this autocommand here so it's after the vimwiki plugin loads
+    vim.cmd [[
+        "augroup vimwiki
+        "  autocmd!
+        "augroup END
+        augroup vitalyobsidian
+          autocmd FileType vimwiki set ft=markdown
+        augroup END
+      ]]
+  
 
     -- do this here instead of as described in documentation
     -- this allows for more flexibility during configuration I think?
