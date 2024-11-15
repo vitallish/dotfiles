@@ -28,13 +28,12 @@ return {
       ]]
     end,
   },
-  {  "tools-life/taskwiki",
+  { 
+    "tools-life/taskwiki",
+    enabled = true,
     init = function() 
       vim.g.taskwiki_taskrc_location = "~/.config/task/taskrc"
-      -- run this autocommand here so it's after the vimwiki plugin loads
-    vim.cmd [[
-        autocmd BufNewFile,BufReadPost,BufEnter *.md set ft=markdown
-      ]]
+      
     end,
     event = {
       -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.

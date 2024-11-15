@@ -16,9 +16,8 @@ return {
     "hrsh7th/nvim-cmp", -- for completion of note references
     "nvim-telescope/telescope.nvim", -- For quick pick of files
     -- overwrite anything vimwiki does - just in case
-    "vimwiki/vimwiki"
-    
-
+    -- "vimwiki/vimwiki",
+    "nvim-treesitter/nvim-treesitter"
   },
 
   config = function() 
@@ -32,6 +31,7 @@ return {
     vim.cmd [[
         "augroup vimwiki
         "  autocmd!
+        " I can't do this right now - task manager doesn[t work
         "augroup END
         augroup vitalyobsidian
           autocmd FileType vimwiki set ft=markdown
@@ -56,7 +56,8 @@ return {
       },
       templates = {
         subdir = "templates",
-      }
+      },
+      mappings = {}
 
     }
 
