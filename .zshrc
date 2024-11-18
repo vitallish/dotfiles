@@ -100,6 +100,7 @@ source $ZSH/oh-my-zsh.sh
 export VIMCONFIG=~/.config/nvim
 export VIMDATA=~/.local/share/nvim
 export VISUAL=nvim
+export EDITOR=nvim
 
 alias vim=nvim
 alias vi=nvim
