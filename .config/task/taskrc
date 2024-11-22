@@ -25,3 +25,5 @@ hooks.location=~/.config/task/hooks
 #include no-color.theme
 
 uda.priority.values=H,M,,L
+max_active_tasks=1
+sync.local.server_dir=\/Users\/vitalydruker\/Notes\/personal\/zzz.othersync\/taskwarrior

@@ -20,6 +20,8 @@ source_directories:
     - /Users/vitalydruker/Notes/
     - /Users/vitalydruker/Application Settings/
     - /Users/vitalydruker/.ssh/
+  # this includes task/time warrior data
+    - /Users/vitalydruker/.local/share/
 
 # A required list of local or remote repositories with paths and
 # optional labels (which can be used with the --repository flag to

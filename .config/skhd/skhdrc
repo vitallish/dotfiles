@@ -99,7 +99,8 @@ alt + ctrl - return : /opt/homebrew/bin/kitty --single-instance --title "Floatin
 alt + ctrl + cmd - return : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick Look" -d ~
 
 # Open new window for firefox
-alt + shift - return : /opt/homebrew/bin/firefox --new-window
+# alt + shift - return : /opt/homebrew/bin/firefox --new-window
+alt + shift -return : /opt/homebrew/bin/qutebrowser
 
 # System Commands
 alt + shift - u : pmset displaysleepnow

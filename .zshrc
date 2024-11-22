@@ -104,7 +104,7 @@ export VISUAL=nvim
 alias vim=nvim
 alias vi=nvim
 
-export TASKRC=~/.config/task/taskrc
+# export TASKRC=~/.config/task/taskrc
 
 
 # For use with dotfile config
