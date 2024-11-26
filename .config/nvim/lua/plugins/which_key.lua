@@ -12,8 +12,6 @@ return {
       { "<leader>fse",  "<cmd>edit ~/Notes/personal/zzz/Scratch.md<cr>", desc = "Open"},
       { "<leader>fsv",  "<cmd>vsplit ~/Notes/personal/zzz/Scratch.md<cr>", desc = "Open vertical"},
       { "<leader>fsh",  "<cmd>split ~/Notes/personal/zzz/Scratch.md<cr>", desc = "Open horizontal"},
-      
-
     },
     opts = {
       notify = false,
