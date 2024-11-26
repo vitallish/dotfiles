@@ -27,3 +27,6 @@ hooks.location=~/.config/task/hooks
 uda.priority.values=H,M,,L
 max_active_tasks=1
 sync.local.server_dir=\/Users\/vitalydruker\/Notes\/personal\/zzz.othersync\/taskwarrior
+
+report.waiting.labels=ID,A,D,P,Project,Tags,R,Due,Until,Description
+report.waiting.columns=id,start.active,depends.indicator,priority,project,tags,recur.indicator,due,until,description
