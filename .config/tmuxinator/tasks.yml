@@ -1,6 +1,6 @@
-# /Users/vitalydruker/.config/tmuxinator/tmuxconfig.yml
+# /Users/vitalydruker/.config/tmuxinator/tasks.yml
 
-name: tmuxconfig
+name: tasks
 root: ~/
 
 # Optional tmux socket
@@ -45,14 +45,15 @@ root: ~/
 # attach: false
 
 windows:
-  - editor:
+  - main:
       layout: tiled
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
       panes:
-        - nvim ~/.tmux.conf
-        - nvim ~/Notes/personal/software/tmux.md
-        - cd ~/.config/tmux/
-  - support: 
-      layout: tiled
-      panes: 
-        - tmuxinator open tmuxconfig
-        - 
+        - nvim "$HOME/Notes/personal/Task Management.md"
+        - taskwarrior-tui
+        - nvim ~/.config/task/taskrc
+        - watch -n 60 task waiting project:wes
+        - watch -n 1 timew
+  - config: nvim ~/.config/tmuxinator/tasks.yml
