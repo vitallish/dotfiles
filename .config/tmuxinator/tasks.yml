@@ -54,6 +54,5 @@ windows:
         - nvim "$HOME/Notes/personal/Task Management.md"
         - taskwarrior-tui
         - nvim ~/.config/task/taskrc
-        - watch -n 60 task waiting project:wes
-        - watch -n 1 timew
+        - taskwarrior-tui -r timebucket
   - config: nvim ~/.config/tmuxinator/tasks.yml

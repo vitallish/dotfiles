@@ -7,6 +7,7 @@ news.version=3.1.0
 
 data.location=~/.local/share/task
 hooks.location=~/.config/task/hooks
+regex=on
 
 # Color theme (uncomment one to use)
 #include light-16.theme
@@ -28,5 +29,13 @@ uda.priority.values=H,M,,L
 max_active_tasks=1
 sync.local.server_dir=\/Users\/vitalydruker\/Notes\/personal\/zzz.othersync\/taskwarrior
 
-report.waiting.labels=ID,A,D,P,Project,Tags,R,Due,Until,Description
-report.waiting.columns=id,start.active,depends.indicator,priority,project,tags,recur.indicator,due,until,description
+
+report.timebuckets.description=Report for tasks use for generic time tracking
+report.timebuckets.labels=ID,Project,Description
+report.timebuckets.columns=id,project,description
+report.timebuckets.sort=project+\/,entry+
+report.timebuckets.filter=(project:wes or project:vial) and status:waiting
+
+
+uda.taskwarrior-tui.task-report.show-info=false
+
