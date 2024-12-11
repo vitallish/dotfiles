@@ -148,6 +148,21 @@ sketchybar  --add   item clockify right \
 				--set clockify.month.report \
 						label="$(clockify-cli report this-month --billable -D)" \
            --subscribe clockify system_woke mouse.entered mouse.exited clockifyupdate mouse.clicked
+
+sketchybar --add event twupdate
+
+sketchybar  --add   item tw right \
+            --set   tw \
+                    update_freq=1 \
+					          icon="󱫒" \
+                    script="$PLUGIN_DIR/timewarrior.sh" \
+                    icon.font.size=18 \
+					          label.drawing=off \
+				            popup.background.color=0xff000000                  \
+           --add item tw.month.report popup.tw \
+           --set tw.month.report \
+                label="$(timew summary :month |tail -2 | xargs)" \
+           --subscribe tw system_woke mouse.entered mouse.exited twupdate mouse.clicked
 media=(
   script="$PLUGIN_DIR/media.sh"
   updates=on
