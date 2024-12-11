@@ -1,5 +1,13 @@
 /*
+# Top level files to include
 !.gitignore
+!.install.sh
+!.tmux.conf
+!.zshrc
+!README.md
+
+# include the .config folder
 !.config/
 !.config/*/
+# htop permissions - 
 .config/htop
