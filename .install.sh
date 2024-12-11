@@ -25,7 +25,9 @@ brew install switchaudio-osx
 brew install koekeishiya/formulae/skhd
 skhd --start-service
 brew install tmux
+brew install tmuxinator
 brew install kitty
+brew install zoxide
 
 #DISABLE SIP first
 brew install koekeishiya/formulae/yabai

@@ -61,4 +61,9 @@ windows:
           - source ~/.virtualenvs/neovim/bin/activate; 
           - 
           - C-l
+  - config:
+      layout: tiled
+      panes: 
+      - tmuxinator open home
+      - 
 

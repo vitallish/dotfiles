@@ -106,7 +106,9 @@ alias vim=nvim
 alias vi=nvim
 
 alias tt=taskwarrior-tui
+alias tx=tmuxinator
 
+alias pynvim='source /Users/kctf809/.virtualenvs/neovim/bin/activate; nvim'
 alias nvim-kickstart='NVIM_APPNAME="nvim-vscode" nvim'
 
 # For use with dotfile config
@@ -118,3 +120,4 @@ alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 if [ -f '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc' ]; then . '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc'; fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init zsh)"
