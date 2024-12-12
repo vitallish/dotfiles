@@ -27,7 +27,7 @@ skhd --start-service
 brew install tmux
 brew install kitty
 brew install rsync
-
+brew install zoxide
 
 brew install --cask macfuse
 brew install borgbackup/tap/borgbackup-fuse

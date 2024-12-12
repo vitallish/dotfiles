@@ -125,3 +125,4 @@ export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
 export PATH="$PATH:/Users/vitalydruker/.local/bin"
 
 export PROMPT="%F{cyan}[mba]%f$PROMPT"
+eval "$(zoxide init zsh)"
