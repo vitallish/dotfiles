@@ -2,7 +2,7 @@
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/vitalydruker/.oh-my-zsh"
+export ZSH="/Users/kctf809/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -105,25 +105,19 @@ export EDITOR=nvim
 alias vim=nvim
 alias vi=nvim
 
-# export TASKRC=~/.config/task/taskrc
+alias tt=taskwarrior-tui
 alias tx=tmuxinator
-alias qb="$HOME/Documents/scripts/qbprof.sh"
+
+alias pynvim='source /Users/kctf809/.virtualenvs/neovim/bin/activate; nvim'
+alias nvim-kickstart='NVIM_APPNAME="nvim-vscode" nvim'
 
 # For use with dotfile config
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-# Temp workaround to disable punycode deprecation logging to stderr
-# https://github.com/bitwarden/clients/issues/6689
-alias bw='NODE_OPTIONS="--no-deprecation" bw'
+
+# The next line updates PATH for egcli command.
+if [ -f '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc' ]; then . '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc'; fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# added by Snowflake SnowSQL installer v1.2
-export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
-
-# Created by `pipx` on 2024-08-12 02:33:02
-export PATH="$PATH:/Users/vitalydruker/.local/bin"
-
-export PROMPT="%F{cyan}[mba]%f$PROMPT"
 eval "$(zoxide init zsh)"
