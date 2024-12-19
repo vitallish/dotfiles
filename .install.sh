@@ -25,6 +25,7 @@ brew install switchaudio-osx
 brew install koekeishiya/formulae/skhd
 skhd --start-service
 brew install tmux
+brew install tmuxinator
 brew install kitty
 brew install rsync
 brew install zoxide
@@ -60,6 +61,8 @@ BW_SESSION=$(bw unlock --passwordenv BW_PASSWORD --raw)
 
 
 echo Install and setup Alfred:
+
+brew install --cask nikitabobko/tap/aerospace
 
 brew install --cask alfred
 open /Applications/Alfred\ 5.app
@@ -138,7 +141,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
 
 source $HOME/.zshrc
-config config --local status.showUntrackedFiles no
+# config config --local status.showUntrackedFiles no
 # If this is on another computer then update the local repos user.name and user.email
 # config config --local user.name
 # config config --local user.email

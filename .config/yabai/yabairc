@@ -38,7 +38,6 @@ yabai -m rule --add app="Steam"  manage=off
 yabai -m rule --add app="Kerbal Space Program"  manage=off
 yabai -m rule --add title="^Floating:" manage=off grid=3:3:1:1:1:1
 
-
 yabai -m config layout bsp
 # S K E T C H Y B A R  E V E N T S
 yabai -m signal --add event=window_focused action="sketchybar -m --trigger window_focus &> /dev/null"
