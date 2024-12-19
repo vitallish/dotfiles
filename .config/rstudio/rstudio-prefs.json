@@ -1,0 +1,11 @@
+{
+    "jobs_tab_visibility": "shown",
+    "source_with_echo": true,
+    "restore_source_documents": false,
+    "save_workspace": "never",
+    "load_workspace": false,
+    "initial_working_directory": "~",
+    "restore_last_project": false,
+    "default_encoding": "UTF-8",
+    "posix_terminal_shell": "bash"
+}
