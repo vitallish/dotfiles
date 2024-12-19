@@ -1,4 +1,4 @@
-# /Users/vitalydruker/.config/tmuxinator/home.yml
+# /Users/kctf809/.config/tmuxinator/home.yml
 
 name: home
 root: ~/
@@ -12,7 +12,7 @@ root: ~/
 # Project hooks
 
 # Runs on project start, always
-# on_project_start: command
+on_project_start: source ~/.virtualenvs/neovim/bin/activate 
 
 # Run on project start, the first time
 # on_project_first_start: command
@@ -45,20 +45,25 @@ root: ~/
 # attach: false
 
 windows:
-  - main:
-      layout: main-vertical
+  - taskmanagement:
+      layout: tiled
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - nvim ~/Notes/personal/zzz/Scratch.md
-        -
-  - sysadmin: 
+        - source ~/.virtualenvs/neovim/bin/activate; nvim "$HOME/Notes/personal/Task Management.md"
+        - taskwarrior-tui
+        - plugin:
+          - source ~/.virtualenvs/neovim/bin/activate; cd ~/.config/nvim/lua/plugins/
+          - 
+          - C-l
+        - home:
+          - source ~/.virtualenvs/neovim/bin/activate; 
+          - 
+          - C-l
+  - config:
       layout: tiled
-      panes:
-        - nvim ~/.install.sh
-        - nvim ~/.zshrc
-        - cd ~/Documents/scripts/
-        - 
-  - processes: htop
-  - config: tmuxinator open home
+      panes: 
+      - tmuxinator open home
+      - 
+

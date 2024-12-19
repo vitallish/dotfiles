@@ -1,7 +1,7 @@
-# /Users/vitalydruker/.config/tmuxinator/tasks.yml
+# /Users/kctf809/.config/tmuxinator/twvault.yml
 
-name: tasks
-root: ~/
+name: twvault
+root: ~/Documents/twvault/
 
 # Optional tmux socket
 # socket_name: foo
@@ -12,10 +12,11 @@ root: ~/
 # Project hooks
 
 # Runs on project start, always
-# on_project_start: command
+# on_project_start: source .venv/bin/activate
 
 # Run on project start, the first time
-# on_project_first_start: command
+# on_project_first_start: 
+# can I create the virtual environment, install pip requements, set environemntal variables
 
 # Run on project start, after the first time
 # on_project_restart: command
@@ -27,7 +28,7 @@ root: ~/
 # on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-# pre_window: rbenv shell 2.0.0-p247
+pre_window: source .pre_window.sh
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -44,15 +45,11 @@ root: ~/
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
+
 windows:
-  - main:
+  - editor:
       layout: tiled
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
       panes:
-        - nvim "$HOME/Notes/personal/Task Management.md"
-        - taskwarrior-tui --report wes
-        - nvim ~/.config/task/taskrc
-        - taskwarrior-tui --report home
-  - config: nvim ~/.config/tmuxinator/tasks.yml
+        - nvim
+        - 
+        - bnvim
