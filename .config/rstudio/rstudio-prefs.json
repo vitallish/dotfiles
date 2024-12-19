@@ -2,10 +2,59 @@
     "jobs_tab_visibility": "shown",
     "source_with_echo": true,
     "restore_source_documents": false,
-    "save_workspace": "never",
     "load_workspace": false,
     "initial_working_directory": "~",
     "restore_last_project": false,
     "default_encoding": "UTF-8",
-    "posix_terminal_shell": "bash"
+    "save_workspace": "never",
+    "reuse_sessions_for_project_links": true,
+    "syntax_color_console": true,
+    "enable_text_drag": false,
+    "auto_append_newline": true,
+    "strip_trailing_whitespace": true,
+    "editor_keybindings": "vim",
+    "editor_theme": "Katzenmilch",
+    "show_doc_outline_rmd": true,
+    "show_rmd_render_command": true,
+    "doc_outline_show": "sections_and_chunks",
+    "posix_terminal_shell": "zsh",
+    "panes": {
+        "quadrants": [
+            "Source",
+            "TabSet1",
+            "Console",
+            "TabSet2"
+        ],
+        "tabSet1": [
+            "History",
+            "Presentation"
+        ],
+        "tabSet2": [
+            "Environment",
+            "Files",
+            "Plots",
+            "Connections",
+            "Packages",
+            "Help",
+            "Build",
+            "VCS",
+            "Tutorial",
+            "Viewer",
+            "Presentations"
+        ],
+        "hiddenTabSet": [],
+        "console_left_on_top": false,
+        "console_right_on_top": true,
+        "additional_source_columns": 0
+    },
+    "git_diff_ignore_whitespace": true,
+    "show_user_home_page": "always",
+    "document_author": "Vitaly Druker",
+    "scroll_past_end_of_document": true,
+    "rainbow_parentheses": true,
+    "insert_native_pipe_operator": true,
+    "rmd_auto_date": true,
+    "new_proj_use_renv": true,
+    "new_proj_git_init": true,
+    "global_theme": "alternate"
 }

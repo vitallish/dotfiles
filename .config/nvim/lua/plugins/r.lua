@@ -190,11 +190,11 @@ return {
     {
       "neovim/nvim-lspconfig",
       config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup {
-          ensure_installed = {"r_language_server"},
-        }
-        require'lspconfig'.r_language_server.setup{}
+        -- require("mason").setup()
+        -- require("mason-lspconfig").setup {
+        --   ensure_installed = {"r_language_server"},
+        -- }
+        -- require'lspconfig'.r_language_server.setup{}
     end,
     },
   }

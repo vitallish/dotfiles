@@ -26,7 +26,8 @@
   "plenary.nvim": { "branch": "master", "commit": "2d9b06177a975543726ce5c73fca176cedbffe9d" },
   "stan-vim": { "branch": "master", "commit": "d14f7f5f96e802c48bd2b6e087cf7956054d9f38" },
   "tabular": { "branch": "master", "commit": "12437cd1b53488e24936ec4b091c9324cafee311" },
+  "taskwiki": { "branch": "master", "commit": "0ee63dd1f5d80be3296f14070211f4ade96d0e36" },
   "telescope-file-browser.nvim": { "branch": "master", "commit": "3b8a1e17187cfeedb31decbd625da62398a8ff34" },
   "telescope.nvim": { "branch": "master", "commit": "d90956833d7c27e73c621a61f20b29fdb7122709" },
-  "which-key.nvim": { "branch": "main", "commit": "fb070344402cfc662299d9914f5546d840a22126" }
+  "vimwiki": { "branch": "dev", "commit": "72792615e739d0eb54a9c8f7e0a46a6e2407c9e8" }
 }
