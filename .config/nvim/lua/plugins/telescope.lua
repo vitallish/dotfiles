@@ -7,17 +7,17 @@ return {
     config = function()
       local wk = require("which-key")
 
-      wk.register({
-        f = {
-          name = "file", -- optional group name
-          f = { "<cmd>Telescope find_files<cr>", "Find file" }, -- create a binding with label
-          r = { "<cmd>Telescope oldfiles<cr>", "Open recent file"}, -- additional options for creating the keymap
-        },
-        b = {
-          name = "buffers",
-          b = { "<cmd>Telescope buffers<cr>", "Select buffers"}, -- additional options for creating the keymap
-        },
-      }, { prefix = "<leader>" })
+      wk.add(
+  {
+    { "<leader>b", group = "buffers" },
+    { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Select buffers" },
+    { "<leader>f", group = "file" },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find file" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open recent file" },
+  }
+
+
+        , { prefix = "<leader>" })
     end,
   },
   --lazy

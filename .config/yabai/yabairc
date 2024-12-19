@@ -31,11 +31,12 @@ yabai -m config external_bar all:0:0 \
 	window_gap 10
 # Exclude problematic apps from being managed:
 yabai -m rule --add app="^(Calculator|Software Update|Dictionary|System Preferences|System Settings|Archive Utility|Alfred)$" manage=off
+yabai -m rule --add app="^(Docker Desktop|Parallels Desktop|Clockify|Gnucash)$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 yabai -m rule --add app="Steam"  manage=off
 yabai -m rule --add app="Kerbal Space Program"  manage=off
-yabai -m rule --add title="^Floating: Quick File$" manage=off grid=3:3:1:1:1:1
+yabai -m rule --add title="^Floating:" manage=off grid=3:3:1:1:1:1
 
 yabai -m config layout bsp
 # S K E T C H Y B A R  E V E N T S

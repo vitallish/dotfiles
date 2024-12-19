@@ -1,0 +1,1 @@
+/Users/vitalydruker/.config/tmux/timewarrior.sh
