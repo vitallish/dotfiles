@@ -1,4 +1,5 @@
 /*
+.DS_Store
 # Top level files to include
 !.gitignore
 !.install.sh
@@ -6,8 +7,18 @@
 !.zshrc
 !README.md
 
+#qutebrowser
+!.qutebrowser/
+!.qutebrowser/*/
+
 # include the .config folder
 !.config/
 !.config/*/
 # htop permissions - 
 .config/htop
+
+# Other configs to ignore
+.config/borg
+.config/raycast
+.config/spotify-player
+
