@@ -27,17 +27,17 @@ return {
 
     map("n", "<localleader>os", "<cmd>ObsidianQuickSwitch<cr>", {desc = "QuickSwitch"})
 
-    -- run this autocommand here so it's after the vimwiki plugin loads
-    vim.cmd [[
-        "augroup vimwiki
-        "  autocmd!
-        " I can't do this right now - task manager doesn[t work
-        "augroup END
-        augroup vitalyobsidian
-          autocmd FileType vimwiki set ft=markdown
-        augroup END
-      ]]
-  
+    -- -- run this autocommand here so it's after the vimwiki plugin loads
+    -- vim.cmd [[
+    --     "augroup vimwiki
+    --     "  autocmd!
+    --     " I can't do this right now - task manager doesn[t work
+    --     "augroup END
+    --     augroup vitalyobsidian
+    --       autocmd FileType vimwiki set ft=markdown
+    --     augroup END
+    --   ]]
+    --
 
     -- do this here instead of as described in documentation
     -- this allows for more flexibility during configuration I think?

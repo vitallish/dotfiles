@@ -3,7 +3,7 @@ return {
     -- The plugin location on GitHub
     "vimwiki/vimwiki",
     lazy = true,
-    enabled = true,
+    enabled = false,
     -- The event that triggers the plugin
 
     -- The keys that trigger the plugin
@@ -30,7 +30,7 @@ return {
   },
   { 
     "tools-life/taskwiki",
-    enabled = true,
+    enabled = false,
     init = function() 
       vim.g.taskwiki_taskrc_location = "~/.config/task/taskrc"
       
