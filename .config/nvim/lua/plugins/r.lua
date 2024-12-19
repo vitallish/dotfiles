@@ -113,6 +113,8 @@ return {
         auto_install = true,
         ensure_installed = {
           'r',
+          'rnoweb',
+          'csv',
           'markdown',
           'markdown_inline',
           'bash',
