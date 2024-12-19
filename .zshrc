@@ -107,6 +107,7 @@ alias vi=nvim
 
 # export TASKRC=~/.config/task/taskrc
 alias tx=tmuxinator
+alias qb="$HOME/Documents/scripts/qbprof.sh"
 
 # For use with dotfile config
 # https://www.atlassian.com/git/tutorials/dotfiles

@@ -30,11 +30,20 @@ max_active_tasks=1
 sync.local.server_dir=\/Users\/vitalydruker\/Notes\/personal\/zzz.othersync\/taskwarrior
 
 
-report.timebuckets.description=Report for tasks use for generic time tracking
-report.timebuckets.labels=ID,Project,Description
-report.timebuckets.columns=id,project,description
-report.timebuckets.sort=project+\/,entry+
-report.timebuckets.filter=(project:wes or project:vial) and status:waiting
+report.home.description=Report for tasks use for generic time tracking
+report.home.labels=ID,S,Project,Description,D,U
+report.home.columns=id,status.short,project,description,due.relative,urgency
+report.home.sort=project+\/,urgency+
+report.home.filter=(project: or project:home) and status:pending -WAITING
+
+report.wes.description=Report for tasks use for generic time tracking
+report.wes.labels=ID,S,Project,Description,D,U
+report.wes.columns=id,status.short,project,description,due.relative,urgency
+report.wes.sort=project+\/,urgency+
+report.wes.filter=(project:wes or project:vial) and (status:pending or status:waiting)
+
+
+
 
 
 uda.taskwarrior-tui.task-report.show-info=false

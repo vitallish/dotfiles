@@ -52,6 +52,11 @@ windows:
       # synchronize: after
       panes:
         - nvim -O "$HOME/Notes/personal/finance/Trading Log.md" "$HOME/Notes/personal/finance/How to Update GnuCash.md"
+  - folder:
+      layout: tiled
+      panes:
+        - cd /Users/vitalydruker/Documents/finance/personal/update-gnucash/; nvim process-files.R
+        - cd /Users/vitalydruker/Documents/finance/personal
   - config:
       panes: 
         - tmuxinator open finance

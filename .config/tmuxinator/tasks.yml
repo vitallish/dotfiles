@@ -52,7 +52,7 @@ windows:
       # synchronize: after
       panes:
         - nvim "$HOME/Notes/personal/Task Management.md"
-        - taskwarrior-tui
+        - taskwarrior-tui --report wes
         - nvim ~/.config/task/taskrc
-        - taskwarrior-tui -r timebucket
+        - taskwarrior-tui --report home
   - config: nvim ~/.config/tmuxinator/tasks.yml

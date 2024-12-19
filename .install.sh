@@ -46,6 +46,7 @@ brew install borders
 brew services start felixkratz/formulae/borders
 brew install sketchybar
 brew services start sketchybar
+brew install --cask drawio
 
 # Alfredsxdffew21 requires registration from bitwarden
 npm install -g @bitwarden/cli
@@ -91,6 +92,7 @@ brew install --cask clockify
 brew install pipx
 
 pipx install ranger-fm
+pipx install radian
 
 brew tap r-lib/rig
 brew install --cask rig

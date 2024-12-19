@@ -57,6 +57,8 @@ windows:
       layout: tiled
       panes:
         - nvim ~/.install.sh
+        - nvim ~/.zshrc
+        - cd ~/Documents/scripts/
         - 
   - processes: htop
   - config: tmuxinator open home
