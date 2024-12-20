@@ -60,5 +60,15 @@ windows:
         - nvim ~/.zshrc
         - cd ~/Documents/scripts/
         - 
+  - neovim-config:
+      layout: main-vertical
+      panes:
+        - cd ~/.config/nvim/lua/
+        - cd ~/.config/nvim/lua/
+  - qutebrowser-config:
+      layout: tiled
+      panes:
+        - cd ~/.qutebrowser/
+        - cd ~/Documents/scripts/
   - processes: htop
   - config: tmuxinator open home
