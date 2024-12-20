@@ -161,7 +161,7 @@ sketchybar  --add   item tw right \
 				            popup.background.color=0xff000000                  \
            --add item tw.month.report popup.tw \
            --set tw.month.report \
-                label="$(timew summary :month |tail -2 | xargs)" \
+                label="$(timew wes :month | head -n 3 | tail -n 1 | cut -c 25-35 | xargs)" \
            --subscribe tw system_woke mouse.entered mouse.exited twupdate mouse.clicked
 media=(
   script="$PLUGIN_DIR/media.sh"

@@ -19,7 +19,7 @@ if [[ $SENDER == "mouse.entered" ]]; then
 		sketchybar --set $NAME background.drawing=on 
 		sketchybar -m --set $NAME popup.drawing=on
     sketchybar --set tw.month.report \
-                label="$(timew summary :month |tail -2 | xargs)"
+                label="$(timew wes :month | head -n 3 | tail -n 1 | cut -c 25-35 | xargs)"
 fi
 
 if [[ $SENDER == "mouse.exited" ]]; then

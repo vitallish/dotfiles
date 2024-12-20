@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/Users/vitalydruker/.virtualenvs/timewarrior/bin/python3
+
 # -*- coding: utf-8 -*-
 #
 # Based on:
