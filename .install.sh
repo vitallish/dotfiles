@@ -174,4 +174,7 @@ borgmatic extract --archive latest --path "Users/vitalydruker/Application Settin
 mv ~/tmp/Users/vitalydruker/Application\ Settings ~
 
 
+# python virtual environments
+python3 -m venv ~/.virtualenvs/timewarrior
+python3 -m venv ~/.virtualenvs/nvim
 
