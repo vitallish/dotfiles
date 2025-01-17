@@ -177,4 +177,5 @@ mv ~/tmp/Users/vitalydruker/Application\ Settings ~
 # python virtual environments
 python3 -m venv ~/.virtualenvs/timewarrior
 python3 -m venv ~/.virtualenvs/nvim
+python3 -m venv ~/.virtualenvs/qutebrowser/
 

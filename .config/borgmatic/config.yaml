@@ -22,7 +22,9 @@ source_directories:
     - /Users/vitalydruker/.ssh/
   # this includes task/time warrior data
     - /Users/vitalydruker/.local/share/
-    - /Users/vitalydruker/.qutebrowser
+    - /Users/vitalydruker/mbox
+    - /Users/vitalydruker/data/
+    - /Users/vitalydruker/Library/Application Support/qutebrowser/
 
 # A required list of local or remote repositories with paths and
 # optional labels (which can be used with the --repository flag to
