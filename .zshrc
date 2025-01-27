@@ -108,6 +108,9 @@ alias vi=nvim
 alias tt=taskwarrior-tui
 alias tx=tmuxinator
 
+alias semlstart='ssh -o LogLevel=error seml ./setup_slurm_vscode.sh'
+alias semlstop='ssh -o LogLevel=error seml scancel --me -n vs_tunnel'
+
 alias pynvim='source /Users/kctf809/.virtualenvs/neovim/bin/activate; nvim'
 alias nvim-kickstart='NVIM_APPNAME="nvim-vscode" nvim'
 

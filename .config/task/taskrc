@@ -24,3 +24,14 @@ hooks.location=~/.config/task/hooks
 #include no-color.theme
 
 uda.priority.values=H,M,,L
+max_active_tasks=1
+
+report.az.description=Report for tasks use for generic time tracking
+report.az.labels=ID,S,Project,Description,D,U
+report.az.columns=id,status.short,project,description,due.relative,urgency
+report.az.sort=project+\/,urgency+
+report.az.filter=(project:az) and (status:pending or status:waiting)
+
+
+
+
