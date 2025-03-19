@@ -124,6 +124,11 @@ cd ../..
 rm -rf dragterm
 
 
+curl -o query_skhd https://raw.githubusercontent.com/es183923/query-skhd/main/query_skhd
+mv query_skhd ~/.local/bin/
+chmod +x ~/.local/bin/query_skhd
+
+
 brew install fzf
 # To install useful key bindings and fuzzy completion:
 $(brew --prefix)/opt/fzf/install --all
