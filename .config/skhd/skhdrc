@@ -1,25 +1,26 @@
 # Window management
 # A lot of this has been sourced from https://web.archive.org/web/20240111193329/https://cbrgm.net/post/2021-05-5-setup-macos/
 # change focus
-alt - h : yabai -m window --focus west
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - l : yabai -m window --focus east
+alt - h : yabai -m window --focus west # Focus left
+alt - j : yabai -m window --focus south # Focus down
+alt - k : yabai -m window --focus north # Focus up
+alt - l : yabai -m window --focus east # Focus right
 # (alt) change focus (using arrow keys)
 # alt - left  : yabai -m window --focus west
 # alt - down  : yabai -m window --focus south
 # alt - up    : yabai -m window --focus north
 # alt - right : yabai -m window --focus east
 # shift window in current workspace
-alt + shift - h : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west)
-alt + shift - j : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south)
-alt + shift - k : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north)
-alt + shift - l : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east)
+alt + shift - h : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west) # move window left
+alt + shift - j : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south) # move window down
+alt + shift - k : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north) # move window up
+alt + shift - l : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east) # move window right
+
 # alternatively, use the arrow keys
-alt + shift - left : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west)
-alt + shift - down : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south)
-alt + shift - up : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north)
-alt + shift - right : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east)
+alt + shift - left : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west) # move window left
+alt + shift - down : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south) # move window down
+alt + shift - up : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north) # move window up
+alt + shift - right : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east) # move window right
 
 # move focused window to next/prev workspace
 # alt + shift - 1 : yabai -m window --space 1
@@ -98,14 +99,17 @@ window < v : yabai -m window --insert south;
 
 ## System
 
-system < l : pmset displaysleepnow; skhd -k "escape"
+system < shift - c : yabai --restart-service #restart yabai
+system < l : pmset displaysleepnow; skhd -k "escape" # Locks the computer
 
 
 
 
 ## Launcher
-launcher < f : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger;\
-  skhd -k "escape"
+
+launcher < f : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger; skhd -k "escape" # floating ranger
+
+launcher < t : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ; skhd -k "escape" # floating terminal
 
 ## Default Commands
 
@@ -144,17 +148,12 @@ shift + ctrl + lalt - l : yabai -m window --insert east
 shift + ctrl + lalt - s : yabai -m window --insert stack
 
 
-# restart yabai
-alt + shift - c : yabai --restart-service
+
 # Open new window for kitty
 alt - return : /opt/homebrew/bin/kitty --single-instance -d ~
-alt + ctrl - return : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger
-alt + ctrl + cmd - return : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick Look" -d ~
 
 # Open new window for firefox
 alt + shift - return : osascript ~/.config/skhd/new-arc.scpt  
 
-# System Commands
-alt + shift - u : pmset displaysleepnow
 
 
