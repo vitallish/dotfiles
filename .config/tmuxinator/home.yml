@@ -20,6 +20,7 @@ windows:
       layout: tiled
       panes:
         - ssh seml
+        - semlstart
         -
   - config:
       layout: tiled
