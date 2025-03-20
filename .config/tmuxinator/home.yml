@@ -35,7 +35,7 @@ windows:
       panes:
         - nvim ~/.config/borgmatic/config.yaml
         - nvim ~/Documents/scripts/borgmatic.sh
-        - nvim ~/Notes/personal/systems/Computer Backup Strategy.md
+        - nvim "$HOME/Notes/personal/systems/Computer Backup Strategy.md"
         - cd ~/Documents/scripts/
   - tmux-config:
       layout: tiled

@@ -46,5 +46,5 @@ report.wes.filter=(project:wes or project:vial) and (status:pending or status:wa
 
 
 
-uda.taskwarrior-tui.task-report.show-info=false
+uda.taswarrior-tui.task-report.show-info=false
 
