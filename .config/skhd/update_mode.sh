@@ -33,3 +33,18 @@ fi
 
 borders active_color=${active_color}
 
+current_shortcuts=$(query_skhd -p | awk "/^$current_mode / {flag=1; next} /^[^ ]/ {flag=0} flag")
+
+current_shortcuts=$(echo "$current_shortcuts" | sed 's/^[ \t]*//')
+
+# Print the variable to verify its contents
+echo "$current_shortcuts"
+
+
+
+
+sketchybar --set skhd_mode label="$current_mode" \
+           --set skhd_mode label.color="$active_color"
+
+sketchybar --set skhd_mode.keys label="$current_shortcuts"
+

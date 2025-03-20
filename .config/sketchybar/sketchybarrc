@@ -106,20 +106,12 @@ sketchybar --default background.color=0x44ffffff                \
 					background.height=30                       \
 					background.drawing=off 
 
-sketchybar  --add   item slack right \
-            --set   slack \
-                    update_freq=180 \
-                    script="$PLUGIN_DIR/notifications/generic.sh Slack" \
-					icon="󰒱"\
-                    background.padding_left=15  \
-                    icon.font.size=18 \
-           --subscribe slack system_woke mouse.entered mouse.clicked mouse.exited
 
 sketchybar  --add   item outlook right \
             --set   outlook \
                     update_freq=180 \
-					icon=""\
-                    script="$PLUGIN_DIR/notifications/generic.sh Thunderbird" \
+          			icon="󰴢"\
+                     script="$PLUGIN_DIR/notifications/generic.sh Microsoft\ Outlook" \
                     background.padding_left=15  \
                     icon.font.size=18 \
            --subscribe outlook system_woke mouse.entered mouse.clicked mouse.exited
@@ -133,40 +125,27 @@ sketchybar  --add   item beeper right \
                     icon.font.size=18 \
            --subscribe beeper system_woke mouse.entered mouse.clicked mouse.exited
 
-
-sketchybar --add event clockifyupdate
-
-sketchybar  --add   item clockify right \
-            --set   clockify \
-                    update_freq=60 \
-					icon="󱃑" \
-                    script="$PLUGIN_DIR/clockify.sh" \
-                    icon.font.size=18 \
-					label.drawing=off \
-				popup.background.color=0xff000000                  \
-				--add item clockify.month.report popup.clockify \
-				--set clockify.month.report \
-						label="$(clockify-cli report this-month --billable -D)" \
-           --subscribe clockify system_woke mouse.entered mouse.exited clockifyupdate mouse.clicked
-
-sketchybar --add event twupdate
-
-sketchybar  --add   item tw right \
-            --set   tw \
-                    update_freq=1 \
-					          icon="󱫒" \
-                    script="$PLUGIN_DIR/timewarrior.sh" \
-                    icon.font.size=18 \
-					          label.drawing=off \
-				            popup.background.color=0xff000000                  \
-           --add item tw.month.report popup.tw \
-           --set tw.month.report \
-                label="$(timew summary :month |tail -2 | xargs)" \
-           --subscribe tw system_woke mouse.entered mouse.exited twupdate mouse.clicked
 media=(
   script="$PLUGIN_DIR/media.sh"
   updates=on
 )
+
+
+
+sketchybar --add event skhd_mode_update
+
+sketchybar --add item skhd_mode right \
+           --set skhd_mode label="default" \
+                 script="$PLUGIN_DIR/skhd_mode.sh" \
+                 popup.background.color=0xff000000 \
+           --subscribe skhd_mode system_woke mouse.entered mouse.exited skhd_mode_update
+
+
+
+sketchybar --add item skhd_mode.keys popup.skhd_mode \
+           --set skhd_mode.keys label="initial load... switch modes to populate"
+
+
 
 sketchybar --add item media right \
            --set media "${media[@]}" \
