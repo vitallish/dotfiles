@@ -106,6 +106,14 @@ sketchybar --default background.color=0x44ffffff                \
 					background.height=30                       \
 					background.drawing=off 
 
+sketchybar  --add   item slack right \
+            --set   slack \
+                    update_freq=180 \
+                    script="$PLUGIN_DIR/notifications/generic.sh Slack" \
+                                        icon="󰒱"\
+                    background.padding_left=15  \
+                    icon.font.size=18 \
+           --subscribe slack system_woke mouse.entered mouse.clicked mouse.exited
 
 sketchybar  --add   item outlook right \
             --set   outlook \
