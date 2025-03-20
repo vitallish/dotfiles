@@ -1,4 +1,5 @@
-# [Created by task 3.1.0 11/13/2024 08:58:19]
+# [Created by task 3.1.0 11/12/2024 21:51:10]
+# data.location=/Users/vitalydruker/.task
 news.version=3.1.0
 
 # To use the default location of the XDG directories,
@@ -6,6 +7,7 @@ news.version=3.1.0
 
 data.location=~/.local/share/task
 hooks.location=~/.config/task/hooks
+regex=on
 
 # Color theme (uncomment one to use)
 #include light-16.theme
@@ -26,12 +28,20 @@ hooks.location=~/.config/task/hooks
 uda.priority.values=H,M,,L
 max_active_tasks=1
 
-report.az.description=Report for tasks use for generic time tracking
-report.az.labels=ID,S,Project,Description,D,U
-report.az.columns=id,status.short,project,description,due.relative,urgency
-report.az.sort=project+\/,urgency+
-report.az.filter=(project:az) and (status:pending or status:waiting)
+sync.local.server_dir=\/Users\/vitalydruker\/Notes\/personal\/zzz.othersync\/taskwarrior
 
 
+report.home.description=Report for tasks use for generic time tracking
+report.home.labels=ID,S,Project,Description,D,U
+report.home.columns=id,status.short,project,description,due.relative,urgency
+report.home.sort=project+\/,urgency+
+report.home.filter=(project: or project:home) and status:pending -WAITING
+
+report.wes.description=Report for tasks use for generic time tracking
+report.wes.labels=ID,S,Project,Description,D,U
+report.wes.columns=id,status.short,project,description,due.relative,urgency
+report.wes.sort=project+\/,urgency+
+report.wes.filter=(project:wes or project:vial) and (status:pending or status:waiting)
 
 
+uda.taswarrior-tui.task-report.show-info=false

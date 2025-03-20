@@ -33,6 +33,7 @@ alt + shift - right : yabai -m window --swap east || $(yabai -m window --display
 # alt + shift - 8 : yabai -m window --space 8
 # alt + shift - 9 : yabai -m window --space 9
 #
+
 # colors chosen from: https://convertingcolors.com/hex-color-61AFEF.pdf
 
 :: default  : ~/.config/skhd/update_mode.sh default
@@ -81,7 +82,6 @@ window < v : yabai -m window --insert south;
 window < e : yabai -m space --layout bsp
 window < s : yabai -m space --layout stack
 
-
 # Toggle split orientation of the selected windows node: shift + lalt - s
 window < shift -  s : yabai -m window --toggle split
 
@@ -96,7 +96,6 @@ window < f : yabai -m window --toggle zoom-parent
 # Mirror Space on X and Y Axis: shift + lalt - {x, y}
 window < shift - x : yabai -m space --mirror x-axis
 window < shift - y : yabai -m space --mirror y-axis
-
 
 
 ## System
@@ -154,9 +153,8 @@ shift + ctrl + lalt - s : yabai -m window --insert stack
 
 # Open new window for kitty
 alt - return : /opt/homebrew/bin/kitty --single-instance -d ~
+alt + shift - return : /opt/homebrew/bin/qutebrowser
 
-# Open new window for firefox
-alt + shift - return : osascript ~/.config/skhd/new-arc.scpt  
 
 
 

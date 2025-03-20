@@ -2,7 +2,7 @@
 #export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/kctf809/.oh-my-zsh"
+export ZSH="/Users/vitalydruker/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -89,6 +89,21 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+
+# Functions
+function timew-tagrename()
+{
+# Rename tags in timewarrior
+# https://github.com/GothenburgBitFactory/timewarrior/issues/210
+        local oldtag=$1; shift
+        local newtag=$1; shift
+        local idlist=$(timew summary 1970W01 - now "$oldtag" :ids |\
+                       sed -nr 's/.* (@[0-9]+) .*/\1/p')
+        echo "$idlist" | xargs -I ids timew tag ids "$newtag"
+        echo "$idlist" | xargs -I ids timew untag ids "$oldtag"
+}
+
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -105,23 +120,25 @@ export EDITOR=nvim
 alias vim=nvim
 alias vi=nvim
 
-alias tt=taskwarrior-tui
+# export TASKRC=~/.config/task/taskrc
 alias tx=tmuxinator
-
-alias semlstart='ssh -o LogLevel=error seml-bare ./setup_slurm_vscode.sh'
-alias semlstop='ssh -o LogLevel=error seml-bare scancel --me -n vs_tunnel'
-alias semlslurm='ssh -o LogLevel=error seml-bare squeue --user=kctf809'
-
-alias pynvim='source /Users/kctf809/.virtualenvs/neovim/bin/activate; nvim'
-alias nvim-kickstart='NVIM_APPNAME="nvim-vscode" nvim'
+alias qb="$HOME/Documents/scripts/qbprof.sh"
 
 # For use with dotfile config
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-
-# The next line updates PATH for egcli command.
-if [ -f '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc' ]; then . '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc'; fi
+# Temp workaround to disable punycode deprecation logging to stderr
+# https://github.com/bitwarden/clients/issues/6689
+alias bw='NODE_OPTIONS="--no-deprecation" bw'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# added by Snowflake SnowSQL installer v1.2
+export PATH=/Applications/SnowSQL.app/Contents/MacOS:$PATH
+
+# Created by `pipx` on 2024-08-12 02:33:02
+export PATH="$PATH:/Users/vitalydruker/.local/bin"
+
+export PROMPT="%F{cyan}[mba]%f$PROMPT"
 eval "$(zoxide init zsh)"

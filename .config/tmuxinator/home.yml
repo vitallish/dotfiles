@@ -1,30 +1,47 @@
-# /Users/kctf809/.config/tmuxinator/home.yml
+# /Users/vitalydruker/.config/tmuxinator/home.yml
 
 name: home
 root: ~/
 
 windows:
-  - taskmanagement:
-      layout: tiled
+  - main:
+      layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - nvim "$HOME/Notes/personal/Task Management.md"
-        - taskwarrior-tui --report az
-        - plugin:
-          - cd ~/.config/nvim/lua/plugins/
-          - 
-          - C-l
-  - system:
+        - nvim ~/Notes/personal/zzz/Scratch.md
+        -
+  - sysadmin: 
       layout: tiled
       panes:
-        - ssh seml
-        - semlstart
-        -
-  - config:
-      layout: tiled
-      panes: 
-        - tmuxinator open home
+        - nvim ~/.install.sh
+        - nvim ~/.zshrc
+        - cd ~/Documents/scripts/
         - 
+  - neovim-config:
+      layout: main-vertical
+      panes:
+        - cd ~/.config/nvim/lua/
+        - cd ~/.config/nvim/lua/
+  - qutebrowser-config:
+      layout: tiled
+      panes:
+        - cd ~/.qutebrowser/
+        - cd ~/Documents/scripts/
+  - backups-config:
+      layout: tiled
+      panes:
+        - nvim ~/.config/borgmatic/config.yaml
+        - nvim ~/Documents/scripts/borgmatic.sh
+        - nvim "$HOME/Notes/personal/systems/Computer Backup Strategy.md"
+        - cd ~/Documents/scripts/
+  - tmux-config:
+      layout: tiled
+      panes:
+        - nvim ~/.tmux.conf
+        - nvim ~/Notes/personal/software/tmux.md
+        - cd ~/.config/tmux/
+  - processes: htop
+  - config: tmuxinator open home
 
