@@ -27,6 +27,7 @@ regex=on
 
 uda.priority.values=H,M,,L
 max_active_tasks=1
+
 sync.local.server_dir=\/Users\/vitalydruker\/Notes\/personal\/zzz.othersync\/taskwarrior
 
 
@@ -43,8 +44,4 @@ report.wes.sort=project+\/,urgency+
 report.wes.filter=(project:wes or project:vial) and (status:pending or status:waiting)
 
 
-
-
-
 uda.taswarrior-tui.task-report.show-info=false
-

@@ -3,7 +3,6 @@
 name: home
 root: ~/
 
-
 windows:
   - main:
       layout: main-vertical
@@ -45,3 +44,4 @@ windows:
         - cd ~/.config/tmux/
   - processes: htop
   - config: tmuxinator open home
+
