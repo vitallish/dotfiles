@@ -106,14 +106,6 @@ sketchybar --default background.color=0x44ffffff                \
 					background.height=30                       \
 					background.drawing=off 
 
-sketchybar  --add   item slack right \
-            --set   slack \
-                    update_freq=180 \
-                    script="$PLUGIN_DIR/notifications/generic.sh Slack" \
-					icon="󰒱"\
-                    background.padding_left=15  \
-                    icon.font.size=18 \
-           --subscribe slack system_woke mouse.entered mouse.clicked mouse.exited
 
 sketchybar  --add   item outlook right \
             --set   outlook \
@@ -132,8 +124,6 @@ sketchybar  --add   item beeper right \
                     background.padding_left=15  \
                     icon.font.size=18 \
            --subscribe beeper system_woke mouse.entered mouse.clicked mouse.exited
-
-
 sketchybar --add event clockifyupdate
 
 sketchybar  --add   item clockify right \
@@ -167,6 +157,23 @@ media=(
   script="$PLUGIN_DIR/media.sh"
   updates=on
 )
+
+
+
+sketchybar --add event skhd_mode_update
+
+sketchybar --add item skhd_mode right \
+           --set skhd_mode label="default" \
+                 script="$PLUGIN_DIR/skhd_mode.sh" \
+                 popup.background.color=0xff000000 \
+           --subscribe skhd_mode system_woke mouse.entered mouse.exited skhd_mode_update
+
+
+
+sketchybar --add item skhd_mode.keys popup.skhd_mode \
+           --set skhd_mode.keys label="initial load... switch modes to populate"
+
+
 
 sketchybar --add item media right \
            --set media "${media[@]}" \

@@ -1,25 +1,26 @@
 # Window management
 # A lot of this has been sourced from https://web.archive.org/web/20240111193329/https://cbrgm.net/post/2021-05-5-setup-macos/
 # change focus
-alt - h : yabai -m window --focus west
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - l : yabai -m window --focus east
+alt - h : yabai -m window --focus west # Focus left
+alt - j : yabai -m window --focus south # Focus down
+alt - k : yabai -m window --focus north # Focus up
+alt - l : yabai -m window --focus east # Focus right
 # (alt) change focus (using arrow keys)
-alt - left  : yabai -m window --focus west
-alt - down  : yabai -m window --focus south
-alt - up    : yabai -m window --focus north
-alt - right : yabai -m window --focus east
+# alt - left  : yabai -m window --focus west
+# alt - down  : yabai -m window --focus south
+# alt - up    : yabai -m window --focus north
+# alt - right : yabai -m window --focus east
 # shift window in current workspace
-alt + shift - h : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west)
-alt + shift - j : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south)
-alt + shift - k : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north)
-alt + shift - l : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east)
+alt + shift - h : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west) # move window left
+alt + shift - j : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south) # move window down
+alt + shift - k : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north) # move window up
+alt + shift - l : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east) # move window right
+
 # alternatively, use the arrow keys
-alt + shift - left : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west)
-alt + shift - down : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south)
-alt + shift - up : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north)
-alt + shift - right : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east)
+alt + shift - left : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west) # move window left
+alt + shift - down : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south) # move window down
+alt + shift - up : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north) # move window up
+alt + shift - right : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east) # move window right
 
 # move focused window to next/prev workspace
 # alt + shift - 1 : yabai -m window --space 1
@@ -33,29 +34,87 @@ alt + shift - right : yabai -m window --swap east || $(yabai -m window --display
 # alt + shift - 9 : yabai -m window --space 9
 #
 
-# Toggle split orientation of the selected windows node: shift + lalt - s
-shift + alt - s : yabai -m window --toggle split
+# colors chosen from: https://convertingcolors.com/hex-color-61AFEF.pdf
+
+:: default  : ~/.config/skhd/update_mode.sh default
+# @ symbol means that nothing passed through - even if no action is specified
+:: window @ : ~/.config/skhd/update_mode.sh window
+# :: passthrough : borders active_color=0xffe06c75 #red
+# No @ sign here so everything passes through
+:: passthrough : ~/.config/skhd/update_mode.sh passthrough
+:: launcher @: ~/.config/skhd/update_mode.sh launcher
+:: system @: ~/.config/skhd/update_mode.sh system
+
+launcher, system, window < escape ; default
 
 
-# Make window zoom to fullscreen: shift + lalt - f
-shift + alt - f : yabai -m window --toggle zoom-fullscreen
+# backslah (\)
+alt - 0x2A ; passthrough
+passthrough < alt - 0x2A ; default
 
-# Make window zoom to parent node: lalt - f 
-lalt - f : yabai -m window --toggle zoom-parent
+# use alt - semicolon
+alt - 0x29 ; window
+window < 0x29 ; default
+window < alt - 0x29 ; default
+
+alt - o ; launcher
+launcher < alt - o; default
+
+# single quote
+alt - 0x27 ; system
+system < alt -0x27; default
 
 
-# Mirror Space on X and Y Axis: shift + lalt - {x, y}
-shift + lalt - x : yabai -m space --mirror x-axis
-shift + lalt - y : yabai -m space --mirror y-axis
 
-# change layout of desktop
-alt - e : yabai -m space --layout bsp
-alt - s : yabai -m space --layout stack
+
+## Window mode
+window < h : yabai -m window --focus west
+window < j : yabai -m window --focus south
+window < k : yabai -m window --focus north
+window < l : yabai -m window --focus east
 
 
 # New window in hor./ vert. splits for all applications with yabai
-alt - b : yabai -m window --insert east;
-alt - v : yabai -m window --insert south;
+window < b : yabai -m window --insert east;
+window < v : yabai -m window --insert south;
+
+# change layout of desktop
+window < e : yabai -m space --layout bsp
+window < s : yabai -m space --layout stack
+
+# Toggle split orientation of the selected windows node: shift + lalt - s
+window < shift -  s : yabai -m window --toggle split
+
+
+# Make window zoom to fullscreen: shift + lalt - f
+window < shift - f : yabai -m window --toggle zoom-fullscreen
+
+# Make window zoom to parent node: lalt - f 
+window < f : yabai -m window --toggle zoom-parent
+
+
+# Mirror Space on X and Y Axis: shift + lalt - {x, y}
+window < shift - x : yabai -m space --mirror x-axis
+window < shift - y : yabai -m space --mirror y-axis
+
+
+## System
+
+system < shift - c : yabai --restart-service; skhd -k "escape" # restart yabai
+system < shift - b : sketchybar --reload; skhd -k "escape" # reload sketchybar
+system < l : pmset displaysleepnow; skhd -k "escape" # Locks the computer
+
+
+
+
+## Launcher
+
+launcher < f : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger; skhd -k "escape" # floating ranger
+launcher < t : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ; skhd -k "escape" # floating terminal
+launcher < m : open -a "Microsoft Outlook"; skhd -k "escape" # Email
+
+## Default Commands
+
 
 # float/unfloat window
 alt + shift - space : yabai -m window --toggle float
@@ -91,18 +150,11 @@ shift + ctrl + lalt - l : yabai -m window --insert east
 shift + ctrl + lalt - s : yabai -m window --insert stack
 
 
-# restart yabai
-alt + shift - c : yabai --restart-service
+
 # Open new window for kitty
 alt - return : /opt/homebrew/bin/kitty --single-instance -d ~
-alt + ctrl - return : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger
-alt + ctrl + cmd - return : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick Look" -d ~
+alt + shift - return : /opt/homebrew/bin/qutebrowser
 
-# Open new window for firefox
-# alt + shift - return : /opt/homebrew/bin/firefox --new-window
-alt + shift -return : /opt/homebrew/bin/qutebrowser
 
-# System Commands
-alt + shift - u : pmset displaysleepnow
 
 

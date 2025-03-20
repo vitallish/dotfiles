@@ -18,4 +18,3 @@ opt.tabstop = indent -- Number of spaces tabs count for
 vim.g.markdown_recommended_style = 0
 
 vim.g.python3_host_prog = '/Users/vitalydruker/.virtualenvs/nvim/bin/python3'
-
