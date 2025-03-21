@@ -42,6 +42,13 @@ windows:
         - nvim ~/.tmux.conf
         - nvim ~/Notes/personal/software/tmux.md
         - cd ~/.config/tmux/
+  - skhd/yabai/sketchybar-config:
+      layout: tiled
+      panes:
+        - cd ~/.config/skhd/
+        - cd ~/.config/yabai/
+        - cd ~/.config/sketchybar/
+        - 
   - processes: htop
   - config: tmuxinator open home
 

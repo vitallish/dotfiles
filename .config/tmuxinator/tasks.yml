@@ -21,3 +21,4 @@ windows:
         - cd ~/.config/timewarrior/extensions/
 
   - config: tmuxinator open tasks
+
