@@ -20,12 +20,14 @@ return {
     "nvim-treesitter/nvim-treesitter"
   },
 
+
   config = function() 
     print("loading obsidian...")
     vim.opt.conceallevel = 2 
     local map = vim.keymap.set
 
     map("n", "<localleader>os", "<cmd>ObsidianQuickSwitch<cr>", {desc = "QuickSwitch"})
+    map("n", "<localleader>ov", "<cmd>ObsidianPasteImg<cr>", {desc = "Paste Image"})
 
     -- -- run this autocommand here so it's after the vimwiki plugin loads
     -- vim.cmd [[
@@ -57,7 +59,31 @@ return {
       templates = {
         subdir = "templates",
       },
-      mappings = {}
+      new_notes_location = "0. Inbox",
+      attachments = {
+        -- The default folder to place images in via `:ObsidianPasteImg`.
+        -- If this is a relative path it will be interpreted as relative to the vault root.
+        -- You can always override this per image by passing a full path to the command instead of just a filename.
+        img_folder = "zzz/attachments",  -- This is the default
+
+        -- Optional, customize the default name or prefix when pasting images via `:ObsidianPasteImg`.
+        ---@return string
+        img_name_func = function()
+          -- Prefix image names with timestamp.
+          return string.format("%s-", os.time())
+        end,
+
+        -- A function that determines the text to insert in the note when pasting an image.
+        -- It takes two arguments, the `obsidian.Client` and an `obsidian.Path` to the image file.
+        -- This is the default implementation.
+        ---@param client obsidian.Client
+        ---@param path obsidian.Path the absolute path to the image file
+        ---@return string
+        img_text_func = function(client, path)
+          path = client:vault_relative_path(path) or path
+          return string.format("![%s](%s)", path.name, path)
+        end,
+      },mappings = {}
 
     }
 

@@ -71,6 +71,7 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/.azproxy --disable
 
 # User configuration
 
@@ -119,9 +120,6 @@ alias nvim-kickstart='NVIM_APPNAME="nvim-vscode" nvim'
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
-
-# The next line updates PATH for egcli command.
-if [ -f '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc' ]; then . '/Users/vitalydruker/Library/Group Containers/FELUD555VC.group.com.egnyte.DesktopApp/CLI/egcli.inc'; fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(zoxide init zsh)"
