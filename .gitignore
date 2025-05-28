@@ -22,3 +22,6 @@
 .config/raycast
 .config/spotify-player
 
+# ignore ranger plugins - these are installed with .install.sh
+.config/ranger/plugins/
+

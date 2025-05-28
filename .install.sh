@@ -29,6 +29,7 @@ brew install tmuxinator
 brew install kitty
 brew install rsync
 brew install zoxide
+brew install pass
 
 brew install --cask macfuse
 brew install borgbackup/tap/borgbackup-fuse
@@ -95,6 +96,7 @@ brew install --cask clockify
 brew install pipx
 
 pipx install ranger-fm
+git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
 pipx install radian
 
 brew tap r-lib/rig
@@ -184,3 +186,8 @@ python3 -m venv ~/.virtualenvs/nvim
 python3 -m venv ~/.virtualenvs/qutebrowser/
 
 
+# Install spotify player
+# install rust
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+# cargo install spotify_player --locked --features image,notify,fzfspotify_
+#
