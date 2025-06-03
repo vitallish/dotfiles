@@ -132,20 +132,6 @@ sketchybar  --add   item beeper right \
                     background.padding_left=15  \
                     icon.font.size=18 \
            --subscribe beeper system_woke mouse.entered mouse.clicked mouse.exited
-sketchybar --add event clockifyupdate
-
-sketchybar  --add   item clockify right \
-            --set   clockify \
-                    update_freq=60 \
-					icon="󱃑" \
-                    script="$PLUGIN_DIR/clockify.sh" \
-                    icon.font.size=18 \
-					label.drawing=off \
-				popup.background.color=0xff000000                  \
-				--add item clockify.month.report popup.clockify \
-				--set clockify.month.report \
-						label="$(clockify-cli report this-month --billable -D)" \
-           --subscribe clockify system_woke mouse.entered mouse.exited clockifyupdate mouse.clicked
 
 sketchybar --add event twupdate
 
@@ -161,11 +147,6 @@ sketchybar  --add   item tw right \
            --set tw.month.report \
                 label="$(timew wes :month | head -n 3 | tail -n 1 | cut -c 25-35 | xargs)" \
            --subscribe tw system_woke mouse.entered mouse.exited twupdate mouse.clicked
-media=(
-  script="$PLUGIN_DIR/media.sh"
-  updates=on
-)
-
 
 
 sketchybar --add event skhd_mode_update
@@ -181,6 +162,10 @@ sketchybar --add item skhd_mode right \
 sketchybar --add item skhd_mode.keys popup.skhd_mode \
            --set skhd_mode.keys label="initial load... switch modes to populate"
 
+media=(
+  script="$PLUGIN_DIR/media.sh"
+  updates=on
+)
 
 
 sketchybar --add item media right \
