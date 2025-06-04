@@ -128,6 +128,7 @@ alias qb="$HOME/Documents/scripts/qbprof.sh"
 # https://www.atlassian.com/git/tutorials/dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 
+export HOMEBREW_BREWFILE="$HOME/.config/homebrew/Brewfile"
 # Temp workaround to disable punycode deprecation logging to stderr
 # https://github.com/bitwarden/clients/issues/6689
 alias bw='NODE_OPTIONS="--no-deprecation" bw'
