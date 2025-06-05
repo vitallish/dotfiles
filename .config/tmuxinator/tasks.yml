@@ -10,7 +10,7 @@ windows:
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - nvim "$HOME/Notes/personal/Task Management.md"
+        - timew summary :month
         - taskwarrior-tui --report wes
         - nvim ~/.config/task/taskrc
         - taskwarrior-tui --report home

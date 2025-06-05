@@ -1,6 +1,6 @@
-# /Users/vitalydruker/.config/tmuxinator/finance.yml
+# /Users/vitalydruker/.config/tmuxinator/media.yml
 
-name: finance
+name: media
 root: ~/
 
 # Optional tmux socket
@@ -45,20 +45,12 @@ root: ~/
 # attach: false
 
 windows:
-  - main:
+  - music:
       layout: main-vertical
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - nvim -O "$HOME/Notes/personal/3. Responsibilties/finance/Trading Log.md" "$HOME/Notes/personal/3. Responsibilties/finance/How to Update GnuCash.md"
-  - folder:
-      layout: tiled
-      panes:
-        - cd /Users/vitalydruker/Documents/finance/personal/update-gnucash/; nvim process-files.R
-        - cd /Users/vitalydruker/Documents/finance/personal
-  - config:
-      panes: 
-        - tmuxinator open finance
-        - 
-
+        - spotify_player
+        - cd ~/.config/spotify-player/
+  - tx-media-config: tx open media
