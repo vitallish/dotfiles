@@ -103,6 +103,9 @@ def print_report(root):
     def print_recursively(node, level = 0):
         #print line
         hours = node.get_cumulated_duration()/(60*60)
+        if level == 0:
+            # root node seems to be double counting for some reason
+            hours = hours/2
         if node.parent is None:
             share = 100
         else:
@@ -114,11 +117,14 @@ def print_report(root):
             shift = (level - 1) * '  '
         
         # only go down the tree if it's part of the wes project
-        if level==1 and node.name != 'wes':
+        if level==1 and (node.name != 'wes' and node.name != 'vial'):
             return None
-        if node.name != 'root': 
-            print("{0:<{wc1}}{1:>{wc2}}{2:>{wc3}}".format(shift + node.name, "{:.1f}".format(hours), "{:.1f}".format(share) , wc1 = width_col1, wc2 = width_col2, wc3 = width_col3))
+        print("{0:<{wc1}}{1:>{wc2}}{2:>{wc3}}".format(shift + node.name, "{:.1f}".format(hours), "{:.1f}".format(share) , wc1 = width_col1, wc2 = width_col2, wc3 = width_col3))
         
+        if level == 0:
+            #visually separate root from rest of tree
+            print("\n")
+
         #go down the tree
         for key in sorted(node.keys()):
             print_recursively(node[key], level + 1)
