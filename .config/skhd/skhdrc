@@ -5,22 +5,13 @@ alt - h : yabai -m window --focus west # Focus left
 alt - j : yabai -m window --focus south # Focus down
 alt - k : yabai -m window --focus north # Focus up
 alt - l : yabai -m window --focus east # Focus right
-# (alt) change focus (using arrow keys)
-# alt - left  : yabai -m window --focus west
-# alt - down  : yabai -m window --focus south
-# alt - up    : yabai -m window --focus north
-# alt - right : yabai -m window --focus east
-# shift window in current workspace
-alt + shift - h : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west) # move window left
-alt + shift - j : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south) # move window down
-alt + shift - k : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north) # move window up
-alt + shift - l : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east) # move window right
 
-# alternatively, use the arrow keys
-alt + shift - left : yabai -m window --swap west || $(yabai -m window --display west; yabai -m display --focus west) # move window left
-alt + shift - down : yabai -m window --swap south || $(yabai -m window --display south; yabai -m display --focus south) # move window down
-alt + shift - up : yabai -m window --swap north || $(yabai -m window --display north; yabai -m display --focus north) # move window up
-alt + shift - right : yabai -m window --swap east || $(yabai -m window --display east; yabai -m display --focus east) # move window right
+
+alt + shift - h : yabai -m window --warp west || $(yabai -m window --display west; yabai -m display --focus west) # move window left
+alt + shift - j : yabai -m window --warp south || $(yabai -m window --display south; yabai -m display --focus south) # move window down
+alt + shift - k : yabai -m window --warp north || $(yabai -m window --display north; yabai -m display --focus north) # move window up
+alt + shift - l : yabai -m window --warp east || $(yabai -m window --display east; yabai -m display --focus east) # move window right
+
 
 # move focused window to next/prev workspace
 # alt + shift - 1 : yabai -m window --space 1
@@ -52,7 +43,7 @@ launcher, system, window < escape ; default
 alt - 0x2A ; passthrough
 passthrough < alt - 0x2A ; default
 
-# use alt - semicolon
+# use alt - ; (semicolon)
 alt - 0x29 ; window
 window < 0x29 ; default
 window < alt - 0x29 ; default
@@ -68,6 +59,14 @@ system < alt -0x27; default
 
 
 ## Window mode
+
+window < alt - h : yabai -m window --warp west
+window < alt - j : yabai -m window --warp south
+window < alt - k : yabai -m window --warp north
+window < alt - l : yabai -m window --warp east
+
+
+
 window < h : yabai -m window --focus west
 window < j : yabai -m window --focus south
 window < k : yabai -m window --focus north
@@ -87,10 +86,10 @@ window < shift -  s : yabai -m window --toggle split
 
 
 # Make window zoom to fullscreen: shift + lalt - f
-window < shift - f : yabai -m window --toggle zoom-fullscreen
+window < shift - f : yabai -m window --toggle zoom-fullscreen; skhd -k "escape"
 
 # Make window zoom to parent node: lalt - f 
-window < f : yabai -m window --toggle zoom-parent
+window < f : yabai -m window --toggle zoom-parent; skhd -k "escape"
 
 
 # Mirror Space on X and Y Axis: shift + lalt - {x, y}
@@ -110,9 +109,13 @@ system < l : pmset displaysleepnow; skhd -k "escape" # Locks the computer
 ## Launcher
 
 launcher < f : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger; skhd -k "escape" # floating ranger
+
+launcher < d : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger ~/Downloads --cmd "chain set sort=atime; set sort_reverse=True; pager_move to=-1"; skhd -k "escape" # floating ranger
 launcher < t : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ; skhd -k "escape" # floating terminal
 launcher < m : open -a "Microsoft Outlook"; skhd -k "escape" # Email
 
+launcher < t : /opt/homebrew/bin/kitty --single-instance --title "Floating: Terminal" -d ~; skhd -k "escape" # floating ranger
+launcher < w : /opt/homebrew/bin/kitty --single-instance --title "Floating: TimeWarrior" -d ~ taskwarrior-tui --report wes; skhd -k "escape" # floating ranger
 ## Default Commands
 
 
