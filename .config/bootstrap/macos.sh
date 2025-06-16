@@ -186,6 +186,12 @@ python3 -m venv ~/.virtualenvs/nvim
 python3 -m venv ~/.virtualenvs/qutebrowser/
 
 
+# options
+# https://github.com/davidosomething/dotfiles/blob/dev/mac/defaults
+# disable .DS_Store on network drives
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
+
+
 # Install spotify player
 # install rust
 # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
