@@ -1,0 +1,24 @@
+# /Users/vitalydruker/.config/tmuxinator/tasks.yml
+
+name: tasks
+root: ~/
+
+windows:
+  - main:
+      layout: tiled
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - timew summary :month
+        - taskwarrior-tui --report wes
+        - nvim ~/.config/task/taskrc
+        - taskwarrior-tui --report home
+  - timew-dev: 
+      layout: main-vertical
+      panes: 
+        - cd ~/.config/timewarrior/extensions/
+        - cd ~/.config/timewarrior/extensions/
+
+  - config: tmuxinator open tasks
+

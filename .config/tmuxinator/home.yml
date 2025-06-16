@@ -1,0 +1,54 @@
+# /Users/vitalydruker/.config/tmuxinator/home.yml
+
+name: home
+root: ~/
+
+windows:
+  - main:
+      layout: main-vertical
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - nvim ~/Notes/personal/zzz/Scratch.md
+        -
+  - sysadmin: 
+      layout: tiled
+      panes:
+        - nvim ~/.install.sh
+        - nvim ~/.zshrc
+        - cd ~/Documents/scripts/
+        - 
+  - neovim-config:
+      layout: main-vertical
+      panes:
+        - cd ~/.config/nvim/lua/
+        - cd ~/.config/nvim/lua/
+  - qutebrowser-config:
+      layout: tiled
+      panes:
+        - cd ~/.qutebrowser/
+        - cd ~/Documents/scripts/
+  - backups-config:
+      layout: tiled
+      panes:
+        - nvim ~/.config/borgmatic/config.yaml
+        - nvim ~/Documents/scripts/borgmatic.sh
+        - nvim "$HOME/Notes/personal/systems/Computer Backup Strategy.md"
+        - cd ~/Documents/scripts/
+  - tmux-config:
+      layout: tiled
+      panes:
+        - nvim ~/.config/tmux/tmux.conf
+        - nvim ~/Notes/personal/software/tmux.md
+        - cd ~/.config/tmux/
+  - skhd/yabai/sketchybar-config:
+      layout: tiled
+      panes:
+        - cd ~/.config/skhd/
+        - cd ~/.config/yabai/
+        - cd ~/.config/sketchybar/
+        - 
+  - processes: htop
+  - config: tmuxinator open home
+

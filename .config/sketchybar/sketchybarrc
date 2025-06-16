@@ -110,7 +110,7 @@ sketchybar  --add   item slack right \
             --set   slack \
                     update_freq=180 \
                     script="$PLUGIN_DIR/notifications/generic.sh Slack" \
-					icon="󰒱"\
+                                        icon="󰒱"\
                     background.padding_left=15  \
                     icon.font.size=18 \
            --subscribe slack system_woke mouse.entered mouse.clicked mouse.exited
@@ -118,8 +118,8 @@ sketchybar  --add   item slack right \
 sketchybar  --add   item outlook right \
             --set   outlook \
                     update_freq=180 \
-					icon="󰴢"\
-                    script="$PLUGIN_DIR/notifications/generic.sh Microsoft\ Outlook" \
+					icon=""\
+                    script="$PLUGIN_DIR/notifications/generic.sh Thunderbird" \
                     background.padding_left=15  \
                     icon.font.size=18 \
            --subscribe outlook system_woke mouse.entered mouse.clicked mouse.exited
@@ -133,31 +133,53 @@ sketchybar  --add   item beeper right \
                     icon.font.size=18 \
            --subscribe beeper system_woke mouse.entered mouse.clicked mouse.exited
 
+sketchybar --add event twupdate
 
-sketchybar --add event clockifyupdate
-
-sketchybar  --add   item clockify right \
-            --set   clockify \
-                    update_freq=60 \
-					icon="󱃑" \
-                    script="$PLUGIN_DIR/clockify.sh" \
+sketchybar  --add   item tw right \
+            --set   tw \
+                    update_freq=1 \
+					          icon="󱫒" \
+                    script="$PLUGIN_DIR/timewarrior.sh" \
                     icon.font.size=18 \
-					label.drawing=off \
-				popup.background.color=0xff000000                  \
-				--add item clockify.month.report popup.clockify \
-				--set clockify.month.report \
-						label="$(clockify-cli report this-month --billable -D)" \
-           --subscribe clockify system_woke mouse.entered mouse.exited clockifyupdate mouse.clicked
+					          label.drawing=off \
+				            popup.background.color=0xff000000                  \
+           --add item tw.month.report popup.tw \
+           --set tw.month.report \
+                label="$(timew wes :month | head -n 3 | tail -n 1 | cut -c 25-35 | xargs)" \
+           --subscribe tw system_woke mouse.entered mouse.exited twupdate mouse.clicked
+
+
+sketchybar --add event skhd_mode_update
+
+sketchybar --add item skhd_mode right \
+           --set skhd_mode label="default" \
+                 script="$PLUGIN_DIR/skhd_mode.sh" \
+                 popup.background.color=0xff000000 \
+           --subscribe skhd_mode system_woke mouse.entered mouse.exited skhd_mode_update
+
+
+
+sketchybar --add item skhd_mode.keys popup.skhd_mode \
+           --set skhd_mode.keys label="initial load... switch modes to populate"
+
 media=(
   script="$PLUGIN_DIR/media.sh"
   updates=on
 )
 
+
 sketchybar --add item media right \
            --set media "${media[@]}" \
            --subscribe media media_change mouse.entered mouse.exited mouse.clicked
 
-
+# S T A C K  I N D I C A T O R 
+sketchybar -m --add item stack_sep                       center \
+              --add item stack                           center \
+              --set stack script="$PLUGIN_DIR/stack.sh" \
+              --subscribe stack window_focus front_app_switched space_change title_change \
+              --set stack_sep drawing=off \
+              --set stack drawing=off \
+              --set stack update_freq=0
 ##### Collapsible stats
 # https://github.com/FelixKratz/SketchyBar/discussions/12?sort=top#discussioncomment-4623255
 

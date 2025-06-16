@@ -1,0 +1,25 @@
+/*
+.DS_Store
+# Top level files to include
+!.gitignore
+!.zprofile
+!README.md
+
+#qutebrowser
+!.qutebrowser/
+!.qutebrowser/*/
+
+# include the .config folder
+!.config/
+!.config/*/
+# htop permissions - 
+.config/htop
+
+# Other configs to ignore
+.config/borg
+.config/raycast
+.config/spotify-player
+
+# ignore ranger plugins - these are installed with .install.sh
+.config/ranger/plugins/
+

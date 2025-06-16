@@ -1,0 +1,84 @@
+
+# ~/.config/bugwarrior/bugwarrior.toml
+
+[general]
+targets = ["wes_github", "vial_github"]
+taskrc = "~/.config/task/taskrc"
+
+# Set to true to shorten links.
+shorten = false
+
+# When false, links are appended as an annotation.
+inline_links = false
+
+# When true will include a link to the ticket as an annotation.
+annotation_links = true
+
+# When false skips putting issue comments into annotations.
+annotation_comments = true
+
+# When false strips newlines from comments in annotations.
+annotation_newlines = false
+
+# Set to one of DEBUG, INFO, WARNING, ERROR, CRITICAL, or DISABLED to
+# control the logging verbosity.
+log_level = "INFO"
+
+# Set to the path at which you would like logging messages written.
+# log_file = "<by default messages are written to stderr>"
+
+# Import maximally this number of characters of incoming annotations.
+annotation_length = 45
+
+# Use maximally this number of characters in the description.
+description_length = 35
+
+# If false, bugwarrior won't bother with adding annotations to your tasks at all.
+merge_annotations = true
+
+# If false, bugwarrior won't bother with adding tags to your tasks at all.
+merge_tags = true
+
+# If true, bugwarrior will delete all tags prior to fetching new ones,
+# except those listed in static_tags. Only work if merge_tags is true.
+replace_tags = false
+
+# A list of tags that shouldn't be *removed* by bugwarrior. Use for tags
+# that you want to keep when replace_tags is set to true.
+static_tags = []
+
+# A list of attributes that shouldn't be *updated* by bugwarrior.  Use for
+# values that you want to tune manually. Note that service-specific UDAs
+# can be included here.
+# static_fields = ["priority"]
+
+[wes_github]
+service = "github"
+login = "vitallish"
+token = "@oracle:eval:pass github/pat"
+query = "is:issue state:open archived:false assignee:vitallish sort:updated-desc org:West-End-Statistics" 
+description_template = "{{githubnumber}}: {{githubtitle}}"
+project_template = "wes.{{project}}"
+exclude_pull_requests = true
+include_user_repos = false
+include_user_issues = false
+
+[vial_github]
+service = "github"
+login = "vitallish"
+token = "@oracle:eval:pass github/pat"
+query = "is:issue state:open archived:false assignee:vitallish sort:updated-desc org:vial-technology" 
+description_template = "{{githubnumber}}: {{githubtitle}}"
+project_template = "vial.{{project}}"
+exclude_pull_requests = true
+include_user_repos = false
+include_user_issues = false
+
+
+# due dates can be set in taskwarrior and that is fine
+# export REQUESTS_CA_BUNDLE="/opt/homebrew/etc/openssl@3/cert.pem"
+
+# Crontab to run every 5 minutes
+# path is needed to find the 'task' program
+# sssl issues mean the REQUESTS needs to be there
+# */5 * * * *  export PATH=/opt/homebrew/bin:$PATH; "/Users/vitalydruker/.local/bin/bugwarrior" pull > /dev/null 2>&1
