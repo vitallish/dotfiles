@@ -78,8 +78,8 @@ window < b : yabai -m window --insert east;
 window < v : yabai -m window --insert south;
 
 # change layout of desktop
-window < e : yabai -m space --layout bsp
-window < s : yabai -m space --layout stack
+window < alt - e : yabai -m space --layout bsp
+window < alt - s : yabai -m space --layout stack
 
 # Toggle split orientation of the selected windows node: shift + lalt - s
 window < shift -  s : yabai -m window --toggle split

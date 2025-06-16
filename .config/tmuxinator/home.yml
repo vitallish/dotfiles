@@ -39,7 +39,7 @@ windows:
   - tmux-config:
       layout: tiled
       panes:
-        - nvim ~/.tmux.conf
+        - nvim ~/.config/tmux/tmux.conf
         - nvim ~/Notes/personal/software/tmux.md
         - cd ~/.config/tmux/
   - skhd/yabai/sketchybar-config:
