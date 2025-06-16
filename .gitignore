@@ -2,9 +2,7 @@
 .DS_Store
 # Top level files to include
 !.gitignore
-!.install.sh
-!.tmux.conf
-!.zshrc
+!.zprofile
 !README.md
 
 #qutebrowser
