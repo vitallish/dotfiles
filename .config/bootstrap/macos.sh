@@ -21,6 +21,15 @@ git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
 . $XDG_CONFIG_HOME/shell/vars.sh
 . $XDG_CONFIG_HOME/shell/alias.sh
 
+
+if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
+  # A different sshkey is needed on az laptops
+  config remote set-url git@github.com-vitallish:vitallish/dotfiles.git
+fi
+
+
+
+
 echo "Restoring from Brewfile at $HOMEBREW_BREWFILE"
 brew bundle --global 
 

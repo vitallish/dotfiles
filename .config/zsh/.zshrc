@@ -4,8 +4,8 @@
 
 
 if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
-  # this is here as a placeholder - only enable if having issues
-  # . $SCRIPTS/azproxy --disable
+  # stuff doesn't work without this - for example git can't push
+  . $SCRIPTS/azproxy --disable
 fi
 
 
