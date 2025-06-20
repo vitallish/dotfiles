@@ -115,11 +115,22 @@ sketchybar  --add   item slack right \
                     icon.font.size=18 \
            --subscribe slack system_woke mouse.entered mouse.clicked mouse.exited
 
+if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
+  EMAIL_PROVIDER="Microsoft\ Outlook"
+  EMAIL_ICON="󰴢"
+elif [[ "$VAKD_COMP_OWNER" == "V" ]]; then
+  EMAIL_PROVIDER="Thunderbird"
+  EMAIL_ICON=""
+else
+  EMAIL_PROVIDER="Thunderbird"
+  EMAIL_ICON=""
+fi
+
 sketchybar  --add   item outlook right \
             --set   outlook \
                     update_freq=180 \
-					icon=""\
-                    script="$PLUGIN_DIR/notifications/generic.sh Thunderbird" \
+					icon=$EMAIL_ICON \
+                    script="$PLUGIN_DIR/notifications/generic.sh $EMAIL_PROVIDER" \
                     background.padding_left=15  \
                     icon.font.size=18 \
            --subscribe outlook system_woke mouse.entered mouse.clicked mouse.exited
@@ -135,6 +146,10 @@ sketchybar  --add   item beeper right \
 
 sketchybar --add event twupdate
 
+
+
+if [[ "$VAKD_COMP_OWNER" == "V" ]]; then
+
 sketchybar  --add   item tw right \
             --set   tw \
                     update_freq=1 \
@@ -147,6 +162,9 @@ sketchybar  --add   item tw right \
            --set tw.month.report \
                 label="$(timew wes :month | head -n 3 | tail -n 1 | cut -c 25-35 | xargs)" \
            --subscribe tw system_woke mouse.entered mouse.exited twupdate mouse.clicked
+
+fi
+
 
 
 sketchybar --add event skhd_mode_update
