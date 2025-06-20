@@ -8,10 +8,11 @@ alias tx=tmuxinator
 
 alias qb="$SCRIPTS/qbprof.sh"
 
-alias bbd="brew bundle --global dump"
-alias bbi="brew bundle --global install"
-alias bbc="brew bundle --global check"
-alias bbu="brew bundle --global cleanup"
+alias bb="brew bundle --global --no-vscode"
+alias bbd="bb dump"
+alias bbi="bb install"
+alias bbc="bb check"
+alias bbu="bb cleanup"
 
 
 # For use with dotfile config

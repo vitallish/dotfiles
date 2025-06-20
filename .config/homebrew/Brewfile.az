@@ -6,7 +6,7 @@ tap "r-lib/rig"
 brew "glib"
 brew "bat"
 brew "node"
-brew "bitwarden-cli", link: false
+brew "bitwarden-cli"
 brew "cocoapods"
 brew "fzf"
 brew "git-delta"
@@ -44,7 +44,6 @@ brew "koekeishiya/formulae/yabai"
 cask "alfred"
 cask "alt-tab"
 cask "beeper"
-cask "bitwarden"
 cask "devpod"
 cask "drawio"
 cask "firefox"
@@ -53,7 +52,6 @@ cask "font-sauce-code-pro-nerd-font"
 cask "kitty"
 cask "obsidian"
 cask "plexamp"
-cask "qutebrowser"
 cask "raycast"
 cask "readdle-spark"
 cask "reader"
@@ -63,3 +61,8 @@ cask "spotify"
 cask "stats"
 cask "visual-studio-code"
 cask "zotero"
+mas "GarageBand", id: 682658836
+mas "iMovie", id: 408981434
+mas "Keynote", id: 409183694
+mas "Numbers", id: 409203825
+mas "Pages", id: 409201541
