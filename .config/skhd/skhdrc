@@ -156,7 +156,7 @@ shift + ctrl + lalt - s : yabai -m window --insert stack
 
 # Open new window for kitty
 alt - return : /opt/homebrew/bin/kitty --single-instance -d ~
-alt + shift - return : /opt/homebrew/bin/qutebrowser
+alt + shift - return : $HOME/.config/skhd/launch_browser.sh
 
 
 

@@ -24,7 +24,7 @@ git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
 
 if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
   # A different sshkey is needed on az laptops
-  config remote set-url git@github.com-vitallish:vitallish/dotfiles.git
+  config remote set-url origin git@github.com-vitallish:vitallish/dotfiles.git
 fi
 
 
@@ -93,6 +93,16 @@ $(brew --prefix)/opt/fzf/install --all
 
 # Install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
+mkdir $HOME/sources
+
+if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
+  # qutebrowser needs to be installed manually 
+  config remote set-url origin git@github.com-vitallish:vitallish/dotfiles.git
+  # qutebrowser needs to be installed from the releases page
+  open https://github.com/qutebrowser/qutebrowser/releases
+fi
 
 
 
