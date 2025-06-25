@@ -116,6 +116,9 @@ launcher < m : open -a "Microsoft Outlook"; skhd -k "escape" # Email
 
 launcher < t : /opt/homebrew/bin/kitty --single-instance --title "Floating: Terminal" -d ~; skhd -k "escape" # floating ranger
 launcher < w : /opt/homebrew/bin/kitty --single-instance --title "Floating: TimeWarrior" -d ~ taskwarrior-tui --report wes; skhd -k "escape" # floating ranger
+# hotkey is defined in alfred
+launcher < p : skhd -k "escape"; skhd -k "ctrl + alt + shift + cmd - l" # launch password manager
+
 ## Default Commands
 
 

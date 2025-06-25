@@ -23,6 +23,12 @@ alias lazyconfig='lazygit --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # https://github.com/bitwarden/clients/issues/6689
 alias bw='NODE_OPTIONS="--no-deprecation" bw'
   
+
+# useful monitoring commands
+# Watch Yabai Windows - monitor what yabai sees when a window is focused
+alias wyw="watch -n 1 yabai -m query --windows --window"
+
+
 if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
   . $XDG_CONFIG_HOME/shell/alias-az.sh
 fi
