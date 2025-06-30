@@ -1,0 +1,83 @@
+#!/bin/bash
+
+#source: https://confluence.astrazeneca.com/pages/viewpage.action?pageId=400738506
+ 
+# -------------------------------------------------------------------------------------
+# Step 1: Set up the proxy configuration - Use a default_proxy_address
+# -------------------------------------------------------------------------------------
+ 
+# Set list of hosts and domains that should always be accessed directly
+export no_proxy="localhost,127.0.0.1,.local,169.254/16,.astrazeneca.net,.privatelink.snowflakecomputing.com"
+default_proxy_address="http://azpzen.astrazeneca.net:10263"
+ 
+# Parse parameters
+[[ "$@" =~ 'disable' ]] && DISABLE=1 || DISABLE=0
+[[ "$@" =~ 'update-ca-bundle' ]] && UPDATECABUNDLE=1 || UPDATECABUNDLE=0
+[[ "$@" =~ 'no-ca-bundle' ]] && NOCABUNDLE=1 || NOCABUNDLE=0
+[[ "$@" =~ '--quiet' ]] && QUIET=1 || QUIET=0
+ 
+# Manually disable proxy
+if [[ ${DISABLE} -eq 1 ]]; then
+    echo "AZ Proxy disabled"
+    unset http_proxy
+    unset https_proxy
+    unset no_proxy
+else
+  # Set PrivateGlobal proxy (Suitable for workstations and VPN connections)
+  echo "Setting proxy to AZ Proxy - PrivateGlobal"
+  export http_proxy=$default_proxy_address
+  export https_proxy=$http_proxy
+ 
+  # This proxy should be used only on user's workstations, not servers
+  # as it performs SSL inspection and requires the user to come from
+  # specific networks where the user is authenticated via SSO.
+  # In order for the proxy to work well with python and other applications,
+  # The Zscaler root CA certificate must be in the system truststore
+  # so that the connections are trusted and securely inspected.
+fi
+ 
+# -------------------------------------------------------------------------------------
+# Step 2: Build a cacert.pem trust store for command line tools and development
+# -------------------------------------------------------------------------------------
+ 
+# Generate custom CA_BUNDLEs from MacOS keychain
+# The following will generate a fresh cacerts.pem file from the contents of the MacOS Keychain
+# System and SystemRoot stores which is managed by AZ and should include an up-to-date list of trusted
+# Root Certification Authorities, including the zScaler Root CA.
+# Run only once a day to avoid disruption
+ 
+[[ ! -d ~/certificates ]] && echo "Creating ~/certificates directory" && mkdir -p ~/certificates
+[[ -f ~/certificates/LASTUPDATE ]] && LASTUPDATE=$(cat ~/certificates/LASTUPDATE) || LASTUPDATE=""
+TODAY=$(date +%Y-%m-%d)
+ 
+# The update argument allows us to force update the cacert.pem file from the System Keychain
+if [[ ${UPDATECABUNDLE} -eq 1 || "${LASTUPDATE}" != "${TODAY}" ]]
+then
+  SYSTEMROOTCERTS=$(security export -t certs -f pemseq -k /System/Library/Keychains/SystemRootCertificates.keychain)
+  SYSTEMCERTS=$(security export -t certs -f pemseq -k /Library/Keychains/System.keychain)
+  echo -e "${SYSTEMROOTCERTS}\n${SYSTEMCERTS}" > ~/certificates/cacert.pem
+  echo ${TODAY} > ~/certificates/LASTUPDATE
+  echo "Generated a fresh ~/certificates/cacert.pem file."
+fi
+ 
+# -------------------------------------------------------------------------------------
+# Step 3: Export environment variables for terminal tools to use the cacert.pem file
+# -------------------------------------------------------------------------------------
+ 
+# Export environment variables to expose the new cacert.pem file to
+# tools like Python Requests, AWSCLI, etc.
+CACERT=${HOME}/certificates/cacert.pem
+if [[ ${NOCABUNDLE} -eq 0 ]]; then
+  export AWS_CA_BUNDLE=${CACERT}
+  export REQUESTS_CA_BUNDLE=${CACERT}
+  export NODE_EXTRA_CA_CERTS=${CACERT}
+  export CURL_CA_BUNDLE=${CACERT}
+  export SSL_CERT_FILE=${CACERT}
+  export CARGO_HTTP_CAINFO=${CACERT}
+  # For Java recent versions to trust MacOS system trust store, uncomment the following:
+  # export JAVA_TOOL_OPTIONS="-Djavax.net.ssl.trustStoreType=KeychainStore"
+fi
+ 
+# Display values of set environment variables
+[[ ${QUIET} -eq 0 ]] && for var in $(env | sort | grep -e proxy -e "${CACERT}" | cut -d= -f1); do printf "%-20s = $(printenv $var)\n" $var ; done
+

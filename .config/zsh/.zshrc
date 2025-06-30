@@ -3,6 +3,12 @@
 [ -f "$XDG_CONFIG_HOME/shell/alias.sh" ] && source "$XDG_CONFIG_HOME/shell/alias.sh"
 
 
+if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
+  # stuff doesn't work without this - for example git can't push
+  . $SCRIPTS/azproxy --disable
+fi
+
+
 # oh-my-zsh
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
@@ -28,6 +34,16 @@ bindkey '^R' fzf-history-widget
 
 
 
-export PROMPT="%F{cyan}[mba]%f$PROMPT"
+if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
+  PROMPT_PRE="%F{magenta}[az]%f"
+elif [[ "$VAKD_COMP_OWNER" == "V" ]]; then
+  PROMPT_PRE="%F{cyan}[mba]%f"
+else
+  PROMPT_PRE=""
+fi
+
+export PROMPT="$PROMPT_PRE$PROMPT"
+
+
 eval "$(zoxide init zsh)"
 

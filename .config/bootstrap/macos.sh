@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+
 # Install xCode cli tools
 echo "Installing commandline tools..."
 xcode-select --install
@@ -8,6 +9,7 @@ xcode-select --install
 ## Install
 echo "Installing Brew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 brew analytics off
 
 # Make sure to first copy the .ssh folder from a working computer/set up key
@@ -17,9 +19,19 @@ git --git-dir=$HOME/.cfg/ --work-tree=$HOME checkout main
 ## Formulae
 . $HOME/.config/shell/xdg.sh
 . $XDG_CONFIG_HOME/shell/vars.sh
+. $XDG_CONFIG_HOME/shell/alias.sh
+
+
+if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
+  # A different sshkey is needed on az laptops
+  config remote set-url git@github.com-vitallish:vitallish/dotfiles.git
+fi
+
+
+
 
 echo "Restoring from Brewfile at $HOMEBREW_BREWFILE"
-brew bundle --global
+brew bundle --global 
 
 . $HOME/.zprofile
 . $XDG_CONFIG_HOME/zsh/.zshrc
@@ -29,9 +41,14 @@ brew bundle --global
 # Oh my zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+skhd --install-service
+skhd --start-service
+yabai --start-service
+
+brew services start sketchybar
 
 # Alfredsxdffew21 requires registration from bitwarden
-npm install -g @bitwarden/cli
+#npm install -g @bitwarden/cli
 alias bw='NODE_OPTIONS="--no-deprecation" bw'
 echo -n Bitwarden Master: 
 read -s BW_PASSWORD
@@ -76,6 +93,13 @@ $(brew --prefix)/opt/fzf/install --all
 
 # Install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+
+
+# skhd needs full disk permissions
+# May need to restart mac because skhd is not allowed to read the keyboard even after enabeling accessibility
+
+
 
 
 # If this is on another computer then update the local repos user.name and user.email
