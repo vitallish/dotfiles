@@ -27,3 +27,7 @@ if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
   . $XDG_CONFIG_HOME/shell/alias-az.sh
 fi
 
+if [[ $VAKD_COMP_OS == Linux* ]]; then
+  . $XDG_CONFIG_HOME/shell/alias-linux.sh
+fi
+

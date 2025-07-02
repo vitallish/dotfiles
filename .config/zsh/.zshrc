@@ -37,7 +37,11 @@ bindkey '^R' fzf-history-widget
 if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
   PROMPT_PRE="%F{magenta}[az]%f"
 elif [[ "$VAKD_COMP_OWNER" == "V" ]]; then
-  PROMPT_PRE="%F{cyan}[mba]%f"
+  if [[ "$VAKD_COMP_OS" == "Mac" ]]; then
+    PROMPT_PRE="%F{cyan}[mba]%f"
+  elif [[ "$VAKD_COMP_OS" == Linux* ]]; then
+    PROMPT_PRE="%F{blue}[beef]%f"
+  fi
 else
   PROMPT_PRE=""
 fi
@@ -47,3 +51,7 @@ export PROMPT="$PROMPT_PRE$PROMPT"
 
 eval "$(zoxide init zsh)"
 
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+alias claude="/home/vitalydruker/.claude/local/claude"

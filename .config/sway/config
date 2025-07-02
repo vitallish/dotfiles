@@ -6,8 +6,8 @@
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
+# Logo key (Mod4). Use Mod1 for Alt.
+set $mod Mod1
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -203,6 +203,16 @@ mode "resize" {
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
+
+
+
+mouse_warping none
+focus_follows_mouse no
+
+bindsym $mod+p       exec grimshot copy active
+bindsym $mod+Shift+p exec grimshot copy area
+bindsym $mod+Mod4+p  exec grimshot copy output
+bindsym $mod+Ctrl+p  exec grimshot copy window
 
 
 # Include configs from 3 locations:

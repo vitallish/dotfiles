@@ -1,0 +1,242 @@
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "alt+-",
+        "command": "type",
+        "when": "editorLangId == r || editorLangId == rmd && editorTextFocus",
+        "args": {
+            "text": " <- "
+        }
+    },
+    {
+        "key": "ctrl+shift+m",
+        "command": "type",
+        "when": "editorLangId == r || editorLangId == rmd || editorLangId == quarto || && editorTextFocus ",
+        "args": {
+            "text": " |> "
+        }
+    },
+    {
+        "key": "ctrl+Shift+m",
+        "command": "workbench.action.terminal.sendSequence",
+        "args": {
+            "text": " |> "
+        },
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+m",
+        "command": "-workbench.actions.view.problems"
+    },
+    {
+        "key": "f1",
+        "command": "-workbench.action.showCommands"
+    },
+    {
+        "key": "f1",
+        "command": "r.helpPanel.openForSelection"
+    },
+    {
+        "key": "ctrl+shift+f10",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "workbench.action.terminal.killViewOrEditor",
+                "r.createRTerm",
+                "r.attachActive"
+            ]
+        }
+    },
+    {
+        "key": "ctrl+e",
+        "command": "-extension.vim_ctrl+e",
+        "when": "editorTextFocus && vim.active && vim.use<C-e> && !inDebugRepl"
+    },
+    {
+        "key": "ctrl+a",
+        "command": "-extension.vim_ctrl+a",
+        "when": "editorTextFocus && vim.active && vim.use<C-a> && !inDebugRepl"
+    },
+    // commands to send variable under curser to terminal
+    {
+        "description": "str",
+        "key": "ctrl+' s",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "str($$)"
+    },
+    {
+        "description": "glimpse with fallback",
+        "key": "ctrl+' g",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "options(width = as.integer(system2('tput', 'cols', stdout = TRUE)));tryCatch(dplyr::glimpse($$), error = function(e) str($$))"
+    },
+    {
+        "description": "glimpse with fallback (.Last.value)",
+        "key": "ctrl+' shift+g",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "options(width = as.integer(system2('tput', 'cols', stdout = TRUE)));tryCatch(dplyr::glimpse(.Last.value), error = function(e) str(.Last.value))"
+    },
+    {
+        "description": "print",
+        "key": "ctrl+' p",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "$$"
+    },
+    {
+        "description": "print (.Last.value)",
+        "key": "ctrl+' shift+p",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": ".Last.value"
+    },
+    {
+        "description": "print2",
+        "key": "ctrl+' ctrl+'",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "$$"
+    },
+    {
+        "description": "dim",
+        "key": "ctrl+' d",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "dim($$)"
+    },
+    {
+        "description": "head",
+        "key": "ctrl+' h",
+        "command": "r.head",
+        "when": "editorTextFocus"
+    },
+    {
+        "description": "attributes",
+        "key": "ctrl+' a",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "attributes($$)"
+    },
+    {
+        "description": "names",
+        "key": "ctrl+' n",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "names($$)"
+    },
+    {
+        "description": "names vertical",
+        "key": "ctrl+' ctrl+n",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "matrix(names($$), ncol = 1)"
+    },
+    {
+        "description": "View",
+        "key": "ctrl+' v",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "View($$)"
+    },
+    {
+        "description": "View",
+        "key": "ctrl+' shift+v",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "View(.Last.value)"
+    },
+    {
+        "description": "Summary",
+        "key": "ctrl+' u",
+        "command": "r.runCommandWithSelectionOrWord",
+        "when": "editorTextFocus",
+        "args": "summary($$)"
+    },
+    {
+        "description": "Set Terminal Width",
+        "key": "ctrl+' w",
+        "command": "r.runCommand",
+        "args": "options(width = as.integer(system2('tput', 'cols', stdout = TRUE)))"
+    },
+    {
+        "key": "ctrl+w l",
+        "command": "workbench.action.focusRightGroup"
+    },
+    {
+        "key": "ctrl+w shift+l",
+        "command": "workbench.action.moveEditorToRightGroup"
+    },
+    {
+        "key": "ctrl+w h",
+        "command": "workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "ctrl+w shift+h",
+        "command": "workbench.action.moveEditorToLeftGroup"
+    },
+    {
+        "key": "ctrl+w j",
+        "command": "workbench.action.focusBelowGroup"
+    },
+    {
+        "key": "ctrl+w shift+j",
+        "command": "workbench.action.moveEditorToBelowGroup"
+    },
+    {
+        "key": "ctrl+w k",
+        "command": "workbench.action.focusAboveGroup"
+    },
+    {
+        "key": "ctrl+w shift+k",
+        "command": "workbench.action.moveEditorToAboveGroup"
+    },
+    {
+        "description": "Document Package",
+        "key": "ctrl+shift+d",
+        "command": "r.document"
+    },
+    {
+        "description": "Document and load package",
+        "key": "ctrl+shift+l",
+        "command": "r.runCommand",
+        "args": "devtools::document(); devtools::load_all()"
+    },
+    {
+        "description": "Document and install package",
+        "key": "ctrl+shift+i",
+        "command": "r.runCommand",
+        "args": "devtools::document(); devtools::install('.', quick = TRUE, upgrade = 'never')"
+    },
+    {
+        "description": "Restart R Terminal",
+        "key": "ctrl+shift+f10",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                {
+                    "command": "workbench.action.terminal.sendSequence",
+                    "args": {
+                        "text": "\u0003"
+                    },
+                },
+                {
+                    "command": "r.runCommand",
+                    "args": "rstudioapi::restartSession()"
+                }
+            ]
+        }
+    },
+    {
+        "key": "ctrl+b p",
+        "command": "workbench.action.tasks.runTask",
+        "args": "R: Pkgdown"
+    },
+    {
+        "key": "ctrl+b v",
+        "command": "workbench.action.tasks.runTask",
+        "args": "R: Build Vignettes"
+    }
+]
