@@ -144,4 +144,5 @@
     "dev.containers.dockerPath": "podman",
     "window.newWindowProfile": "Default",
     "cSpell.autoFormatConfigFile": true,
+    "window.zoomLevel": 2,
 }

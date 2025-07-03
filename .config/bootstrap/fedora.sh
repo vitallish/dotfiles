@@ -6,6 +6,7 @@
 
 
 sudo dnf install neovim wlogout btop lm_sensors git stress-ng zsh util-linux podman flatpak bat libreoffice git-delta
+sudo dnf install fuse fuse-libs
 
 # install homebrew (unclear if helpful to be honest)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -64,3 +65,7 @@ sudo dnf install gh
 
 sudo dnf copr enable atim/lazygit -y
 sudo dnf install lazygit
+
+
+# install am ins
+
