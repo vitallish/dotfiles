@@ -1,0 +1,117 @@
+#!/bin/bash
+
+set -e
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <url_or_appimage_file>"
+    echo "Example: $0 https://api.beeper.com/desktop/download/linux/x64/stable/com.automattic.beeper.desktop"
+    echo "Example: $0 /path/to/app.AppImage"
+    exit 1
+fi
+
+INPUT="$1"
+APPIMAGE_DIR="$HOME/.local/share/applications/appimages"
+DESKTOP_DIR="$HOME/.local/share/applications"
+
+mkdir -p "$APPIMAGE_DIR"
+mkdir -p "$DESKTOP_DIR"
+
+if [[ "$INPUT" =~ ^https?:// ]]; then
+    echo "Downloading AppImage from $INPUT..."
+    filename=$(basename "$INPUT")
+    if [[ ! "$filename" =~ \.AppImage$ ]]; then
+        filename="${filename}.AppImage"
+    fi
+    appimage_path="$APPIMAGE_DIR/$filename"
+    
+    if [ -f "$appimage_path" ]; then
+        echo "AppImage already exists. Updating..."
+        backup_path="${appimage_path}.backup"
+        mv "$appimage_path" "$backup_path"
+    fi
+    
+    curl -L -o "$appimage_path" "$INPUT"
+    chmod +x "$appimage_path"
+elif [ -f "$INPUT" ]; then
+    echo "Using local AppImage file: $INPUT"
+    if [[ ! "$INPUT" =~ \.AppImage$ ]]; then
+        echo "Error: File must have .AppImage extension"
+        exit 1
+    fi
+    
+    filename=$(basename "$INPUT")
+    appimage_path="$APPIMAGE_DIR/$filename"
+    
+    if [ -f "$appimage_path" ]; then
+        echo "AppImage already exists. Updating..."
+        backup_path="${appimage_path}.backup"
+        mv "$appimage_path" "$backup_path"
+    fi
+    
+    cp "$INPUT" "$appimage_path"
+    chmod +x "$appimage_path"
+else
+    echo "Error: Input must be a URL or path to an existing AppImage file"
+    exit 1
+fi
+
+echo "Extracting .desktop file from AppImage..."
+temp_dir=$(mktemp -d)
+cd "$temp_dir"
+"$appimage_path" --appimage-extract "*.desktop" 2>/dev/null || true
+
+desktop_source=$(find . -name "*.desktop" -type f | head -1)
+if [ -z "$desktop_source" ]; then
+    echo "No .desktop file found in AppImage, creating a basic one..."
+    app_name=$(basename "$filename" .AppImage)
+    app_name_clean=$(echo "$app_name" | sed 's/[^a-zA-Z0-9]//g')
+    desktop_file="$DESKTOP_DIR/${app_name_clean}.desktop"
+    
+    cat > "$desktop_file" << EOF
+[Desktop Entry]
+Type=Application
+Name=$app_name
+Exec=$appimage_path
+Icon=$appimage_path
+Categories=Application;
+Terminal=false
+StartupNotify=true
+EOF
+else
+    echo "Found .desktop file: $desktop_source"
+    desktop_filename=$(basename "$desktop_source")
+    desktop_file="$DESKTOP_DIR/$desktop_filename"
+    
+    cp "$desktop_source" "$desktop_file"
+    
+    original_exec=$(grep "^Exec=" "$desktop_source" | head -1)
+    exec_args=$(echo "$original_exec" | sed 's/^Exec=[^[:space:]]*//' | sed 's/^[[:space:]]*//')
+    
+    if [ -n "$exec_args" ]; then
+        sed -i "s|^Exec=.*|Exec=$appimage_path $exec_args|" "$desktop_file"
+    else
+        sed -i "s|^Exec=.*|Exec=$appimage_path|" "$desktop_file"
+    fi
+    
+    if grep -q "^Icon=" "$desktop_file"; then
+        sed -i "s|^Icon=.*|Icon=$appimage_path|" "$desktop_file"
+    else
+        echo "Icon=$appimage_path" >> "$desktop_file"
+    fi
+fi
+
+cd - > /dev/null
+rm -rf "$temp_dir"
+
+if [ -n "$backup_path" ] && [ -f "$backup_path" ]; then
+    echo "AppImage updated successfully!"
+    echo "Previous version backed up to: $backup_path"
+    rm -f "$backup_path"
+else
+    echo "AppImage installed successfully!"
+fi
+
+echo "Location: $appimage_path"
+echo "Desktop file: $desktop_file"
+app_name=$(grep "^Name=" "$desktop_file" 2>/dev/null | cut -d'=' -f2- || basename "$appimage_path" .AppImage)
+echo "You can now find '$app_name' in rofi."

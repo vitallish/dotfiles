@@ -1,0 +1,22 @@
+# This file contains configs that I don't want tracked.
+# Either they are not important (as far as I can tell) or
+# contain too much sensative information.
+
+BeeperTexts
+GIMP/*.0
+Thunar
+dconf
+htop
+borg
+raycast
+spotify-player
+gh
+libreoffice/4
+lxgt
+pulse
+unity3d/*
+xarchiver
+xfce4/
+lxqt/
+pavucontrol.ini
+user-dirs.locale
