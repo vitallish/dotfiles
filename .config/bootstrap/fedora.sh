@@ -69,3 +69,4 @@ sudo dnf install lazygit
 
 # install am ins
 
+# make sure to run the appimage update script in the scripts folder
