@@ -52,6 +52,9 @@ export PROMPT="$PROMPT_PRE$PROMPT"
 eval "$(zoxide init zsh)"
 
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ "VAKD_COMP_OS" == Linux* ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+else 
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
-alias claude="/home/vitalydruker/.claude/local/claude"

@@ -23,6 +23,7 @@ alias lazyconfig='lazygit --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # https://github.com/bitwarden/clients/issues/6689
 alias bw='NODE_OPTIONS="--no-deprecation" bw'
   
+
 if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
   . $XDG_CONFIG_HOME/shell/alias-az.sh
 fi
