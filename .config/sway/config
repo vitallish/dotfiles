@@ -206,6 +206,7 @@ bindsym $mod+r mode "resize"
 
 
 
+gaps inner 10
 mouse_warping none
 focus_follows_mouse no
 

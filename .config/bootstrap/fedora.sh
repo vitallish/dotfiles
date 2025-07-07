@@ -4,8 +4,14 @@
 # 
 #
 
+sudo dnf install \
+  https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+  https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-sudo dnf install neovim wlogout btop lm_sensors git stress-ng zsh util-linux podman flatpak bat libreoffice git-delta
+sudo dnf clean all && sudo dnf makecache
+
+
+sudo dnf install neovim wlogout btop lm_sensors git stress-ng zsh util-linux podman flatpak bat libreoffice git-delt qutebrowser  libavcodec-freeworld
 sudo dnf install fuse fuse-libs
 
 # install homebrew (unclear if helpful to be honest)
