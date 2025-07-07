@@ -1,0 +1,148 @@
+{
+    "workbench.colorTheme": "Catppuccin Frappé",
+    "r.plot.useHttpgd": true,
+    "http.proxyAuthorization": null,
+    "git.autofetch": true,
+    "r.bracketedPaste": true,
+    "r.rterm.mac": "/usr/local/bin/radian",
+    "r.debugger.checkVersion": "none",
+    "terminal.integrated.defaultLocation": "editor",
+    "[mermaid]": {
+        "editor.wordBasedSuggestions": "off"
+    },
+    "git.confirmSync": false,
+    "projectManager.tags": [
+        "vial",
+        "wes",
+        "personal",
+        "teaching"
+    ],
+    "settingsSync.ignoredExtensions": [
+        "github.copilot"
+    ],
+    "terminal.integrated.enableMultiLinePasteWarning": false,
+    "editor.acceptSuggestionOnEnter": "off",
+    "explorer.confirmDragAndDrop": false,
+    "editor.accessibilitySupport": "off",
+    "workbench.startupEditor": "none",
+    "workbench.editor.closeEmptyGroups": false,
+    "workbench.sideBar.location": "right",
+    "r.helpPanel.cacheIndexFiles": "Workspace",
+    "r.plot.defaults.fullWindowMode": true,
+    "r.useRenvLibPath": true,
+    "rainbow_csv.align_in_scratch_file": true,
+    "rainbow_csv.enable_context_menu_head": true,
+    "r.rmarkdown.knit.openOutputFile": true,
+    "r.session.viewers.viewColumn": {
+        "browser": "Two",
+        "pageViewer": "Two"
+    },
+    "vim.leader": "<space>",
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [
+                "<CR>"
+            ],
+            "commands": [
+                "r.runSelection"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "<CR>"
+            ],
+            "commands": [
+                "r.runSelection"
+            ]
+        },
+        {
+            "before": [
+                "\\",
+                "t",
+                "s"
+            ],
+            "commands": [
+                {
+                    "command": "r.runCommand",
+                    "args": [
+                        "targets::tar_source()"
+                    ]
+                }
+            ]
+        },
+        {
+            "before": [
+                "\\",
+                "t",
+                "m"
+            ],
+            "commands": [
+                {
+                    "command": "workbench.action.tasks.runTask",
+                    "args": "R: Tar Make"
+                }
+            ]
+        },
+        {
+            "before": [
+                "\\",
+                "r",
+                "g"
+            ],
+            "commands": [
+                {
+                    "description": "Run glimpse with fallback",
+                    "command": "r.runCommandWithSelectionOrWord",
+                    "args": "options(width = as.integer(system2('tput', 'cols', stdout = TRUE)));tryCatch(dplyr::glimpse($$), error = function(e) str($$))"
+                }
+            ]
+        }
+    ],
+    "editor.tabSize": 2,
+    "settingsSync.ignoredSettings": [
+        "dev.containers.dockerPath",
+        "dev.containers.dockerComposePath"
+    ],
+    "remote.autoForwardPortsSource": "hybrid",
+    "quarto.zotero.library": "web",
+    "editor.fontLigatures": true,
+    "vim.useCtrlKeys": false,
+    "gitlens.showWelcomeOnInstall": false,
+    "gitlens.showWhatsNewAfterUpgrades": false,
+    "gitlens.plusFeatures.enabled": false,
+    "gitlens.views.branches.branches.layout": "list",
+    "hediet.vscode-drawio.resizeImages": null,
+    "security.promptForRemoteFileProtocolHandling": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "chat.commandCenter.enabled": false,
+    "githubIssues.queries": [
+        {
+            "label": "My Issues",
+            "query": "is:open assignee:${user} repo:${owner}/${repository}",
+            "groupBy": [
+                "milestone"
+            ]
+        },
+        {
+            "label": "Created Issues",
+            "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
+        },
+        {
+            "label": "Recent Issues",
+            "query": "state:open repo:${owner}/${repository} sort:updated-desc"
+        }
+    ],
+    "projectManager.git.baseFolders": [
+        "~/projects"
+    ],
+    "git.blame.editorDecoration.enabled": false,
+    "git.blame.statusBarItem.enabled": false,
+    "CodeGPT.apiKey": "Custom",
+    "docker.extension.dockerEngineAvailabilityPrompt": false,
+    "dev.containers.dockerPath": "podman",
+    "window.newWindowProfile": "Default",
+    "cSpell.autoFormatConfigFile": true,
+    "window.zoomLevel": 2,
+}

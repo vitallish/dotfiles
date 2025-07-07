@@ -1,0 +1,41 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "R",
+			"code": [
+				"pkgdown::build_site()"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "R: Pkgdown"
+		},
+		{
+			"type": "R",
+			"code": [
+				"if(file.exists('vignettes/precompile.R')) source('vignettes/precompile.R')",
+				"devtools::build_vignettes()"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "R: Build Vignettes"
+		},
+		{
+			"type": "R",
+			"code": [
+				"targets::tar_make()"
+			],
+			"group": "build",
+			"problemMatcher": [],
+			"label": "R: Tar Make",
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": false,
+				"clear": false
+			}
+		}
+	]
+}
