@@ -46,8 +46,8 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 # ssh-add ~/.ssh/id_ed25519
 
- flatpak install flathub org.mozilla.Thunderbird 
-
+flatpak install flathub org.mozilla.Thunderbird 
+flatpak install flathub com.bitwarden.desktop
 
 
 # probable will have to move .zshrc as ohmyzh overwrites it. Maybe there is a way to update this
