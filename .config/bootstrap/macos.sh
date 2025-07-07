@@ -105,6 +105,13 @@ if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
 fi
 
 
+# Create symlinks for qutebrowser
+
+
+ln -s ~/.config/qutebrowser/config.py ~/.qutebrowser/
+ln -s ~/.config/qutebrowser/autoconfig.yml ~/Library/Preferences/autoconfig.yml
+
+
 
 # skhd needs full disk permissions
 # May need to restart mac because skhd is not allowed to read the keyboard even after enabeling accessibility
