@@ -11,6 +11,8 @@ PLUGIN_DIR="$CONFIG_DIR/plugins"
 # https://felixkratz.github.io/SketchyBar/config/bar
 # If you are looking for other colors, see the color picker:
 # https://felixkratz.github.io/SketchyBar/config/tricks#color-picker
+. "$CONFIG_DIR/../shell/xdg.sh"
+. "$CONFIG_DIR/../shell/vars.sh"
 
 sb_bar=(
 		height=35
