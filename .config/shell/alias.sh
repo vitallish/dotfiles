@@ -22,7 +22,12 @@ alias lazyconfig='lazygit --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 # Temp workaround to disable punycode deprecation logging to stderr
 # https://github.com/bitwarden/clients/issues/6689
 alias bw='NODE_OPTIONS="--no-deprecation" bw'
+alias docx2pdf='libreoffice --headless --convert-to pdf'
   
+
+if [[ $VAKD_COMP_OS == "Mac" ]]; then
+  . $XDG_CONFIG_HOME/shell/alias-mac.sh
+fi
 
 if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
   . $XDG_CONFIG_HOME/shell/alias-az.sh

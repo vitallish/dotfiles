@@ -115,6 +115,7 @@ exclude_patterns:
     - /Users/vitalydruker/Pictures/Photos Library.photoslibrary
     - '*/Pictures/*/*Previews.lrdata'
     - '*/.DS_Store'
+    - /Users/vitalydruker/Pictures/Darktable/*
     # - '*.pyc'
     # - /home/*/.cache
     # - '*/.vim*.tmp'
