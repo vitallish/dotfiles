@@ -27,3 +27,16 @@ c.new_instance_open_target = 'tab'
 ##   - last-visible: Open new tabs in the most recently visible window.
 c.new_instance_open_target_window = 'last-focused'
 
+
+c.url.searchengines = {
+    'DEFAULT':  'https://kagi.com/search?q={}',
+    'g':       'https://google.com/search?hl=en&q={}',
+    'a':       'https://www.amazon.com/s?k={}',
+    'd':       'https://duckduckgo.com/?ia=web&q={}',
+    'gh':      'https://github.com/search?o=desc&q={}&s=stars',
+    'gi':      'https://www.google.com/search?tbm=isch&q={}&tbs=imgo:1',
+    'm':       'https://www.google.com/maps/search/{}',
+    'w':       'https://en.wikipedia.org/wiki/{}',
+    'yelp':    'https://www.yelp.com/search?find_desc={}',
+    'yt':      'https://www.youtube.com/results?search_query={}'
+}
