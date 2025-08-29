@@ -21,5 +21,6 @@ echo "===================="
 echo "Updating Beeper..."
 "$INSTALL_APPIMAGE" "https://api.beeper.com/desktop/download/linux/x64/stable/com.automattic.beeper.desktop"
 
+
 echo ""
 echo "All AppImages updated successfully!"

@@ -11,7 +11,8 @@ sudo dnf install \
 sudo dnf clean all && sudo dnf makecache
 
 
-sudo dnf install neovim wlogout btop lm_sensors git stress-ng zsh util-linux podman flatpak bat libreoffice git-delt qutebrowser  libavcodec-freeworld
+sudo dnf install neovim wlogout btop lm_sensors git stress-ng zsh util-linux podman flatpak bat libreoffice git-delt qutebrowser  libavcodec-freeworld fzf pipx openssl
+sudo dnf install kitty
 sudo dnf install fuse fuse-libs
 
 # install homebrew (unclear if helpful to be honest)
@@ -48,7 +49,9 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 flatpak install flathub org.mozilla.Thunderbird 
 flatpak install flathub com.bitwarden.desktop
-
+flatpak install flathub md.obsidian.Obsidian
+flatpak install flathub com.plexamp.Plexamp
+flatpak install flathub org.darktable.Darktable
 
 # probable will have to move .zshrc as ohmyzh overwrites it. Maybe there is a way to update this
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -73,6 +76,34 @@ sudo dnf copr enable atim/lazygit -y
 sudo dnf install lazygit
 
 
+
+sudo dnf install syncthing
+sudo systemctl enable syncthing@vitalydruker.service
+sudo systemctl start syncthing@vitalydruker.service
+
 # install am ins
 
 # make sure to run the appimage update script in the scripts folder
+#
+# borg/borgmatic
+
+sudo dnf install borg borgmatic
+
+
+sudo dnf install task timew
+# https://major.io/p/amd-gpu-missing-btop/
+# needed so that btop can show GPU stats
+sudo dnf install rocm-smi
+flatpak install com.spotify.Client
+
+
+sudo dnf copr enable lilay/topgrade
+sudo dnf install topgrade
+# add calculation to rofi
+sudo dnf install qalculate meson libtool cairo-devel rofi-devel
+
+#yazi install
+sudo dnf copr enable lihaohong/yazi
+sudo dnf install yazi gtk3-devel
+# install https://github.com/mwh/dragon#
+

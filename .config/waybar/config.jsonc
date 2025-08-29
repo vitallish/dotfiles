@@ -17,6 +17,7 @@
     "modules-right": [
         "idle_inhibitor",
         "pulseaudio",
+        "mpris",
         "network",
         "power-profiles-daemon",
         "cpu",
@@ -107,7 +108,7 @@
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format": "{:%Y-%m-%d %H:%M}"
     },
     "cpu": {
         "format": "{usage}% ",
@@ -186,12 +187,24 @@
         },
         "on-click": "pavucontrol"
     },
+  "mpris": {
+	    "format": "{player_icon} {dynamic}",
+	    "format-paused": "{status_icon} <i>{dynamic}</i>",
+	    "player-icons": {
+		    "default": "▶",
+        "spotify": "",
+		    "mpv": "🎵"
+      },
+	    "status-icons": {
+		  "paused": "⏸"
+    },
+	// "ignored-players": ["firefox"]
+  },
     "custom/media": {
         "format": "{icon} {text}",
         "return-type": "json",
         "max-length": 40,
         "format-icons": {
-            "spotify": "",
             "default": "🎜"
         },
         "escape": true,

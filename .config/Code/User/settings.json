@@ -145,4 +145,5 @@
     "window.newWindowProfile": "Default",
     "cSpell.autoFormatConfigFile": true,
     "window.zoomLevel": 2,
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
 }

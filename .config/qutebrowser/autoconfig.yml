@@ -16,23 +16,34 @@ settings:
     global: black
   content.desktop_capture:
     https://meet.google.com: true
+    https://mozilla.github.io: true
+    https://teams.live.com: true
   content.geolocation:
     https://www.samsung.com: false
   content.javascript.clipboard:
     global: access
   content.media.audio_capture:
     https://meet.google.com: true
+    https://teams.live.com: true
     https://teams.microsoft.com: true
+    https://vc-sg.larksuite.com: true
   content.media.audio_video_capture:
+    https://devicetest.teams.microsoft.com: true
     https://meet.google.com: true
+    https://teams.live.com: true
     https://teams.microsoft.com: true
+    https://vc-sg.larksuite.com: true
   content.media.video_capture:
+    https://livekit.io: true
     https://meet.google.com: true
+    https://teams.live.com: true
     https://teams.microsoft.com: true
+    https://vc-sg.larksuite.com: true
   content.notifications.enabled:
     https://calendar.google.com: true
     https://claude.ai: true
     https://meet.google.com: true
+    https://vc-sg.larksuite.com: true
     https://www.netmums.com: false
   content.register_protocol_handler:
     https://calendar.google.com?cid=%25s: true
