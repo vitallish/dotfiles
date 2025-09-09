@@ -15,6 +15,7 @@ fi
 
 
 export SCRIPTS="$XDG_CONFIG_HOME/scripts/"
+export VAKD_VENVS="$XDG_DATA_HOME/venvs"
 
 # pipx location
 export PATH="$PATH:$HOME/.local/bin"

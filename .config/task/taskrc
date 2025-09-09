@@ -1,6 +1,6 @@
 # [Created by task 3.1.0 11/12/2024 21:51:10]
 # data.location=/Users/vitalydruker/.task
-news.version=3.1.0
+news.version=3.4.1
 
 # To use the default location of the XDG directories,
 # move this configuration file from ~/.taskrc to ~/.config/task/taskrc and update location config as follows:
@@ -13,7 +13,7 @@ regex=on
 #include light-16.theme
 #include light-256.theme
 #include dark-16.theme
-#include dark-256.theme
+include dark-256.theme
 #include dark-red-256.theme
 #include dark-green-256.theme
 #include dark-blue-256.theme
@@ -27,8 +27,6 @@ regex=on
 
 uda.priority.values=H,M,,L
 max_active_tasks=1
-
-sync.local.server_dir=\/Users\/vitalydruker\/Notes\/personal\/zzz.othersync\/taskwarrior
 
 
 report.home.description=Report for tasks use for generic time tracking
@@ -44,4 +42,4 @@ report.wes.sort=project+\/,urgency+
 report.wes.filter=(project:wes or project:vial) and (status:pending or status:waiting)
 
 
-uda.taswarrior-tui.task-report.show-info=false
+uda.taskwarrior-tui.task-report.show-info=false

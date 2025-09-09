@@ -4,6 +4,7 @@ alias vim=nvim
 alias vi=nvim
 
 alias tt=taskwarrior-tui
+alias ttw=tt --report wes
 alias tx=tmuxinator
 
 alias qb="$SCRIPTS/qbprof.sh"

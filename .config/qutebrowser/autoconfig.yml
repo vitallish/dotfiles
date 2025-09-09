@@ -40,6 +40,7 @@ settings:
     https://teams.microsoft.com: true
     https://vc-sg.larksuite.com: true
   content.notifications.enabled:
+    https://app.slack.com: true
     https://calendar.google.com: true
     https://claude.ai: true
     https://meet.google.com: true
