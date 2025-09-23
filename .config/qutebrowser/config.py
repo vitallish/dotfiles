@@ -2,6 +2,8 @@ config.load_autoconfig()
 
 config.bind(',p', 'open https://ccny-proxy1.libr.ccny.cuny.edu/login?qurl={url:pretty}')
 config.bind(',f', 'spawn --detach firefox --new-window "{url}"')
+config.bind(',g', 'spawn --detach /usr/bin/open -a "/Applications/Google Chrome.app" "{url}"')
+
 
 ## How to open links in an existing instance if a new one is launched.
 ## This happens when e.g. opening a link from a terminal. See

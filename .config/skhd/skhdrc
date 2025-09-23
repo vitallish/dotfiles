@@ -85,6 +85,7 @@ window < alt - s : yabai -m space --layout stack
 window < shift -  s : yabai -m window --toggle split
 
 
+
 # Make window zoom to fullscreen: shift + lalt - f
 window < shift - f : yabai -m window --toggle zoom-fullscreen; skhd -k "escape"
 
@@ -110,12 +111,12 @@ system < l : pmset displaysleepnow; skhd -k "escape" # Locks the computer
 
 launcher < f : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger; skhd -k "escape" # floating ranger
 
-launcher < d : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ranger ~/Downloads --cmd "chain set sort=atime; set sort_reverse=True; pager_move to=-1"; skhd -k "escape" # floating ranger
+launcher < d : /opt/homebrew/bin/kitty --single-instance --title "Floating: " -d ~ ranger ~/Downloads --cmd "chain set sort=atime; set sort_reverse=True; pager_move to=-1"; skhd -k "escape" # floating ranger
 launcher < t : /opt/homebrew/bin/kitty --single-instance --title "Floating: Quick File" -d ~ ; skhd -k "escape" # floating terminal
 launcher < m : open -a "Microsoft Outlook"; skhd -k "escape" # Email
 
 launcher < t : /opt/homebrew/bin/kitty --single-instance --title "Floating: Terminal" -d ~; skhd -k "escape" # floating ranger
-launcher < w : /opt/homebrew/bin/kitty --single-instance --title "Floating: TimeWarrior" -d ~ taskwarrior-tui --report wes; skhd -k "escape" # floating ranger
+launcher < w : /opt/homebrew/bin/kitty --single-instance --title "Floating: TimeWarrior" -d ~ $HOME/.config/skhd/launch_tt.sh; skhd -k "escape" # floating ranger
 # hotkey is defined in alfred
 launcher < p : skhd -k "escape"; skhd -k "ctrl + alt + shift + cmd - l" # launch password manager
 
@@ -132,11 +133,12 @@ shift + ctrl - j    : yabai -m window south --stack $(yabai -m query --windows -
 shift + ctrl - k    : yabai -m window north --stack $(yabai -m query --windows --window | jq -r '.id')
 shift + ctrl - l : yabai -m window  east --stack $(yabai -m query --windows --window | jq -r '.id')
 
-# Stack Navigation: shift + ctrl - {n, p}
+# Stack Navigation: alt + shift + [/]
 # added ability to circle back 
-shift + ctrl - n : yabai -m window --focus stack.next || yabai -m window --focus stack.first
-shift + ctrl - p : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
-
+# right bracket
+alt - 0x1E : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+# left bracked
+alt - 0x21: yabai -m window --focus stack.prev || yabai -m window --focus stack.last
 ## Resize (ctrl + lalt - ...)
 # Resize windows: ctrl + lalt - {j, k, l, ö}
 ctrl + lalt - h    : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
@@ -154,6 +156,11 @@ shift + ctrl + lalt - j : yabai -m window --insert south
 shift + ctrl + lalt - k : yabai -m window --insert north
 shift + ctrl + lalt - l : yabai -m window --insert east
 shift + ctrl + lalt - s : yabai -m window --insert stack
+
+
+ 
+# kill windwo or soemthing the like?
+alt + shift - q : $HOME/.config/skhd/kill_last_instance.sh
 
 
 

@@ -104,6 +104,10 @@ if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
   open https://github.com/qutebrowser/qutebrowser/releases
 fi
 
+# install bugwarrior
+# need to use 3.12 because 3.13 has some certificate issues on AZ machines
+brew install python@3.12
+pipx install git+https://github.com/GothenburgBitFactory/bugwarrior.git --python ($which python3.12)
 
 # Create symlinks for qutebrowser
 
@@ -161,7 +165,7 @@ ln -s ~/.config/qutebrowser/autoconfig.yml ~/Library/Preferences/autoconfig.yml
 # disable .DS_Store on network drives
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE
 
-
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 # Install spotify player
 # install rust
 # curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
