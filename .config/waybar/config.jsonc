@@ -15,6 +15,7 @@
         "sway/window"
     ],
     "modules-right": [
+        "custom/timewarrior",
         "idle_inhibitor",
         "pulseaudio",
         "mpris",
@@ -222,5 +223,13 @@
 			"suspend": "systemctl suspend",
 			"hibernate": "systemctl hibernate"
 		}
-    }
+    },
+  "custom/timewarrior": {
+      "format": "TW {}",
+      "exec": "~/.config/scripts/tw-current.sh",
+      "interval": 1
+
+
+  }
+
 }

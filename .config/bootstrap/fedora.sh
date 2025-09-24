@@ -105,5 +105,26 @@ sudo dnf install qalculate meson libtool cairo-devel rofi-devel
 #yazi install
 sudo dnf copr enable lihaohong/yazi
 sudo dnf install yazi gtk3-devel
-# install https://github.com/mwh/dragon#
 
+# install https://github.com/mwh/dragon#
+# install Hack Nerd Font
+
+# install zotero from official tarball
+# Install dependency first
+sudo dnf install dbus-glib
+# 1. Download tarball from https://www.zotero.org/download/
+cd /tmp && wget -O Zotero-linux-x86_64.tar.bz2 "https://download.zotero.org/client/release/7.0.11/Zotero-7.0.11_linux-x86_64.tar.bz2"
+# 2. Extract to /opt/
+sudo tar -xjf /tmp/Zotero-linux-x86_64.tar.bz2 -C /opt/
+# 3. Rename directory
+sudo mv /opt/Zotero_linux-x86_64 /opt/zotero
+# 4. Set up desktop integration
+cd /opt/zotero && sudo ./set_launcher_icon
+# 5. Create desktop file symlink
+mkdir -p ~/.local/share/applications && ln -sf /opt/zotero/zotero.desktop ~/.local/share/applications/
+# 6. Update desktop database and set URL handler
+update-desktop-database ~/.local/share/applications
+xdg-settings set default-url-scheme-handler zotero zotero.desktop
+# Note: If zotero:// URLs don't work, may need to fix Exec line in /opt/zotero/zotero.desktop
+# Change from: Exec=bash -c "$(dirname $(realpath $(echo %k | sed -e 's/^file:\\/\\///')))/zotero -url %U"
+# To: Exec=/opt/zotero/zotero -url %U

@@ -23,6 +23,7 @@ settings:
   content.javascript.clipboard:
     global: access
   content.media.audio_capture:
+    https://app.slack.com: true
     https://meet.google.com: true
     https://teams.live.com: true
     https://teams.microsoft.com: true
@@ -89,5 +90,7 @@ settings:
     global: close
   tabs.position:
     global: top
+  url.default_page:
+    global: https://kagi.com/
   window.transparent:
     global: false
