@@ -58,6 +58,3 @@ else
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-
-# opencode
-export PATH=/home/vitalydruker/.opencode/bin:$PATH
