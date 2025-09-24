@@ -1,3 +1,13 @@
-
 [Default Applications]
 x-scheme-handler/beeper=beepertexts.desktop
+text/html=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
+x-scheme-handler/zotero=zotero.desktop
+x-scheme-handler/mailto=userapp-Evolution-FIT8C3.desktop
+
+[Added Associations]
+application/pdf=libreoffice-draw.desktop;
+x-scheme-handler/mailto=userapp-Evolution-FIT8C3.desktop;

@@ -1,4 +1,4 @@
-#!/Users/vitalydruker/.virtualenvs/timewarrior/bin/python3
+#!/usr/bin/env python3
 
 # -*- coding: utf-8 -*-
 #
@@ -7,8 +7,14 @@
 # Author: Frank Stollmeier
 # License: MIT
 
-
+import os
 import sys
+
+# Use virtual environment if VAKD_VENVS is set
+if 'VAKD_VENVS' in os.environ:
+    venv_path = os.path.join(os.environ['VAKD_VENVS'], 'timewarrior-report', 'lib', 'python3.13', 'site-packages')
+    if os.path.exists(venv_path):
+        sys.path.insert(0, venv_path)
 from timewreport.parser import TimeWarriorParser
 
 

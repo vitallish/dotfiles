@@ -6,8 +6,8 @@
 !README.md
 
 #qutebrowser
-!.qutebrowser/
-!.qutebrowser/*/
+#!.qutebrowser/
+#!.qutebrowser/*/
 
 # include the .config folder
 !.config/
