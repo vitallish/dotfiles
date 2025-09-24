@@ -1,7 +1,14 @@
 config.load_autoconfig()
 
 config.bind(',p', 'open https://ccny-proxy1.libr.ccny.cuny.edu/login?qurl={url:pretty}')
+
 config.bind(',f', 'spawn --detach firefox --new-window "{url}"')
+config.bind(',F', 'hint links spawn --detach firefox --new-window "{hint-url}"')
+
+# See Number 10 here. If i use this a lot sounds like you can also queue up videos pretty easily.
+config.bind(',m', 'spawn mpv {url}')
+config.bind(',M', 'hint links spawn mpv {hint-url}')
+
 
 ## How to open links in an existing instance if a new one is launched.
 ## This happens when e.g. opening a link from a terminal. See
@@ -27,3 +34,16 @@ c.new_instance_open_target = 'tab'
 ##   - last-visible: Open new tabs in the most recently visible window.
 c.new_instance_open_target_window = 'last-focused'
 
+
+c.url.searchengines = {
+    'DEFAULT':  'https://kagi.com/search?q={}',
+    'g':       'https://google.com/search?hl=en&q={}',
+    'a':       'https://www.amazon.com/s?k={}',
+    'd':       'https://duckduckgo.com/?ia=web&q={}',
+    'gh':      'https://github.com/search?o=desc&q={}&s=stars',
+    'gi':      'https://www.google.com/search?tbm=isch&q={}&tbs=imgo:1',
+    'm':       'https://www.google.com/maps/search/{}',
+    'w':       'https://en.wikipedia.org/wiki/{}',
+    'yelp':    'https://www.yelp.com/search?find_desc={}',
+    'yt':      'https://www.youtube.com/results?search_query={}'
+}
