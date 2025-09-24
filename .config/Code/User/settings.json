@@ -145,4 +145,6 @@
     "window.newWindowProfile": "Default",
     "cSpell.autoFormatConfigFile": true,
     "window.zoomLevel": 2,
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "editor.fontFamily": "'Hack Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace",
 }

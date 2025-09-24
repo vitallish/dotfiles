@@ -17,7 +17,7 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 # binds
 # https://github.com/BreadOnPenguins/dots/blob/9bee0f03b394f1ff765385ffeee0345e29518d0b/.config/zsh/.zshrc
@@ -58,3 +58,6 @@ else
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+
+# opencode
+export PATH=/home/vitalydruker/.opencode/bin:$PATH

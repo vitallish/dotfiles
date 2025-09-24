@@ -1,0 +1,8 @@
+2025/08/27-12:33:49.057 4 Reusing MANIFEST /home/vitalydruker/.config/chromium/Default/Local Storage/leveldb/MANIFEST-000001
+2025/08/27-12:33:49.060 4 Recovering log #4
+2025/08/27-12:33:49.060 4 Level-0 table #7: started
+2025/08/27-12:33:49.061 4 Level-0 table #7: 107243 bytes OK
+2025/08/27-12:33:49.063 4 Delete type=0 #4
+2025/08/27-12:34:04.752 5 Level-0 table #10: started
+2025/08/27-12:34:04.757 5 Level-0 table #10: 42085 bytes OK
+2025/08/27-12:34:04.759 5 Delete type=0 #8

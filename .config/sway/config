@@ -15,7 +15,8 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 # Recommends: foot
-set $term foot
+set $term kitty
+set $browser qutebrowser
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -26,6 +27,11 @@ set $rofi_cmd rofi \
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
 set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+# needs rofi-calc. Fedora requires building from source
+set $menu_calc $rofi_cmd -show calc -modi calc -no-show-match -no-sort
+set $menu_window $rofi_cmd -show window
+
+
 
 ### Output configuration
 #
@@ -72,12 +78,15 @@ output * bg /usr/share/backgrounds/default.jxl fill
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $browser
 
     # Kill focused window
     bindsym $mod+Shift+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
+    bindsym $mod+c exec $menu_calc
+    bindsym $mod+t exec $menu_window
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

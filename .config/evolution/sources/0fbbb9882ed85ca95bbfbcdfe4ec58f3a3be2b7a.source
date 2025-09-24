@@ -1,0 +1,53 @@
+[Data Source]
+DisplayName=vitaly@vial.com
+Enabled=true
+Parent=72710f0251e41170f2faf6ac2e13381894bcc5c7
+
+[Mail Submission]
+SentFolder=folder://local/Sent
+TransportUid=d8ad09907272f308e77bdd6edbff40e6dab910ff
+RepliesToOriginFolder=false
+UseSentFolder=true
+
+[Mail Composition]
+Bcc=
+Cc=
+DraftsFolder=folder://de59f475ea95763601aa73dc63ffc69de554c9b5/%5bGmail%5d/Drafts
+ReplyStyle=default
+SignImip=true
+TemplatesFolder=folder://local/Templates
+StartBottom=inconsistent
+TopSignature=inconsistent
+Language=
+
+[Mail Identity]
+Address=vitaly@vial.com
+Aliases=
+Name=Vitaly Druker
+Organization=
+ReplyTo=
+SignatureUid=none
+
+[Pretty Good Privacy (OpenPGP)]
+AlwaysTrust=false
+EncryptToSelf=true
+KeyId=
+SigningAlgorithm=
+SignByDefault=false
+EncryptByDefault=false
+PreferInline=false
+LocateKeys=true
+SendPublicKey=true
+SendPreferEncrypt=true
+AskSendPublicKey=true
+
+[Message Disposition Notifications]
+ResponsePolicy=ask
+
+[Secure MIME (S/MIME)]
+EncryptionCertificate=
+EncryptByDefault=false
+EncryptToSelf=true
+SigningAlgorithm=
+SigningCertificate=
+SignByDefault=false

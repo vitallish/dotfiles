@@ -1,0 +1,53 @@
+[Data Source]
+DisplayName=vitaly@westendstats.com
+Enabled=true
+Parent=112c75181e2e9aebe69cbf6a256641bb01fec13f
+
+[Mail Submission]
+SentFolder=folder://local/Sent
+TransportUid=9559789b4e19bbdab7c955eaadc37f1fd9b2cb10
+RepliesToOriginFolder=false
+UseSentFolder=true
+
+[Mail Composition]
+Bcc=
+Cc=
+DraftsFolder=folder://5e78c67c14f0ca755f9e498acee0caffdd58d70b/%5bGmail%5d/Drafts
+ReplyStyle=default
+SignImip=true
+TemplatesFolder=folder://local/Templates
+StartBottom=inconsistent
+TopSignature=inconsistent
+Language=
+
+[Mail Identity]
+Address=vitaly@westendstats.com
+Aliases=
+Name=Vitaly Druker
+Organization=
+ReplyTo=
+SignatureUid=none
+
+[Pretty Good Privacy (OpenPGP)]
+AlwaysTrust=false
+EncryptToSelf=true
+KeyId=
+SigningAlgorithm=
+SignByDefault=false
+EncryptByDefault=false
+PreferInline=false
+LocateKeys=true
+SendPublicKey=false
+SendPreferEncrypt=true
+AskSendPublicKey=true
+
+[Message Disposition Notifications]
+ResponsePolicy=ask
+
+[Secure MIME (S/MIME)]
+EncryptionCertificate=
+EncryptByDefault=false
+EncryptToSelf=true
+SigningAlgorithm=
+SigningCertificate=
+SignByDefault=false

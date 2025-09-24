@@ -1,0 +1,29 @@
+[Data Source]
+DisplayName=vdruker@gmail.com
+Enabled=true
+Parent=8eb786ca427f631a672d865fe09f448e6f5961fc
+
+[Mail Submission]
+SentFolder=folder://local/Sent
+TransportUid=297199300ed3d5e47b2b1be9963cf63449691aca
+RepliesToOriginFolder=false
+UseSentFolder=true
+
+[Mail Composition]
+Bcc=
+Cc=
+DraftsFolder=folder://887a052a93479b38d985b7dd66f0d8e696a7de8e/%5bGmail%5d/Drafts
+ReplyStyle=default
+SignImip=true
+TemplatesFolder=folder://local/Templates
+StartBottom=inconsistent
+TopSignature=inconsistent
+Language=
+
+[Mail Identity]
+Address=vdruker@gmail.com
+Aliases=
+Name=Vitaly Druker
+Organization=
+ReplyTo=
+SignatureUid=none
