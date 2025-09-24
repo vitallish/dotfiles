@@ -11,7 +11,8 @@ sudo dnf install \
 sudo dnf clean all && sudo dnf makecache
 
 
-sudo dnf install neovim wlogout btop lm_sensors git stress-ng zsh util-linux podman flatpak bat libreoffice git-delt qutebrowser  libavcodec-freeworld
+sudo dnf install neovim wlogout btop lm_sensors git stress-ng zsh util-linux podman flatpak bat libreoffice git-delt qutebrowser  libavcodec-freeworld fzf pipx openssl
+sudo dnf install kitty
 sudo dnf install fuse fuse-libs
 
 # install homebrew (unclear if helpful to be honest)
@@ -48,7 +49,9 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 flatpak install flathub org.mozilla.Thunderbird 
 flatpak install flathub com.bitwarden.desktop
-
+flatpak install flathub md.obsidian.Obsidian
+flatpak install flathub com.plexamp.Plexamp
+flatpak install flathub org.darktable.Darktable
 
 # probable will have to move .zshrc as ohmyzh overwrites it. Maybe there is a way to update this
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -73,6 +76,55 @@ sudo dnf copr enable atim/lazygit -y
 sudo dnf install lazygit
 
 
+
+sudo dnf install syncthing
+sudo systemctl enable syncthing@vitalydruker.service
+sudo systemctl start syncthing@vitalydruker.service
+
 # install am ins
 
 # make sure to run the appimage update script in the scripts folder
+#
+# borg/borgmatic
+
+sudo dnf install borg borgmatic
+
+
+sudo dnf install task timew
+# https://major.io/p/amd-gpu-missing-btop/
+# needed so that btop can show GPU stats
+sudo dnf install rocm-smi
+flatpak install com.spotify.Client
+
+
+sudo dnf copr enable lilay/topgrade
+sudo dnf install topgrade
+# add calculation to rofi
+sudo dnf install qalculate meson libtool cairo-devel rofi-devel
+
+#yazi install
+sudo dnf copr enable lihaohong/yazi
+sudo dnf install yazi gtk3-devel
+
+# install https://github.com/mwh/dragon#
+# install Hack Nerd Font
+
+# install zotero from official tarball
+# Install dependency first
+sudo dnf install dbus-glib
+# 1. Download tarball from https://www.zotero.org/download/
+cd /tmp && wget -O Zotero-linux-x86_64.tar.bz2 "https://download.zotero.org/client/release/7.0.11/Zotero-7.0.11_linux-x86_64.tar.bz2"
+# 2. Extract to /opt/
+sudo tar -xjf /tmp/Zotero-linux-x86_64.tar.bz2 -C /opt/
+# 3. Rename directory
+sudo mv /opt/Zotero_linux-x86_64 /opt/zotero
+# 4. Set up desktop integration
+cd /opt/zotero && sudo ./set_launcher_icon
+# 5. Create desktop file symlink
+mkdir -p ~/.local/share/applications && ln -sf /opt/zotero/zotero.desktop ~/.local/share/applications/
+# 6. Update desktop database and set URL handler
+update-desktop-database ~/.local/share/applications
+xdg-settings set default-url-scheme-handler zotero zotero.desktop
+# Note: If zotero:// URLs don't work, may need to fix Exec line in /opt/zotero/zotero.desktop
+# Change from: Exec=bash -c "$(dirname $(realpath $(echo %k | sed -e 's/^file:\\/\\///')))/zotero -url %U"
+# To: Exec=/opt/zotero/zotero -url %U

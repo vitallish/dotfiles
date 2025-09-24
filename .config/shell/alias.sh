@@ -4,6 +4,12 @@ alias vim=nvim
 alias vi=nvim
 
 alias tt=taskwarrior-tui
+alias ttw="tt --report wes"
+
+alias twrm="timew wes :month"
+alias twrlm="timew wes :lastmonth"
+alias twrt="timew wes :today"
+
 alias tx=tmuxinator
 
 alias qb="$SCRIPTS/qbprof.sh"
