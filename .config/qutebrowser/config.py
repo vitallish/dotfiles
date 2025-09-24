@@ -1,7 +1,14 @@
 config.load_autoconfig()
 
 config.bind(',p', 'open https://ccny-proxy1.libr.ccny.cuny.edu/login?qurl={url:pretty}')
+
 config.bind(',f', 'spawn --detach firefox --new-window "{url}"')
+config.bind(',F', 'hint links spawn --detach firefox --new-window "{hint-url}"')
+
+# See Number 10 here. If i use this a lot sounds like you can also queue up videos pretty easily.
+config.bind(',m', 'spawn mpv {url}')
+config.bind(',M', 'hint links spawn mpv {hint-url}')
+
 
 ## How to open links in an existing instance if a new one is launched.
 ## This happens when e.g. opening a link from a terminal. See

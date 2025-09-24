@@ -19,3 +19,10 @@ export SCRIPTS="$XDG_CONFIG_HOME/scripts/"
 # pipx location
 export PATH="$PATH:$HOME/.local/bin"
 
+# setup homebrew variables. Usually I think this is
+# in your .bash_profile file but this makes it available for different shells
+if [[ "$VAKD_COMP_OS" == Linux* ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+else 
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
