@@ -1,0 +1,33 @@
+# https://torsion.org/borgmatic/docs/how-to/provide-your-passwords/
+# update this to not be plain text
+encryption_passcommand: pass borgmatic/encryption_passphrase
+# this was needed when I renamed the path
+relocated_repo_access_is_ok: true
+source_directories:
+    - /home/vitalydruker/Documents
+    - /home/vitalydruker/repos/
+    - /home/vitalydruker/Desktop/
+    - /home/vitalydruker/.ssh
+    - /home/vitalydruker/.config/
+
+    # - /etc
+
+repositories:
+    # The local path or Borg URL of the repository.
+    - path: ssh://borgdrukernasnyc/volume1/borgbackup/thebeef
+      label: remote
+exclude_if_present:
+    - .nobackup
+keep_daily: 7
+# Number of weekly archives to keep.
+keep_weekly: 4
+# Number of monthly archives to keep.
+keep_monthly: 12
+# Number of yearly archives to keep.
+keep_yearly: 5
+
+
+healthchecks: 
+  ping_url: https://hc-ping.com/50c8a473-fd27-467e-8bff-cf7a0dc569e0
+
+
