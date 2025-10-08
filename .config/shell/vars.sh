@@ -25,6 +25,9 @@ export VAKD_VENVS="$XDG_DATA_HOME/venvs"
 # pipx location
 export PATH="$PATH:$HOME/.local/bin"
 
+# cargo location
+export PATH="$HOME/.cargo/bin:$PATH"
+
 # setup homebrew variables. Usually I think this is
 # in your .bash_profile file but this makes it available for different shells
 if [[ "$VAKD_COMP_OS" == Linux* ]]; then

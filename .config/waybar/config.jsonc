@@ -9,23 +9,25 @@
     "modules-left": [
         "sway/workspaces",
         "sway/mode",
-        "sway/scratchpad"
+        "sway/scratchpad",
+        "mpris"
     ],
     "modules-center": [
         "sway/window"
     ],
     "modules-right": [
         "custom/timewarrior",
+        "custom/weather",
         "idle_inhibitor",
         "pulseaudio",
-        "mpris",
         "network",
-        "power-profiles-daemon",
+        "network/speed",
+        // "power-profiles-daemon",
         "cpu",
         "memory",
         "temperature",
-        "backlight",
-        "battery",
+        // "backlight",
+        // "battery",
         "clock",
         "tray"
     ],
@@ -162,12 +164,15 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "interval": 1,
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ipaddr}/{cidr} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "{bandwidthUpBytes}/{bandwidthDownBytes} ",
+        "min-length": 25,
+        "max-length": 25
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
@@ -226,10 +231,19 @@
     },
   "custom/timewarrior": {
       "format": "TW {}",
-      "exec": "~/.config/scripts/tw-current.sh",
-      "interval": 1
+      "exec": "~/.config/waybar/tw-current-waybar.sh",
+      "return-type": "json",
+      "interval": 1,
+      "min-length": 12,
+      "max-length": 15,
+      "on-click": "~/.config/waybar/toggle-task.sh"
 
-
+  },
+  "custom/weather": {
+      "exec": "~/.cargo/bin/outside -o waybar -u imperial --24",
+      "format": "{text}",
+      "tooltip": true,
+      "return-type": "json",
+      "interval": 300
   }
-
 }

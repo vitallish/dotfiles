@@ -196,7 +196,7 @@ return {
         require("mason-lspconfig").setup {
           ensure_installed = {"r_language_server"},
         }
-        require'lspconfig'.r_language_server.setup{}
+        vim.lsp.enable('r_language_server')
     end,
     },
   }

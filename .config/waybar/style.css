@@ -1,6 +1,6 @@
 * {
     font-family: 'Noto Sans Mono', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', 'Hack Nerd Font Propo', monospace;
-    font-size: 13px;
+    font-size: 16px;
 }
 
 window#waybar {
@@ -323,4 +323,20 @@ label:focus {
 
 #privacy-item.audio-out {
     background-color: #0069d4;
+}
+
+#custom-weather {
+    padding: 0.3rem 0.6rem;
+    margin: 0.3rem 0.25rem;
+    border-radius: 3px;
+    background-color: #2d3436;
+    /* background-color: #1a1a1f; */
+    /* color: #f9e2af;  */
+}
+
+#custom-timewarrior {
+    padding: 0.3rem 0.6rem;
+    margin: 0.3rem 0.25rem;
+    border-radius: 3px;
+    background-color: #2d3436;
 }

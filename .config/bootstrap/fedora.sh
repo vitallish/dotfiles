@@ -128,3 +128,10 @@ xdg-settings set default-url-scheme-handler zotero zotero.desktop
 # Note: If zotero:// URLs don't work, may need to fix Exec line in /opt/zotero/zotero.desktop
 # Change from: Exec=bash -c "$(dirname $(realpath $(echo %k | sed -e 's/^file:\\/\\///')))/zotero -url %U"
 # To: Exec=/opt/zotero/zotero -url %U
+
+# Install Rust and cargo
+sudo dnf install rust cargo
+# Install Perl modules needed for compiling OpenSSL from source
+sudo dnf install perl-FindBin perl-IPC-Cmd perl-devel openssl-devel
+# Install outside CLI tool for managing external configurations
+cargo install outside
