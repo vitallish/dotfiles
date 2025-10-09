@@ -20,6 +20,8 @@ require("lazy").setup("plugins", {
   checker = { enabled = false },
   -- do not notify when there are changes to config
   change_detection = {enabled = false},
+  -- disable luarocks support (no plugins require it)
+  rocks = { enabled = false },
   performance = {
     rtp = {
       disabled_plugins = {

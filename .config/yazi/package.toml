@@ -1,0 +1,7 @@
+[[plugin.deps]]
+use = "WhoSowSee/whoosh"
+rev = "0899338"
+hash = "feeea394d143abfa49a4fddcb353d115"
+
+[flavor]
+deps = []

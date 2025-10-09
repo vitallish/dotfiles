@@ -15,6 +15,11 @@ sudo dnf install neovim wlogout btop lm_sensors git stress-ng zsh util-linux pod
 sudo dnf install kitty
 sudo dnf install fuse fuse-libs
 
+# Setup neovim python virtual environment
+mkdir -p "$VAKD_VENVS"
+python3 -m venv "$VAKD_VENVS/nvim"
+"$VAKD_VENVS/nvim/bin/pip" install pynvim
+
 # install homebrew (unclear if helpful to be honest)
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 # homebrew development tools
