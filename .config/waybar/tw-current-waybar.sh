@@ -1,4 +1,8 @@
 #! /bin/zsh
+
+# Source shared task helper functions
+source ~/.config/waybar/task-helpers.sh
+
 timewstatus=$(timew get dom.active)
 
 if [ "$timewstatus" -eq "1" ]; then
