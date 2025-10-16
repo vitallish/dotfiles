@@ -87,7 +87,7 @@ output * bg /usr/share/backgrounds/default.jxl fill
     bindsym $mod+d exec $menu
     bindsym $mod+c exec $menu_calc
     bindsym $mod+t exec $menu_window
-
+    bindsym $mod+i exec rofimoji 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
