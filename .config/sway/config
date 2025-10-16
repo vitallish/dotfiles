@@ -87,7 +87,8 @@ output * bg /usr/share/backgrounds/default.jxl fill
     bindsym $mod+d exec $menu
     bindsym $mod+c exec $menu_calc
     bindsym $mod+t exec $menu_window
-    bindsym $mod+i exec rofimoji 
+    bindsym $mod+i exec rofimoji
+    bindsym $mod+u exec rofi -show rofi-sound -modi "rofi-sound:/home/vitalydruker/repos/personal/rofi-sound/rofi-sound-output-chooser" 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -188,6 +189,8 @@ output * bg /usr/share/backgrounds/default.jxl fill
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+    #quickly cycle through scratch pad once it's showing.
+    bindsym $mod+ctrl+minus scratchpad show; scratchpad show
 #
 # Resizing containers:
 #
