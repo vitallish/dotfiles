@@ -213,11 +213,43 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+#
+# Launcher mode:
+# 
+set $launchtodefault  exec pkill -f launcher-help.sh; mode "default"
+mode "launcher" {
+    # Launch applications
+    bindsym e exec evolution; $launchtodefault
+    bindsym c exec code; $launchtodefault
+    bindsym m exec beeper; $launchtodefault
+    bindsym a exec plexamp;$launchtodefault
+    bindsym s exec spotify; $launchtodefault
+    bindsym p exec bitwarden; $launchtodefault
+    bindsym t exec $term --class floating; $launchtodefault
+
+    # Return to default mode
+    bindsym Return $launchtodefault 
+    bindsym Escape $launchtodefault
+}
+bindsym $mod+o mode "launcher"; exec $term --app-id=launcher-help -e ~/.config/sway/launcher-help.sh
+
 
 
 gaps inner 10
 mouse_warping none
 focus_follows_mouse no
+
+# Make terminals with floating class actually float
+for_window [app_id="floating"] floating enable
+
+# Launcher help popup in upper right corner
+for_window [app_id="launcher-help"] {
+  floating enable
+  resize set width 1000px height 400px
+  move position 100ppt 0
+  move left 800px
+  sticky enable
+}
 
 bindsym $mod+p       exec grimshot copy active
 bindsym $mod+Shift+p exec grimshot copy area
