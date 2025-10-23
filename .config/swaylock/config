@@ -1,0 +1,17 @@
+image=/home/vitalydruker/Downloads/a_forest_with_moss_and_trees.jpg
+scaling=fill
+ignore-empty-password
+indicator-caps-lock
+
+ring-color=4a7c59
+key-hl-color=6b9f7a
+bs-hl-color=d4885c
+inside-color=2d3436
+line-color=5a6268
+text-color=e8e8e8
+ring-ver-color=7fbd8f
+inside-ver-color=2d3436
+ring-wrong-color=c97855
+inside-wrong-color=3d2520
+ring-clear-color=6b9f7a
+inside-clear-color=2d3436

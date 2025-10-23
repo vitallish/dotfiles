@@ -37,7 +37,8 @@ set $menu_window $rofi_cmd -show window
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg, jxl-pixbuf-loader
-output * bg /usr/share/backgrounds/default.jxl fill
+# output * bg /usr/share/backgrounds/default.jxl fill
+output * bg /home/vitalydruker/Downloads/a_forest_with_moss_and_trees.jpg fill
 #
 # Example configuration:
 #
@@ -98,6 +99,9 @@ output * bg /usr/share/backgrounds/default.jxl fill
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
+
+    # Lock the screen
+    bindsym $mod+Shift+Escape exec loginctl lock-session
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
@@ -259,6 +263,10 @@ bindsym $mod+Shift+p exec grimshot copy area
 bindsym $mod+Mod4+p  exec grimshot copy output
 bindsym $mod+Ctrl+p  exec grimshot copy window
 
+
+# Idle and lock timeout configuration
+set $lock_timeout 600
+set $screen_timeout 120
 
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
