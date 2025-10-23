@@ -19,6 +19,10 @@ then
   export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | bat -p -lman'"
 fi
 
+# setup ssh-agent
+# note had to run: systemctl --user enable --now ssh-agent
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+
 export SCRIPTS="$XDG_CONFIG_HOME/scripts/"
 export VAKD_VENVS="$XDG_DATA_HOME/venvs"
 

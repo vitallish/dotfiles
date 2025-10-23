@@ -138,7 +138,7 @@
         "~/projects"
     ],
     "git.blame.editorDecoration.enabled": false,
-    "git.blame.statusBarItem.enabled": false,
+    "git.blame.statusBarItem.enabled": true,
     "CodeGPT.apiKey": "Custom",
     "docker.extension.dockerEngineAvailabilityPrompt": false,
     "dev.containers.dockerPath": "podman",
@@ -147,4 +147,11 @@
     "window.zoomLevel": 2,
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "editor.fontFamily": "'Hack Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace",
+    "cSpell.userWords": [
+        "prespecified"
+    ],
+    "cSpell.maxNumberOfProblems": 1000,
+    "cSpell.dictionaries": [
+        "r"
+    ],
 }
