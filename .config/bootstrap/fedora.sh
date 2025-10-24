@@ -140,3 +140,8 @@ sudo dnf install rust cargo
 sudo dnf install perl-FindBin perl-IPC-Cmd perl-devel openssl-devel
 # Install outside CLI tool for managing external configurations
 cargo install outside
+
+# Install ouch (painless compression and decompression tool)
+# Requires clang-devel for building
+sudo dnf install clang-devel
+cargo install ouch

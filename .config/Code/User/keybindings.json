@@ -238,5 +238,17 @@
         "key": "ctrl+b v",
         "command": "workbench.action.tasks.runTask",
         "args": "R: Build Vignettes"
+    },
+    {
+        "key": "ctrl+; r",
+        "command": "r.createRTerm"
+    },
+    {
+        "key": "ctrl+w ctrl+w",
+        "command": "workbench.action.closeActiveEditor"
+    },
+    {
+        "key": "ctrl+w",
+        "command": "-workbench.action.closeActiveEditor"
     }
 ]

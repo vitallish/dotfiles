@@ -3,5 +3,10 @@ use = "WhoSowSee/whoosh"
 rev = "0899338"
 hash = "feeea394d143abfa49a4fddcb353d115"
 
+[[plugin.deps]]
+use = "ndtoan96/ouch"
+rev = "0742fff"
+hash = "2bd799b42b8e42b8ef100310be71f8d1"
+
 [flavor]
 deps = []

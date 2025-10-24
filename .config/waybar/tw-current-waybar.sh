@@ -8,8 +8,19 @@ timewstatus=$(timew get dom.active)
 if [ "$timewstatus" -eq "1" ]; then
   text=$(timew get dom.active.duration)
   tooltip=$(timew | head -n 1 | sed "s/\"/'/g")
-  echo "{\"text\":\"$text\",\"tooltip\":\"$tooltip\"}"
+  class="active"
 else
-  echo "{\"text\":\"󱎬\",\"tooltip\":\"No active time tracking\"}"
+  text="󱎬"
+  tooltip="No active time tracking"
+  class="inactive"
 fi
 
+# -n - null input, -c compact output is necessary for waybar
+# ARGS.named is a special jq thing -uses arg names
+JSON_STRING=$( jq -nc \
+  --arg text    "$text" \
+  --arg tooltip "$tooltip" \
+  --arg class   "$class" \
+  '$ARGS.named')
+
+echo $JSON_STRING
