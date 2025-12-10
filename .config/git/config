@@ -1,5 +1,5 @@
 [user]
-	email = vdruker@gmail.com
+	email = cultural4063@protonmail.com
   name = Vitaly Druker
 
 [core]
@@ -17,3 +17,5 @@
 
 [merge]
     conflictstyle = zdiff3
+[push]
+	autoSetupRemote = true
