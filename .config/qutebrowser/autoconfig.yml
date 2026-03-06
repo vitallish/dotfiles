@@ -17,6 +17,8 @@ settings:
   content.desktop_capture:
     https://meet.google.com: true
   content.geolocation:
+    https://builtin.com: false
+    https://www.hermanmiller.com: false
     https://www.samsung.com: false
   content.javascript.clipboard:
     global: access

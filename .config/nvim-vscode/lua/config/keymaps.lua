@@ -24,7 +24,12 @@ if vim.g.vscode then
     keymap({"n", "v"}, "<CR>", function()
         vscode.action('r.runSelection')
     end, opts)
-
+    keymap({"n", "v"}, "<localleader>rh", function()
+        vscode.action('r.helpPanel.openForSelection')
+    end, opts)
+    keymap({"n", "v"}, "<localleader>rs", function()
+        vscode.action('r.runCommandWithSelectionOrWord', {args = {"str($$)"}})
+    end, opts)
 else
 
     print("not loading vscode stuff")
