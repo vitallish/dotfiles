@@ -99,7 +99,7 @@ def print_report(root):
     root:   instance of class Node, as returned by store_intervals_in_tree()
     '''
     #tabular layout
-    width_col1 = 25
+    width_col1 = 35
     width_col2 = 10
     width_col3 = 10
     #print header

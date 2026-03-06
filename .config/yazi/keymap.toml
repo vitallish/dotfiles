@@ -75,3 +75,10 @@ desc = "Rename bookmark by key"
 on = [ "]", "R" ]
 run = "plugin whoosh rename_by_fzf"
 desc = "Rename bookmark by fzf"
+
+
+# what-size keymaps
+[[mgr.prepend_keymap]]
+on = [ "'", "s" ]
+run  = "plugin what-size"
+desc = "Calc size of selection or cwd" 

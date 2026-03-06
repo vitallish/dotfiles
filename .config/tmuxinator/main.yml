@@ -1,0 +1,15 @@
+# /home/vitalydruker/.config/tmuxinator/main.yml
+
+name: main
+root: ~/
+
+windows:
+  - tasks: ttw
+  - files: yazi
+  - shell:
+      layout: main-vertical
+      panes:
+        - 
+        - 
+  - monitor: btop
+  - timewatch: watch -n 60 timew summary :week

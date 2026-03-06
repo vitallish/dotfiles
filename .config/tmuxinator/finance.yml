@@ -51,12 +51,19 @@ windows:
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - nvim -O "$HOME/Notes/personal/3. Responsibilties/finance/Trading Log.md" "$HOME/Notes/personal/3. Responsibilties/finance/How to Update GnuCash.md"
+        - nvim -O "$HOME/notes/personal/3. Responsibilties/finance/Trading Log.md" "$HOME/notes/personal/3. Responsibilties/finance/How to Update GnuCash.md"
   - folder:
       layout: tiled
       panes:
-        - cd /Users/vitalydruker/Documents/finance/personal/update-gnucash/; nvim process-files.R
-        - cd /Users/vitalydruker/Documents/finance/personal
+        - cd "$HOME/Documents/finance/personal/update-gnucash/"; nvim process-files.R
+        - cd "$HOME/Documents/finance/personal"
+  - invoice:
+      layout: tiled
+      panes:
+        - cd "$HOME/repos/personal/timew2clockify/"; nvim README.md
+        - cd "$HOME/repos/personal/timew2clockify/"; source venv/bin/activate; python src/time2clockify.py --start 2025-05-01 --end 2025-05-02 --dry-run 
+        - timew wes :lastmonth
+        - 
   - config:
       panes: 
         - tmuxinator open finance

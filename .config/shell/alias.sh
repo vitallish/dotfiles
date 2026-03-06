@@ -20,6 +20,7 @@ alias bbi="bb install"
 alias bbc="bb check"
 alias bbu="bb cleanup"
 
+alias weather="curl wttr.in"
 
 # For use with dotfile config
 # https://www.atlassian.com/git/tutorials/dotfiles

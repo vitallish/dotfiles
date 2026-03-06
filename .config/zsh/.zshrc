@@ -2,6 +2,8 @@
 [ -f "$XDG_CONFIG_HOME/shell/vars.sh" ] && source "$XDG_CONFIG_HOME/shell/vars.sh"
 [ -f "$XDG_CONFIG_HOME/shell/alias.sh" ] && source "$XDG_CONFIG_HOME/shell/alias.sh"
 
+# ssh-agent via systemd user service
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 if [[ "$VAKD_COMP_OWNER" == "AZ" ]]; then
   # stuff doesn't work without this - for example git can't push

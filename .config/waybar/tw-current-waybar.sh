@@ -12,6 +12,9 @@ if [ "$timewstatus" -eq "1" ]; then
 else
   text="󱎬"
   tooltip="No active time tracking"
+  tooltip2=$(get_task_details $(get_next_task_id))
+  tooltip="${tooltip}\n${tooltip2}"
+
   class="inactive"
 fi
 

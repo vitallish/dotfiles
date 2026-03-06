@@ -90,6 +90,8 @@ output * bg /home/vitalydruker/Downloads/a_forest_with_moss_and_trees.jpg fill
     bindsym $mod+t exec $menu_window
     bindsym $mod+i exec rofimoji
     bindsym $mod+u exec rofi -show rofi-sound -modi "rofi-sound:/home/vitalydruker/repos/personal/rofi-sound/rofi-sound-output-chooser" 
+    bindsym $mod+g exec rofi  -show find -modi "find:/home/vitalydruker/.local/share/rofi/finder.sh"
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -233,6 +235,9 @@ mode "launcher" {
     bindsym s exec spotify; $launchtodefault
     bindsym p exec bitwarden; $launchtodefault
     bindsym t exec $term --class floating; $launchtodefault
+    bindsym d exec $term --class floating -e zsh -i -c 'exec yazi ~/Downloads'; $launchtodefault
+    # -i makes it run as an interactive shell - loading everything i should 
+    bindsym n exec $term --class popup-upper-left -e zsh -i -c 'exec nvim ~/notes/personal/zzz/Scratch.md'; $launchtodefault
 
     # Return to default mode
     bindsym Return $launchtodefault 
@@ -247,26 +252,143 @@ mouse_warping none
 focus_follows_mouse no
 
 # Make terminals with floating class actually float
-for_window [app_id="floating"] floating enable
+for_window [app_id="floating"] {
+  floating enable
+  resize set width 1200px height 600px
+}
 
 # Launcher help popup in upper right corner
 for_window [app_id="launcher-help"] {
   floating enable
-  resize set width 1000px height 400px
+  resize set width 800px height 400px
   move position 100ppt 0
   move left 800px
   sticky enable
+  border pixel 2
+}
+
+# Popup in upper right hand corner
+for_window [app_id="popup-upper-right"] {
+  floating enable
+  resize set width 1000px height 400px
+  move position 100ppt 0
+  move left 1000px
+  sticky enable
+  border pixel 2
+}
+
+# Popup in upper right hand corner
+for_window [app_id="popup-upper-left"] {
+  floating enable
+  resize set width 1000px height 400px
+  move position 0 0
+  # move right 1000px
+  sticky enable
+  border pixel 2
 }
 
 bindsym $mod+p       exec grimshot copy active
 bindsym $mod+Shift+p exec grimshot copy area
 bindsym $mod+Mod4+p  exec grimshot copy output
-bindsym $mod+Ctrl+p  exec grimshot copy window
+
 
 
 # Idle and lock timeout configuration
 set $lock_timeout 600
 set $screen_timeout 120
+
+set {
+  # not able to launch yazi directly. Rather I'm able to launch 
+  # but `dragon` does not pop up when I use -e yazi
+  #$yazi kitty --class yazi-float -e yazi
+  $yazi kitty --class yazi-float
+  $yazi_id yazi-float
+}
+
+for_window {  
+  [app_id=$yazi_id] {
+    move to scratchpad
+    [app_id=$yazi_id] scratchpad show
+    border none
+    resize set width 33 ppt height 33 ppt
+    move position 33 ppt 0 
+  }
+}
+
+bindsym $mod+ctrl+t exec swaymsg [app_id=$yazi_id] scratchpad show || exec $yazi
+
+
+set {
+  $pass bitwarden
+  $pass_id Bitwarden
+}
+
+for_window {  
+  [app_id=$pass_id] {
+    move to scratchpad
+    [app_id=$pass_id] scratchpad show
+    border none
+    resize set width 33 ppt height 33 ppt
+    move position 33 ppt 33 ppt 
+  }
+}
+
+bindsym $mod+ctrl+p exec swaymsg [app_id=$pass_id] scratchpad show || exec $pass
+
+set {
+  $messaging flatpak run org.ferdium.Ferdium
+  $messaging_class Ferdium
+}
+
+for_window {  
+  [class=$messaging_class] {
+    move to scratchpad
+    [class=$messaging_class] scratchpad show
+    border none
+    resize set width 50 ppt height 50 ppt
+    move position 50 ppt 50 ppt 
+  }
+}
+
+bindsym $mod+ctrl+j exec swaymsg [class=$messaging_class] scratchpad show || exec $messaging
+
+set {
+  $slack flatpak run com.slack.Slack
+  $slack_class Slack
+}
+
+for_window {  
+  [class=$slack_class] {
+    move to scratchpad
+    [class=$slack_class] scratchpad show
+    border none
+    resize set width 50 ppt height 50 ppt
+    move position 50 ppt 50 ppt 
+  }
+}
+
+bindsym $mod+ctrl+u exec swaymsg [class=$slack_class] scratchpad show || exec $slack
+
+
+# Update on 2025-11-10 - this doesn't seem to be working - unable to actually set a name for qutebrowser
+# set {
+#   $qb qutebrowser --qt-arg name qb-scratchpad
+#   $qb_id qb-scratchpad
+# }
+#
+# for_window {  
+#   [app_id=$qb_id] {
+#     move to scratchpad
+#     [app_id=$qb_id] scratchpad show
+#     border none
+#     resize set width 33 ppt height 33 ppt
+#     move position 33 ppt 0 
+#   }
+# }
+#
+# bindsym $mod+ctrl+b exec swaymsg [app_id=$qb_id] scratchpad show || exec $qb
+#
+
 
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
@@ -290,4 +412,15 @@ set $screen_timeout 120
 # the trick, it's all in the `wordexp(3)`.
 #
 
+
+  # Catppuccin Mocha - Green focused windows
+  # Colors: base=#1e1e2e, green=#a6e3a1, text=#cdd6f4, surface0=#313244, surface1=#45475a
+
+  # class                 border    background text      indicator child_border
+  client.focused          #a6e3a1   #a6e3a1    #1e1e2e   #a6e3a1   #a6e3a1
+  client.focused_inactive #313244   #313244    #cdd6f4   #313244   #313244
+  client.unfocused        #1e1e2e   #1e1e2e    #cdd6f4   #1e1e2e   #1e1e2e
+  client.urgent           #f38ba8   #f38ba8    #1e1e2e   #f38ba8   #f38ba8
+  client.placeholder      #1e1e2e   #1e1e2e    #cdd6f4   #1e1e2e   #1e1e2e
+  client.background       #1e1e2e
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'

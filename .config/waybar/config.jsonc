@@ -115,10 +115,12 @@
     },
     "cpu": {
         "format": "{usage}% ",
-        "tooltip": false
+        "tooltip": false,
+        "on-click-middle": "kitty --app-id=popup-upper-right -e watch -n 1 'ps -eo pid,user:20,%cpu,args --sort=-%cpu | head -30'"
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% ",
+        "on-click-middle": "kitty --app-id=popup-upper-right -e watch -n 1 'ps -eo pid,user,%mem,rss,comm --sort=-%mem | head -30'"
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -172,7 +174,8 @@
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{bandwidthUpBytes}/{bandwidthDownBytes} ",
         "min-length": 25,
-        "max-length": 25
+        "max-length": 25,
+        "on-click-middle": "kitty --app-id=popup-upper-right -e sudo iftop"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

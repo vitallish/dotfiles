@@ -7,8 +7,8 @@ return {
   event = {
     -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-    "BufReadPre " .. vim.fn.expand "~" .. "/Notes/personal/**.md",
-    "BufNewFile " .. vim.fn.expand "~" .. "/Notes/personal/**.md",
+    "BufReadPre " .. vim.fn.expand "~" .. "/notes/personal/**.md",
+    "BufNewFile " .. vim.fn.expand "~" .. "/notes/personal/**.md",
   },
   dependencies = {
     -- Required.
@@ -25,7 +25,7 @@ return {
     vim.opt.conceallevel = 2 
     local map = vim.keymap.set
 
-    map("n", "<localleader>os", "<cmd>ObsidianQuickSwitch<cr>", {desc = "QuickSwitch"})
+    map("n", "<localleader>s", "<cmd>ObsidianQuickSwitch<cr>", {desc = "QuickSwitch"})
 
     -- -- run this autocommand here so it's after the vimwiki plugin loads
     -- vim.cmd [[
@@ -47,15 +47,11 @@ return {
       workspaces = {
         {
           name = "personal",
-          path = "~/Notes/personal",
+          path = "~/notes/personal",
         },
       },
-      daily_notes = {
-        folder = "daily",
-        template = "Daily Template.md",
-      },
       templates = {
-        subdir = "templates",
+        subdir = "zzz/templates",
       },
       mappings = {}
 

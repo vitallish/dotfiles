@@ -44,7 +44,6 @@ return {
     end,
     lazy = false
   },
-  "R-nvim/cmp-r",
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -76,7 +75,6 @@ return {
                 vsnip = '',
                 path = '',
                 --cmp_zotcite = 'z',
-                cmp_r = 'R'
               }
               item.menu = menu_icon[entry.source.name]
               return item
@@ -86,17 +84,10 @@ return {
 
         },
         sources = {
-          { name = 'cmp_r' },
           { name = 'path', option = { trailing_slash = true } },
           { name = 'nvim_lsp' },
         }
       }
-      require("cmp_r").setup({
-        filetypes = {"r", "rmd", "quarto", "rhelp"},
-        doc_width = 58
-      })
-
-
     end
 
   },

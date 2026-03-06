@@ -1,0 +1,85 @@
+#!/usr/bin/env python3
+"""
+Qutebrowser userscript to convert the current page to Markdown using heckyesmarkdown.
+Fetches the markdown and copies it to clipboard.
+Usage: :spawn --userscript heckyesmarkdown
+"""
+
+import os
+import sys
+import subprocess
+from urllib.parse import quote
+from urllib.request import urlopen, Request
+from urllib.error import URLError, HTTPError
+
+def copy_to_clipboard(text):
+    """Try to copy text to clipboard using available tools."""
+    clipboard_commands = [
+        ['wl-copy'],  # Wayland
+        ['xclip', '-selection', 'clipboard'],  # X11
+        ['xsel', '--clipboard', '--input'],  # X11 alternative
+    ]
+
+    for cmd in clipboard_commands:
+        try:
+            subprocess.run(cmd, input=text.encode(), check=True,
+                         stderr=subprocess.DEVNULL)
+            return True
+        except (FileNotFoundError, subprocess.CalledProcessError):
+            continue
+    return False
+
+def send_message(fifo, message, level='info'):
+    """Send a message to qutebrowser."""
+    with open(fifo, 'w') as f:
+        f.write(f"message-{level} '{message}'\n")
+
+def main():
+    # Get the current URL from qutebrowser
+    url = os.environ.get('QUTE_URL')
+    fifo = os.environ.get('QUTE_FIFO')
+
+    if not url:
+        print("Error: QUTE_URL not set", file=sys.stderr)
+        return 1
+
+    if not fifo:
+        print("Error: QUTE_FIFO not set", file=sys.stderr)
+        return 1
+
+    # Show that we're working on it
+    send_message(fifo, 'Fetching markdown from heckyesmarkdown...')
+
+    # Build the heckyesmarkdown API URL
+    encoded_url = quote(url, safe='')
+    api_url = f"http://heckyesmarkdown.com/api/2/?url={encoded_url}&read=1&inline=1"
+
+    try:
+        # Fetch the markdown from the API
+        request = Request(api_url, headers={'User-Agent': 'qutebrowser-userscript'})
+        with urlopen(request, timeout=30) as response:
+            markdown = response.read().decode('utf-8')
+
+        # Copy to clipboard
+        if copy_to_clipboard(markdown):
+            send_message(fifo, 'Markdown copied to clipboard!')
+        else:
+            send_message(fifo, 'Markdown fetched but clipboard copy failed', 'warning')
+            # Fall back to opening in a new tab
+            with open(fifo, 'w') as f:
+                f.write(f"open -t {api_url}\n")
+
+        return 0
+
+    except HTTPError as e:
+        send_message(fifo, f'HTTP Error {e.code}: Failed to convert page', 'error')
+        return 1
+    except URLError as e:
+        send_message(fifo, f'Network Error: {e.reason}', 'error')
+        return 1
+    except Exception as e:
+        send_message(fifo, f'Error: {str(e)}', 'error')
+        return 1
+
+if __name__ == '__main__':
+    sys.exit(main())

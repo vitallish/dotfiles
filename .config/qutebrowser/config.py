@@ -9,6 +9,9 @@ config.bind(',F', 'hint links spawn --detach firefox --new-window "{hint-url}"')
 config.bind(',m', 'spawn mpv {url}')
 config.bind(',M', 'hint links spawn mpv {hint-url}')
 
+config.bind(',h', 'spawn --userscript heckyesmarkdown')
+config.bind(',H', 'hint links userscript heckyesmarkdown')
+
 
 ## How to open links in an existing instance if a new one is launched.
 ## This happens when e.g. opening a link from a terminal. See
@@ -41,6 +44,7 @@ c.url.searchengines = {
     'a':       'https://www.amazon.com/s?k={}',
     'd':       'https://duckduckgo.com/?ia=web&q={}',
     'gh':      'https://github.com/search?o=desc&q={}&s=stars',
+    'ghw':     'https://github.com/West-End-Statistics?q={}&type=all&language=&sort=',
     'gi':      'https://www.google.com/search?tbm=isch&q={}&tbs=imgo:1',
     'm':       'https://www.google.com/maps/search/{}',
     'w':       'https://en.wikipedia.org/wiki/{}',

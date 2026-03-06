@@ -32,6 +32,9 @@ export PATH="$PATH:$HOME/.local/bin"
 # cargo location
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# path for general bin - but specifically requested by ruby gem
+export PATH="$HOME/bin:$PATH"
+
 # setup homebrew variables. Usually I think this is
 # in your .bash_profile file but this makes it available for different shells
 if [[ "$VAKD_COMP_OS" == Linux* ]]; then

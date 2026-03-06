@@ -2,7 +2,8 @@
 
 # Get the ID of the next task that would be started
 get_next_task_id() {
-    task rc.report.wes.sort:modified- rc.verbose=nothing limit:1 wes 2>/dev/null | head -n 1 | cut -f1 -d' '
+    task rc.report.wes.sort:modified- rc.verbose=nothing limit:1 wes 2>/dev/null |\
+      head -n 1 | awk '{print $1}'
 }
 
 # Get formatted details of a task for waybar tooltip

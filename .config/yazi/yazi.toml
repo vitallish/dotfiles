@@ -1,0 +1,34 @@
+[opener]
+libreoffice = [
+	{ run = "libreoffice %s", block = true, for = "unix" }
+]
+
+
+[open]
+prepend_rules = [
+    { url = "*.rtf", use = ["open", "libreoffice", "edit"] },
+]
+
+[plugin]
+
+prepend_preloaders = [
+    # Office Documents
+    { mime = "application/openxmlformats-officedocument.*", run = "office" },
+    { mime = "application/oasis.opendocument.*", run = "office" },
+    { mime = "application/ms-*", run = "office" },
+    { mime = "application/msword", run = "office" },
+    { name = "*.docx", run = "office" }
+]
+
+#https://github.com/macydnah/office.yazi?tab=readme-ov-file#usage
+prepend_previewers = [
+    # Office Documents
+    { mime = "text/rtf", run = "rtf" },
+    { name = "*.rtf", run = "rtf" },
+    { mime = "application/openxmlformats-officedocument.*", run = "office" },
+    { mime = "application/oasis.opendocument.*", run = "office" },
+    { mime = "application/ms-*", run = "office" },
+    { mime = "application/msword", run = "office" },
+    { name = "*.docx", run = "office" },
+]
+

@@ -1,22 +1,19 @@
 return {
   {
-    'nvim-telescope/telescope.nvim', tag = '0.1.5',
-    -- or                              , branch = '0.1.x',
+    'nvim-telescope/telescope.nvim', version = "*",
     dependencies = { 'nvim-lua/plenary.nvim' },
     lazy = false,
     config = function()
       local wk = require("which-key")
 
       wk.add(
-  {
-    { "<leader>b", group = "buffers" },
-    { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Select buffers" },
-    { "<leader>f", group = "file" },
-    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find file" },
-    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open recent file" },
-  }
-
-
+        {
+          { "<leader>b", group = "buffers" },
+          { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Select buffers" },
+          { "<leader>f", group = "file" },
+          { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find file" },
+          { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open recent file" },
+        }
         , { prefix = "<leader>" })
     end,
   },

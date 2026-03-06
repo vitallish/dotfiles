@@ -1,9 +1,9 @@
 -- You can also configure bookmarks with key arrays
 local bookmarks = {
   { tag = "repos", path = "~/repos", key = { "r", "r" } },
-  { tag = "repos", path = "~/repos/wes/", key = { "r", "w" } },
+  { tag = "repos/wes", path = "~/repos/wes/", key = { "r", "w" } },
   { tag = "Documents", path = "~/Documents", key = { "o", "o" } },
-  { tag = "Documents", path = "~/Documents/WES", key = { "o", "w" } },
+  { tag = "Documents/WES", path = "~/Documents/WES", key = { "o", "w" } },
   { tag = "Downloads", path = "~/Downloads", key = "d" },
 }
 
@@ -69,3 +69,11 @@ require("whoosh"):setup {
   history_fzf_path_truncate_long_names_enabled = false, -- Enable/disable long folder name truncation for history
   history_fzf_path_max_folder_name_length = 30,         -- Maximum length for folder names in history (default 30)
 }
+
+
+-- Folder Rules
+--https://yazi-rs.github.io/docs/tips/#folder-previewer
+
+require("folder-rules"):setup()
+
+

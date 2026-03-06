@@ -51,6 +51,16 @@
     "vim.normalModeKeyBindings": [
         {
             "before": [
+                //    make sure blackhole register works 
+                "_"
+            ],
+            "after": [
+                "\"",
+                "_"
+            ]
+        },
+        {
+            "before": [
                 "<CR>"
             ],
             "commands": [
@@ -108,7 +118,6 @@
     "remote.autoForwardPortsSource": "hybrid",
     "quarto.zotero.library": "web",
     "editor.fontLigatures": true,
-    "vim.useCtrlKeys": false,
     "gitlens.showWelcomeOnInstall": false,
     "gitlens.showWhatsNewAfterUpgrades": false,
     "gitlens.plusFeatures.enabled": false,
@@ -148,10 +157,29 @@
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "editor.fontFamily": "'Hack Nerd Font Mono', 'Droid Sans Mono', 'monospace', monospace",
     "cSpell.userWords": [
-        "prespecified"
+        "prespecified",
+        "Timepoints"
     ],
     "cSpell.maxNumberOfProblems": 1000,
     "cSpell.dictionaries": [
         "r"
     ],
+    "workbench.editorAssociations": {
+        "*.copilotmd": "vscode.markdown.preview.editor",
+        "*.csv": "default"
+    },
+    "vim.useCtrlKeys": false,
+    "github.gitProtocol": "ssh",
+    "claudeCode.preferredLocation": "panel",
+    "update.mode": "manual",
+    "github.copilot.enable": {
+        "*": false,
+        "quarto": false
+    },
+    "xlsxViewer.xlsx.firstRowIsHeader": true,
+    "xlsxViewer.xlsx.stickyToolbar": true,
+    "xlsxViewer.xlsx.stickyHeader": true,
+    "xlsxViewer.xlsx.hyperlinkPreview": true,
+    "githubPullRequests.pushBranch": "always",
+    "chat.sendElementsToChat.enabled": false,
 }

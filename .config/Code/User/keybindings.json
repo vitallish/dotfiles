@@ -77,7 +77,7 @@
         "key": "ctrl+' shift+g",
         "command": "r.runCommandWithSelectionOrWord",
         "when": "editorTextFocus",
-        "args": "options(width = as.integer(system2('tput', 'cols', stdout = TRUE)));tryCatch(dplyr::glimpse(.Last.value), error = function(e) str(.Last.value))"
+        "args": "tryCatch(dplyr::glimpse(.Last.value), error = function(e) str(.Last.value))"
     },
     {
         "description": "print",
@@ -242,6 +242,18 @@
     {
         "key": "ctrl+; r",
         "command": "r.createRTerm"
+    },
+    {
+        "description": "Load Package",
+        "key": "ctrl+; l",
+        "command": "r.runCommand",
+        "args": "devtools::load_all()"
+    },
+    {
+        "description": "Targets Source",
+        "key": "ctrl+; t",
+        "command": "r.runCommand",
+        "args": "targets::tar_source()"
     },
     {
         "key": "ctrl+w ctrl+w",

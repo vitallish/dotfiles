@@ -8,5 +8,15 @@ use = "ndtoan96/ouch"
 rev = "0742fff"
 hash = "2bd799b42b8e42b8ef100310be71f8d1"
 
+[[plugin.deps]]
+use = "pirafrank/what-size"
+rev = "179ebf6"
+hash = "57056b9728006881d580ccabe8154a9c"
+
+[[plugin.deps]]
+use = "macydnah/office"
+rev = "41ebef8"
+hash = "5805affd3ae8adcb3c72b6997d21c0a6"
+
 [flavor]
 deps = []
