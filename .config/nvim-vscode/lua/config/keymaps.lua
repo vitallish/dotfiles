@@ -18,18 +18,7 @@ vim.g.mapleader = "\\"
 vim.g.maplocalleader = " "
 
 if vim.g.vscode then
-    print("loading vscode stuff")
-    local vscode = require('vscode-neovim')
-
-    keymap({"n", "v"}, "<CR>", function()
-        vscode.action('r.runSelection')
-    end, opts)
-    keymap({"n", "v"}, "<localleader>rh", function()
-        vscode.action('r.helpPanel.openForSelection')
-    end, opts)
-    keymap({"n", "v"}, "<localleader>rs", function()
-        vscode.action('r.runCommandWithSelectionOrWord', {args = {"str($$)"}})
-    end, opts)
+    -- VSCode keymaps are in config/vscode_keymaps.lua
 else
 
     print("not loading vscode stuff")
