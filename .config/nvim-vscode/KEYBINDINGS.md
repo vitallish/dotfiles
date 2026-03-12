@@ -29,7 +29,7 @@ else goes in neovim so it can use Vim modes and `<localleader>`.
 | `ctrl+`` ` | Toggle terminal |
 | `ctrl+shift+`` ` | New terminal |
 | `ctrl+shift+m` | Insert ` \|> ` (editor: R/Rmd/Quarto, terminal) |
-| `cmd+shift+m` (terminal) | Insert ` \|> ` in terminal |
+| `ctrl+shift+enter` | Run chunk (Rmd), source (R), or run cell (Quarto) |
 | `ctrl+w h/j/k/l` | Focus left/below/above/right group |
 | `ctrl+w H/J/K/L` | Move editor to group |
 
@@ -49,7 +49,7 @@ else goes in neovim so it can use Vim modes and `<localleader>`.
 | Key | Action |
 |---|---|
 | `Enter` | Run line / selection |
-| `ctrl+shift+Enter` | Run chunk / source file / quarto cell |
+| `ctrl+shift+enter` | Run chunk / source file / quarto cell — *handled in VSCode layer* |
 
 ### `<localleader>r` — R Commands (foreground)
 

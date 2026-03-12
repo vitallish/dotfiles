@@ -1,5 +1,11 @@
 -- VSCode-specific keymaps that call VSCode actions via vscode-neovim
 -- Inspired by R.nvim (https://github.com/R-nvim/R.nvim/blob/main/lua/r/maps.lua)
+--
+-- NOTE: On macOS, Ctrl+Shift+<key> combos do not reliably pass through
+-- vscode-neovim. The following keybindings are therefore defined in
+-- VSCode keybindings.json instead of here:
+--   - Ctrl+Shift+M  →  Insert |> pipe  (editor & terminal)
+--   - Ctrl+Shift+Enter  →  Run chunk / source / quarto cell
 
 if not vim.g.vscode then
   return
@@ -47,16 +53,8 @@ keymap("i", "<M-->", " <- ", { silent = true, noremap = true, desc = "R: Insert 
 
 vsc({ "n", "v" }, "<CR>", "r.runSelection", "R: Run line/selection")
 
-keymap("n", "<C-S-CR>", function()
-  local ft = vim.bo.filetype
-  if ft == "quarto" then
-    vscode.action("quarto.runCurrentCell")
-  elseif ft == "r" then
-    vscode.action("r.runSourcewithEcho")
-  else
-    vscode.action("r.runCurrentChunk")
-  end
-end, { silent = true, noremap = true, desc = "R/Quarto: Run chunk or source file" })
+-- Ctrl+Shift+Enter is handled in VSCode keybindings.json because the
+-- key combo does not reliably pass through vscode-neovim on macOS.
 
 -------------------------------------------------------------------------------
 -- Help
