@@ -9,7 +9,7 @@ yabai -m config external_bar all:35:0 \
 	focus_follows_mouse off \
 	window_zoom_persist off \
 	window_placement second_child \
-	window_topmost off \
+	window_topmost on \
 	window_shadow float \
 	window_opacity on \
 	window_opacity_duration 0.2 \
@@ -33,6 +33,9 @@ yabai -m config external_bar all:35:0 \
 yabai -m rule --add app="^(Calculator|Software Update|Dictionary|System Preferences|System Settings|Archive Utility|Alfred)$" manage=off
 yabai -m rule --add app="^Thunderbird$" title="Reminder|Invitation" manage=off grid=3:3:1:1:1:1
 yabai -m rule --add app="^(Docker Desktop|Parallels Desktop|Clockify|Gnucash)$" manage=off
+yabai -m rule --add app="^Bitwarden$" manage=off
+yabai -m rule --add app="^Beeper$" manage=off
+yabai -m rule --add app="^Obsidian$" manage=off
 yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 yabai -m rule --add app="Steam"  manage=off

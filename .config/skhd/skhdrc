@@ -120,6 +120,11 @@ launcher < w : /opt/homebrew/bin/kitty --single-instance --title "Floating: Time
 # hotkey is defined in alfred
 launcher < p : skhd -k "escape"; skhd -k "ctrl + alt + shift + cmd - l" # launch password manager
 
+## App toggles
+ctrl + alt - p : $HOME/.config/skhd/toggle_app.sh "Bitwarden"
+ctrl + alt - j : $HOME/.config/skhd/toggle_app.sh "Beeper"
+ctrl + alt - n : $HOME/.config/skhd/toggle_app.sh "Obsidian"
+
 ## Default Commands
 
 

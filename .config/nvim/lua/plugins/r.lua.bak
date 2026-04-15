@@ -1,13 +1,11 @@
--- R.nvim configuration - Updated for latest best practices
--- See: https://github.com/R-nvim/R.nvim
 return {
   {
     "R-nvim/R.nvim",
     -- R.nvim is still young; pin to minor version for stability
     -- version = "~0.99.0",
-    lazy = true,
-    ft = { "r", "rmd", "quarto", "rnoweb", "rhelp" },
+    lazy = false,
     config = function()
+      -- Create a table with the options to be passed to setup()
       ---@type RConfigUserOpts
       local opts = {
         R_args = { "--quiet", "--no-save" },
@@ -51,81 +49,90 @@ return {
       require("r").setup(opts)
     end,
   },
-
   -- NOTE: cmp-r is deprecated. R.nvim now has a built-in language server
-  -- for autocompletion. The rnvimserver provides completions directly.
+  -- for autocompletion.
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "onsails/lspkind.nvim",
       "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lsp",
     },
     lazy = false,
     config = function()
       local cmp = require("cmp")
-      local lspkind = require("lspkind")
+      local lspkind = require('lspkind')
 
-      cmp.setup({
+      cmp.setup {
         mapping = cmp.mapping.preset.insert({
-          ["<Tab>"] = {
+          ['<Tab>'] = {
+            -- use tab to confirm completeion 
             i = cmp.mapping.confirm({ select = true }),
           },
         }),
+
         formatting = {
-          fields = { "abbr", "kind", "menu" },
+          fields = {'abbr', 'kind', 'menu'},
           format = lspkind.cmp_format({
-            mode = "symbol",
-            maxwidth = 50,
-            ellipsis_char = "...",
+            mode = 'symbol', -- show only symbol annotations
+            maxwidth = 50, -- prevent the popup from showing more than provided characters
+            ellipsis_char = '...', -- the truncated part when popup menu exceed maxwidth
             before = function(entry, item)
               local menu_icon = {
-                nvim_lsp = "",
-                vsnip = "",
-                path = "",
+                nvim_lsp = '',
+                vsnip = '',
+                path = '',
+                --cmp_zotcite = 'z',
+                cmp_r = 'R'
               }
               item.menu = menu_icon[entry.source.name]
               return item
             end,
-          }),
+          })
+
+
         },
         sources = {
-          { name = "nvim_lsp" }, -- R.nvim built-in LSP + other LSPs
-          { name = "path", option = { trailing_slash = true } },
-        },
+          { name = 'cmp_r' },
+          { name = 'path', option = { trailing_slash = true } },
+          { name = 'nvim_lsp' },
+        }
+      }
+      require("cmp_r").setup({
+        filetypes = {"r", "rmd", "quarto", "rhelp"},
+        doc_width = 58
       })
-    end,
-  },
 
-  -- Tree-sitter - Required for R.nvim functionality
-  -- Using nvim-treesitter master branch configuration
+
+    end
+
+  },
   {
-    "nvim-treesitter/nvim-treesitter",
+    'nvim-treesitter/nvim-treesitter',
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { 'nvim-treesitter/nvim-treesitter-textobjects' },
     },
     lazy = false,
-    build = ":TSUpdate",
+    build = ':TSUpdate',
     config = function()
       ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
+      require('nvim-treesitter.configs').setup {
         auto_install = true,
         ensure_installed = {
-          "r",
-          "rnoweb",
-          "csv",
-          "markdown",
-          "markdown_inline",
-          "bash",
-          "yaml",
-          "lua",
-          "vim",
-          "vimdoc",
-          "latex",
-          "html",
-          "css",
-          "javascript",
-          "mermaid",
+          'r',
+          'rnoweb',
+          'csv',
+          'markdown',
+          'markdown_inline',
+          'bash',
+          'yaml',
+          'lua',
+          'vim',
+          'vimdoc',
+          'latex',
+          'html',
+          'css',
+          'javascript',
+          'mermaid',
         },
         highlight = {
           enable = true,
@@ -137,10 +144,10 @@ return {
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
+            init_selection = 'gnn',
+            node_incremental = 'grn',
+            scope_incremental = 'grc',
+            node_decremental = 'grm',
           },
         },
         textobjects = {
@@ -148,64 +155,58 @@ return {
             enable = true,
             lookahead = true,
             keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
+              -- You can use the capture groups defined in textobjects.scm
+              ['af'] = '@function.outer',
+              ['if'] = '@function.inner',
+              ['ac'] = '@class.outer',
+              ['ic'] = '@class.inner',
             },
           },
           move = {
             enable = true,
-            set_jumps = true,
+            set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
-              ["]m"] = "@function.outer",
-              ["]]"] = "@class.inner",
+              [']m'] = '@function.outer',
+              [']]'] = '@class.inner',
             },
             goto_next_end = {
-              ["]M"] = "@function.outer",
-              ["]["] = "@class.outer",
+              [']M'] = '@function.outer',
+              [']['] = '@class.outer',
             },
             goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.inner",
+              ['[m'] = '@function.outer',
+              ['[['] = '@class.inner',
             },
             goto_previous_end = {
-              ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
+              ['[M'] = '@function.outer',
+              ['[]'] = '@class.outer',
             },
           },
         },
-      })
+      }
     end,
   },
-
   {
     "eigenfoo/stan-vim",
     lazy = false,
   },
 
-  -- LSP Setup
-  -- NOTE: R.nvim has a built-in language server for autocompletion.
-  -- The external r_language_server can still be used for diagnostics,
-  -- formatting, and other LSP features, but using both for completion
-  -- is not recommended. If you want to use r_language_server, you may
-  -- need to disable R.nvim's built-in completion.
+  -- LSP Stuff
   {
-    { "williamboman/mason.nvim" },
-    { "williamboman/mason-lspconfig.nvim" },
+    {"williamboman/mason.nvim"},
+    {"williamboman/mason-lspconfig.nvim"},
     {
       "neovim/nvim-lspconfig",
       config = function()
         require("mason").setup()
-        require("mason-lspconfig").setup({
-          -- Remove r_language_server if using R.nvim's built-in LSP for completion
-          -- Or keep it for additional features like diagnostics
-          ensure_installed = {},
-        })
-        -- Uncomment below if you want r_language_server for diagnostics/formatting
-        -- Note: Using both r_language_server and R.nvim for completion may cause issues
-        -- require("lspconfig").r_language_server.setup({})
-      end,
+        require("mason-lspconfig").setup {
+          ensure_installed = {"r_language_server"},
+        }
+        require'lspconfig'.r_language_server.setup{}
+    end,
     },
-  },
+  }
+
+
+
 }

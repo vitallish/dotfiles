@@ -1,0 +1,13 @@
+# /Users/kctf809/.config/tmuxinator/domino.yml
+
+name: domino
+root: ~/repos/az/domino-vscode-start/
+
+windows:
+  - main:
+      layout: main-vertical
+      panes:
+        - nvim README.md
+        - copilot
+        - 
+  - config: tmuxinator open domino

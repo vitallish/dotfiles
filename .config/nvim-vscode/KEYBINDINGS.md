@@ -65,7 +65,6 @@ Operates on the **word under cursor** (or visual selection).
 |---|---|---|
 | `<localleader>s` | `str($$)` | Structure |
 | `<localleader>g` | `glimpse($$)` | Glimpse (falls back to str) |
-| `<localleader>p` | `$$` | Print |
 | `<localleader><localleader>` | `$$` | Print (double-tap) |
 | `<localleader>d` | `dim($$)` | Dimensions |
 | `<localleader>h` | `head($$)` | Head |
@@ -82,6 +81,14 @@ Operates on the **word under cursor** (or visual selection).
 |---|---|---|
 | `<localleader>P` | `.Last.value` | Print last value |
 | `<localleader>G` | `glimpse(.Last.value)` | Glimpse last value |
+
+### `<localleader>p` — Profiling (`profvis`)
+
+| Key | Action |
+|---|---|
+| `<localleader>ps` | Profile selected text (or word under cursor if no selection) |
+| `<localleader>pl` | Profile current line |
+| `<localleader>pf` | Profile current file via `source()` |
 
 ### `<localleader>b` — Background Tasks (package dev, builds)
 
