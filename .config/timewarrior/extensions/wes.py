@@ -8,6 +8,7 @@
 # License: MIT
 
 import os
+import re
 import sys
 
 # Use virtual environment if VAKD_VENVS is set
@@ -16,6 +17,9 @@ if 'VAKD_VENVS' in os.environ:
     if os.path.exists(venv_path):
         sys.path.insert(0, venv_path)
 from timewreport.parser import TimeWarriorParser
+
+# Projects to drill down into (show individual tasks as a third level)
+DRILLDOWN_PROJECTS = {'wes.gates-dac-review'}
 
 
 class Node(dict):
@@ -78,16 +82,24 @@ class Node(dict):
 
 def store_intervals_in_tree(intervals):
     '''Create and return a tree structure containing all tracked time intervals.
-    
+
     Parameters
     ----------
     intervals:  list of intervals, as returned by TimeWarriorParser(stdin).get_intervals()
     '''
     root = Node('root', None)
     for interval in intervals:
-        for tags in interval.get_tags():
-            node = root.add_node(tags.split('.'))
-            node.intervals.append(interval)
+        tags = list(interval.get_tags())
+        task_tags = [t for t in tags if '.' not in t]
+        for tag in tags:
+            path = tag.split('.')
+            if tag in DRILLDOWN_PROJECTS and task_tags:
+                for task_tag in task_tags:
+                    task_node = root.add_node(path + [task_tag])
+                    task_node.intervals.append(interval)
+            else:
+                node = root.add_node(path)
+                node.intervals.append(interval)
     return root
 
 
@@ -106,8 +118,9 @@ def print_report(root):
     print("{0:<{wc1}}{1:>{wc2}}{2:>{wc3}}".format('Task', 'Time [h]', 'Share [%]', wc1 = width_col1, wc2 = width_col2, wc3 = width_col3))
     print((width_col1+width_col2+width_col3)*"=")
     #print data
-    def print_recursively(node, level = 0):
-        #print line
+    def print_recursively(node, level=0, parent_path=''):
+        current_path = (parent_path + '.' + node.name).lstrip('.') if node.parent is not None else ''
+
         hours = node.get_cumulated_duration()/(60*60)
         if level == 0:
             # root node seems to be double counting for some reason
@@ -115,30 +128,36 @@ def print_report(root):
         if node.parent is None:
             share = 100
         else:
-            share = 100 * hours / (node.parent.get_cumulated_duration()/(60*60))
-        # level 0 is root, so no need to indent everything else
-        if level == 0: 
-            shift = level * '  '
-        else :
-            shift = (level - 1) * '  '
-        
-        # only go down the tree if it's part of the wes project
-        if level==1 and (node.name != 'wes' and node.name != 'vial'):
-            return None
-        print("{0:<{wc1}}{1:>{wc2}}{2:>{wc3}}".format(shift + node.name, "{:.1f}".format(hours), "{:.1f}".format(share) , wc1 = width_col1, wc2 = width_col2, wc3 = width_col3))
-        
+            parent_hours = node.parent.get_cumulated_duration()/(60*60)
+            share = 100 * hours / parent_hours if parent_hours > 0 else 0
+
         if level == 0:
-            #visually separate root from rest of tree
+            shift = ''
+        else:
+            shift = (level - 1) * '  '
+
+        # only go down the tree if it's part of the wes project
+        if level == 1 and (node.name != 'wes' and node.name != 'vial'):
+            return None
+
+        # Format task names at the drilldown level (children of a drilldown project)
+        display_name = node.name
+        if parent_path in DRILLDOWN_PROJECTS:
+            display_name = re.sub(r'^\d+:\s*', '', display_name)
+            display_name = display_name[:20]
+
+        print("{0:<{wc1}}{1:>{wc2}}{2:>{wc3}}".format(shift + display_name, "{:.1f}".format(hours), "{:.1f}".format(share), wc1=width_col1, wc2=width_col2, wc3=width_col3))
+
+        if level == 0:
             print("\n")
 
-        #go down the tree
         for key in sorted(node.keys()):
-            print_recursively(node[key], level + 1)
+            print_recursively(node[key], level + 1, current_path)
         if node.get_duration() > 0 and len(node) > 0:
             h = node.get_duration()/(60*60)
-            s = 100 * h / hours
-            shift = (level + 1) * '    '
-            print("{0:<{wc1}}{1:<{wc2}}{2:<{wc3}}".format(shift + 'unknown', shift + "{:.1f}".format(h), shift + "{:.1f}".format(s) , wc1 = width_col1, wc2 = width_col2, wc3 = width_col3))
+            s = 100 * h / hours if hours > 0 else 0
+            shift2 = (level + 1) * '    '
+            print("{0:<{wc1}}{1:<{wc2}}{2:<{wc3}}".format(shift2 + 'unknown', shift2 + "{:.1f}".format(h), shift2 + "{:.1f}".format(s), wc1=width_col1, wc2=width_col2, wc3=width_col3))
     
     print_recursively(root)
     print("\n")

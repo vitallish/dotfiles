@@ -223,6 +223,18 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #
+# Game mode: all keys pass through to the game. $mod+g to toggle.
+#
+mode "passthrough" {
+    bindsym Mod4+g mode "default"
+    bindsym Mod4+p       exec grimshot copy active
+    bindsym Mod4+Shift+p exec grimshot copy area
+    bindsym Mod4+t exec $menu_window
+    bindsym Mod4+f fullscreen
+}
+bindsym Mod4+g mode "passthrough"
+
+#
 # Launcher mode:
 # 
 set $launchtodefault  exec pkill -f launcher-help.sh; mode "default"
@@ -231,13 +243,11 @@ mode "launcher" {
     bindsym e exec evolution; $launchtodefault
     bindsym c exec code; $launchtodefault
     bindsym m exec beeper; $launchtodefault
-    bindsym a exec plexamp;$launchtodefault
-    bindsym s exec spotify; $launchtodefault
-    bindsym p exec bitwarden; $launchtodefault
     bindsym t exec $term --class floating; $launchtodefault
     bindsym d exec $term --class floating -e zsh -i -c 'exec yazi ~/Downloads'; $launchtodefault
     # -i makes it run as an interactive shell - loading everything i should 
     bindsym n exec $term --class popup-upper-left -e zsh -i -c 'exec nvim ~/notes/personal/zzz/Scratch.md'; $launchtodefault
+    bindsym o exec $term --class floating - zsh -i -c 'exec tmuxinator config'; $launchtodefault
 
     # Return to default mode
     bindsym Return $launchtodefault 
@@ -316,6 +326,27 @@ for_window {
 }
 
 bindsym $mod+ctrl+t exec swaymsg [app_id=$yazi_id] scratchpad show || exec $yazi
+
+
+set {
+  # not able to launch notes directly. Rather I'm able to launch 
+  # but `dragon` does not pop up when I use -e notes
+  #$notes kitty --class notes-float -e notes
+  $notes $term --class notes-float -e tmuxinator notes
+  $notes_id notes-float
+}
+
+for_window {  
+  [app_id=$notes_id] {
+    move to scratchpad
+    [app_id=$notes_id] scratchpad show
+    resize set width 33 ppt height 33 ppt
+    move position 33 ppt 0 
+  }
+}
+
+bindsym $mod+ctrl+n exec swaymsg [app_id=$notes_id] scratchpad show || exec $notes
+
 
 
 set {

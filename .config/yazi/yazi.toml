@@ -1,3 +1,6 @@
+[mgr]
+ratio = [1, 2, 5]
+
 [opener]
 libreoffice = [
 	{ run = "libreoffice %s", block = true, for = "unix" }
@@ -12,23 +15,25 @@ prepend_rules = [
 [plugin]
 
 prepend_preloaders = [
+    # { url = "*.rtf", run = "faster-piper -- /usr/bin/pandoc \"$1\" --to=markdown --output=- | bat --language md" },
     # Office Documents
-    { mime = "application/openxmlformats-officedocument.*", run = "office" },
-    { mime = "application/oasis.opendocument.*", run = "office" },
-    { mime = "application/ms-*", run = "office" },
-    { mime = "application/msword", run = "office" },
-    { name = "*.docx", run = "office" }
+    # { mime = "application/openxmlformats-officedocument.*", run = "office" },
+    # { mime = "application/oasis.opendocument.*", run = "office" },
+    # { mime = "application/ms-*", run = "office" },
+    # { mime = "application/msword", run = "office" },
+    # { name = "*.docx", run = "office" }
 ]
 
 #https://github.com/macydnah/office.yazi?tab=readme-ov-file#usage
 prepend_previewers = [
     # Office Documents
-    { mime = "text/rtf", run = "rtf" },
-    { name = "*.rtf", run = "rtf" },
-    { mime = "application/openxmlformats-officedocument.*", run = "office" },
-    { mime = "application/oasis.opendocument.*", run = "office" },
-    { mime = "application/ms-*", run = "office" },
-    { mime = "application/msword", run = "office" },
-    { name = "*.docx", run = "office" },
+    { url = "*.rtf", run = "piper -- /usr/bin/pandoc \"$1\" --to=markdown --output=- | bat --language md" },
+    { url = "*.docx", run = "piper -- /usr/bin/pandoc \"$1\" --to=markdown --output=- | bat --language md" },
+    # { url = "*.rtf", run = "faster-piper --rely-on-preloader" },
+    # { mime = "application/openxmlformats-officedocument.*", run = "office" },
+    # { mime = "application/oasis.opendocument.*", run = "office" },
+    # { mime = "application/ms-*", run = "office" },
+    # { mime = "application/msword", run = "office" },
+    # { name = "*.docx", run = "office" },
 ]
 

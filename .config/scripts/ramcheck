@@ -1,0 +1,122 @@
+#!/usr/bin/env bash
+# ramcheck - diagnose RAM usage: processes, swap, GPU GTT, kernel breakdown
+#
+# ── GTT (Graphics Translation Table) notes ────────────────────────────────────
+# GTT is system RAM that the GPU driver (amdgpu) maps into the GPU's address
+# space. It doesn't show up in process RSS or /proc/meminfo named fields,
+# which makes it appear as "unaccounted" RAM.
+#
+# Check current GTT limit (in MB; -1 = auto = ~half of system RAM):
+#   cat /sys/module/amdgpu/parameters/gttsize
+#
+# Check current GTT in use per card:
+#   cat /sys/class/drm/card1/device/mem_info_gtt_used
+#
+# To cap GTT (e.g. 8 GB), create a modprobe config and rebuild initramfs:
+#   echo "options amdgpu gttsize=8192" | sudo tee /etc/modprobe.d/amdgpu.conf
+#   sudo dracut --force
+#   sudo reboot
+#
+# The limit cannot be changed live — amdgpu reads it at module load time.
+# Orphaned GTT (from a closed game/app) won't free until logout or reboot.
+# Current setting: gttsize=8192 (8 GB), set 2026-04-14.
+# ──────────────────────────────────────────────────────────────────────────────
+
+RED='\033[0;31m'; YELLOW='\033[1;33m'; CYAN='\033[0;36m'; BOLD='\033[1m'; RESET='\033[0m'
+
+hr() { printf '%0.s─' $(seq 1 60); echo; }
+
+# ── Overview ──────────────────────────────────────────────────────────────────
+echo -e "\n${BOLD}── Memory Overview ──────────────────────────────────────────${RESET}"
+date
+free -h
+
+# ── Kernel breakdown ──────────────────────────────────────────────────────────
+echo -e "\n${BOLD}── Kernel Memory Breakdown ──────────────────────────────────${RESET}"
+awk '
+/^MemTotal:/      { tot=$2 }
+/^MemFree:/       { free=$2 }
+/^Buffers:/       { buf=$2 }
+/^Cached:/        { cach=$2 }
+/^SReclaimable:/  { srec=$2 }
+/^SUnreclaim:/    { sunr=$2 }
+/^AnonPages:/     { anon=$2 }
+/^Slab:/          { slab=$2 }
+/^KernelStack:/   { kst=$2 }
+/^PageTables:/    { pt=$2 }
+/^Shmem:/         { shm=$2 }
+/^SwapTotal:/     { stot=$2 }
+/^SwapFree:/      { sfree=$2 }
+END {
+  used   = (tot - free - buf - cach - srec) / 1024 / 1024
+  cache  = (buf + cach + srec)              / 1024 / 1024
+  proc   = anon                             / 1024 / 1024
+  kernel = (sunr + kst + pt)               / 1024 / 1024
+  swap   = (stot - sfree)                  / 1024 / 1024
+  printf "  Process anon pages : %6.1f GB\n", proc
+  printf "  File cache/buffers : %6.1f GB\n", cache
+  printf "  Kernel (slab/stack): %6.1f GB\n", kernel
+  printf "  Swap in use        : %6.1f GB\n", swap
+  printf "  %-22s %6.1f GB  (free shows \"used\")\n", "Subtotal accounted:", proc+cache+kernel
+  printf "  %-22s %6.1f GB\n", "Total used:", used
+  unaccounted = used - proc - cache - kernel
+  if (unaccounted > 1) printf "  %-22s %6.1f GB  ← check GPU GTT below\n", "Unaccounted:", unaccounted
+}
+' /proc/meminfo
+
+# ── GPU ───────────────────────────────────────────────────────────────────────
+echo -e "\n${BOLD}── GPU Memory (amdgpu) ───────────────────────────────────────${RESET}"
+for card in /sys/class/drm/card[0-9]; do
+  name=$(basename "$card")
+  vram_total=$(cat "$card/device/mem_info_vram_total" 2>/dev/null)
+  vram_used=$(cat  "$card/device/mem_info_vram_used"  2>/dev/null)
+  gtt_total=$(cat  "$card/device/mem_info_gtt_total"  2>/dev/null)
+  gtt_used=$(cat   "$card/device/mem_info_gtt_used"   2>/dev/null)
+  [ -z "$vram_total" ] && continue
+  pci=$(readlink "$card/device" 2>/dev/null | xargs basename 2>/dev/null)
+  desc=$(lspci -s "$pci" 2>/dev/null | sed 's/.*: //' | cut -c1-50)
+  printf "  %s  %s\n" "$name" "$desc"
+  printf "    VRAM : %6.1f / %6.1f GB used\n" \
+    "$(echo "scale=1; $vram_used/1024/1024/1024" | bc)" \
+    "$(echo "scale=1; $vram_total/1024/1024/1024" | bc)"
+  printf "    GTT  : %6.1f / %6.1f GB used  (GTT = system RAM held by GPU)\n" \
+    "$(echo "scale=1; $gtt_used/1024/1024/1024" | bc)" \
+    "$(echo "scale=1; $gtt_total/1024/1024/1024" | bc)"
+done
+
+echo -e "\n  ${CYAN}Top processes by VRAM:${RESET}"
+printf "    %-8s %-24s %s\n" "PID" "NAME" "VRAM"
+for piddir in /proc/[0-9]*/fdinfo; do
+  p=$(echo "$piddir" | cut -d/ -f3)
+  name=$(cat "/proc/$p/comm" 2>/dev/null) || continue
+  vram=$(grep 'drm-resident-vram:' "$piddir/"* 2>/dev/null | awk '{sum+=$2} END{print sum+0}')
+  [ "${vram:-0}" -gt 0 ] && echo "$vram $p $name"
+done | sort -rn | head -10 | awk '{printf "    %-8s %-24s %7.0f MB\n", $2, $3, $1/1024}'
+
+echo -e "\n  ${CYAN}Top processes by GPU GTT (system RAM held):${RESET}"
+declare -A gtt_by_name
+for piddir in /proc/[0-9]*/fdinfo; do
+  p=$(echo "$piddir" | cut -d/ -f3)
+  name=$(cat "/proc/$p/comm" 2>/dev/null) || continue
+  gtt=$(grep 'drm-resident-gtt:' "$piddir/"* 2>/dev/null | awk '{sum+=$2} END{print sum+0}')
+  [ "${gtt:-0}" -gt 0 ] && gtt_by_name["$name"]=$(( ${gtt_by_name[$name]:-0} + gtt ))
+done
+for name in "${!gtt_by_name[@]}"; do
+  echo "${gtt_by_name[$name]} $name"
+done | sort -rn | head -10 | awk '{printf "    %7.0f MB  %s\n", $1/1024, $2}'
+
+# ── Processes by RAM + swap ───────────────────────────────────────────────────
+echo -e "\n${BOLD}── Top Processes by RAM + Swap ───────────────────────────────${RESET}"
+printf "  %-10s %-24s %8s %8s %8s\n" "PID" "NAME" "RAM" "SWAP" "TOTAL"
+for f in /proc/[0-9]*/status; do
+  pid=$(echo "$f" | cut -d/ -f3)
+  name=$(awk '/^Name:/{print $2}' "$f" 2>/dev/null)
+  rss=$(awk  '/^VmRSS:/{print $2}' "$f" 2>/dev/null)
+  swap=$(awk '/^VmSwap:/{print $2}' "$f" 2>/dev/null)
+  rss=${rss:-0}; swap=${swap:-0}
+  total=$(( rss + swap ))
+  [ "$total" -gt 204800 ] && printf "%d %s %d %d %d\n" "$pid" "$name" "$rss" "$swap" "$total"
+done 2>/dev/null | sort -k5 -rn | head -20 | \
+  awk '{printf "  %-10s %-24s %6.0f MB %6.0f MB %6.0f MB\n", $1, $2, $3/1024, $4/1024, $5/1024}'
+
+echo

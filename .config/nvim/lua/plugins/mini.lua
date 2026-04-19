@@ -21,6 +21,12 @@ return {
       require('mini.diff').setup({
         -- view = { style = 'sign' },
       })
+
+      require('mini.operators').setup({
+        -- for replace (gr prefix).
+        -- motion to replace text with register
+        -- Note that the lsp default of gr is disabled with this plugin
+      })
     end,
   },
 }

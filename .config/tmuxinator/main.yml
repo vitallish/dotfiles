@@ -13,3 +13,5 @@ windows:
         - 
   - monitor: btop
   - timewatch: watch -n 60 timew summary :week
+  - config: tmuxinator open main
+

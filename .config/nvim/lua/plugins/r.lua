@@ -10,9 +10,7 @@ return {
         R_cmd = "R",
         --R_hl_term = 0,
         bracketed_paste = true,
-        -- stop options for radian
-        --rconsole_width = 50,
-        --min_editor_width = 20,
+        external_term = "tmux split-window -h",
         hook = {
           after_config = function ()
             -- This function will be called at the FileType event
@@ -25,8 +23,6 @@ return {
             end
           end
         },
-        min_editor_width = 72,
-        rconsole_width = 78,
         disable_cmds = {
           "RClearConsole",
           "RCustomStart",
@@ -49,18 +45,38 @@ return {
     dependencies = {
       "onsails/lspkind.nvim",
       "hrsh7th/cmp-path",
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
     },
     lazy = false,
     config = function()
       local cmp = require("cmp")
+      local luasnip = require("luasnip")
       local lspkind = require('lspkind')
 
       cmp.setup {
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
         mapping = cmp.mapping.preset.insert({
-          ['<Tab>'] = {
-            -- use tab to confirm completeion 
-            i = cmp.mapping.confirm({ select = true }),
-          },
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.confirm({ select = true })
+            elseif luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
         }),
 
         formatting = {
@@ -71,9 +87,9 @@ return {
             ellipsis_char = '...', -- the truncated part when popup menu exceed maxwidth
             before = function(entry, item)
               local menu_icon = {
-                nvim_lsp = '',
-                vsnip = '',
-                path = '',
+                nvim_lsp = '',
+                luasnip = '',
+                path = '',
                 --cmp_zotcite = 'z',
               }
               item.menu = menu_icon[entry.source.name]
@@ -84,6 +100,7 @@ return {
 
         },
         sources = {
+          { name = 'luasnip' },
           { name = 'path', option = { trailing_slash = true } },
           { name = 'nvim_lsp' },
         }

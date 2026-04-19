@@ -1,0 +1,18 @@
+# /home/vitalydruker/.config/tmuxinator/notes.yml
+
+name: notes
+root: ~/notes/personal/
+
+windows:
+  - inbox:
+      - cd "$HOME/notes/personal/0. Inbox/"; nvim "_to read.md"
+  - scratch:
+      layout: even-horizontal
+      panes: 
+        - nvim zzz/Scratch.md
+        - nvim "$HOME/notes/personal/zzz/Shopping List.md"
+  - neovim-config:
+      panes: 
+        - cd $HOME/.config/nvim/lua/plugins/
+        - cd $HOME/.config/nvim/lua/plugins/; nvim notes.lua
+  - config: tmuxinator open notes

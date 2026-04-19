@@ -1,0 +1,12 @@
+# /home/vitalydruker/.config/tmuxinator/config.yml
+
+name: config
+root: ~/.config/
+
+windows:
+  - sway:
+      layout: main-vertical
+      panes:
+        - nvim "$HOME/.config/sway/config"
+        - cd "$HOME/.config/sway/"
+  - config: tmuxinator open config
