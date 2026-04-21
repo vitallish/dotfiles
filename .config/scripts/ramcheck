@@ -33,34 +33,61 @@ free -h
 
 # ── Kernel breakdown ──────────────────────────────────────────────────────────
 echo -e "\n${BOLD}── Kernel Memory Breakdown ──────────────────────────────────${RESET}"
-awk '
+
+# Try to read TTM pool directly from debugfs (requires sudo)
+_ttm_direct_gb=""
+_ttm_raw=$(sudo -n cat /sys/kernel/debug/ttm/page_pool 2>/dev/null)
+if [ -n "$_ttm_raw" ]; then
+  _ttm_direct_gb=$(printf '%s\n' "$_ttm_raw" | awk '
+    /^total[[:space:]]*:/ { pages = $3 }
+    END { printf "%.1f", pages * 4 / 1024 / 1024 }
+  ')
+fi
+
+awk -v ttm_direct="$_ttm_direct_gb" '
 /^MemTotal:/      { tot=$2 }
 /^MemFree:/       { free=$2 }
 /^Buffers:/       { buf=$2 }
 /^Cached:/        { cach=$2 }
+/^Active:/        { act=$2 }
+/^Inactive:/      { inact=$2 }
+/^Unevictable:/   { unev=$2 }
 /^SReclaimable:/  { srec=$2 }
 /^SUnreclaim:/    { sunr=$2 }
 /^AnonPages:/     { anon=$2 }
-/^Slab:/          { slab=$2 }
 /^KernelStack:/   { kst=$2 }
 /^PageTables:/    { pt=$2 }
-/^Shmem:/         { shm=$2 }
+/^SecPageTables:/ { spt=$2 }
+/^VmallocUsed:/   { vmu=$2 }
+/^Percpu:/        { cpu=$2 }
+/^FileHugePages:/ { fhp=$2 }
 /^SwapTotal:/     { stot=$2 }
 /^SwapFree:/      { sfree=$2 }
 END {
-  used   = (tot - free - buf - cach - srec) / 1024 / 1024
-  cache  = (buf + cach + srec)              / 1024 / 1024
-  proc   = anon                             / 1024 / 1024
-  kernel = (sunr + kst + pt)               / 1024 / 1024
-  swap   = (stot - sfree)                  / 1024 / 1024
-  printf "  Process anon pages : %6.1f GB\n", proc
-  printf "  File cache/buffers : %6.1f GB\n", cache
-  printf "  Kernel (slab/stack): %6.1f GB\n", kernel
-  printf "  Swap in use        : %6.1f GB\n", swap
-  printf "  %-22s %6.1f GB  (free shows \"used\")\n", "Subtotal accounted:", proc+cache+kernel
-  printf "  %-22s %6.1f GB\n", "Total used:", used
-  unaccounted = used - proc - cache - kernel
-  if (unaccounted > 1) printf "  %-22s %6.1f GB  ← check GPU GTT below\n", "Unaccounted:", unaccounted
+  cache  = (buf + cach + srec)                        / 1024 / 1024
+  proc   = anon                                       / 1024 / 1024
+  kernel = (sunr + kst + pt + spt + vmu + cpu + fhp) / 1024 / 1024
+  lru    = (act + inact + unev)                       / 1024 / 1024
+  swap   = (stot - sfree)                             / 1024 / 1024
+  printf "  Process anon pages : %6.1f GB  (/proc/meminfo AnonPages — heap, stack, anonymous mmap)\n", proc
+  printf "  File cache/buffers : %6.1f GB  (/proc/meminfo Buffers + Cached + SReclaimable)\n", cache
+  printf "  Kernel overhead    : %6.1f GB  (SUnreclaim + KernelStack + PageTables + VmallocUsed + Percpu + FileHugePages)\n", kernel
+  if (ttm_direct != "") {
+    ttm = ttm_direct + 0
+    printf "  TTM/driver pool    : %6.1f GB  (/sys/kernel/debug/ttm/page_pool total — GPU driver page pool)\n", ttm
+  } else {
+    used = (tot - free) / 1024 / 1024
+    ttm  = used - lru - kernel
+    if (ttm > 1)
+      printf "  TTM/driver pool    : %6.1f GB  (residual — run with sudo for direct read)\n", ttm
+  }
+  printf "  Swap in use        : %6.1f GB  (/proc/meminfo SwapTotal - SwapFree)\n", swap
+  accounted = proc + cache + kernel + ttm
+  actual    = (tot - free) / 1024 / 1024
+  printf "  %-22s %6.1f GB  (sum of above)\n", "Total used:", accounted
+  unaccounted = actual - accounted
+  if (unaccounted > 0.1)
+    printf "  %-22s %6.1f GB  (MemTotal - MemFree = %.1f GB minus sum above)\n", "Unaccounted:", unaccounted, actual
 }
 ' /proc/meminfo
 
@@ -77,6 +104,12 @@ awk '
   /^VmRSS:/ { rss  = $2 }
   /^VmSwap:/{ swap = $2; total = rss + swap; if (total > 204800) print pid, name, rss, swap, total }
 ' /proc/[0-9]*/status 2>/dev/null | sort -k5 -rn | head -20 | \
-  awk '{printf "  %-10s %-24s %6.0f MB %6.0f MB %6.0f MB\n", $1, $2, $3/1024, $4/1024, $5/1024}'
+  awk '
+    { printf "  %-10s %-24s %6.0f MB %6.0f MB %6.0f MB\n", $1, $2, $3/1024, $4/1024, $5/1024
+      trss += $3; tswap += $4; ttot += $5 }
+    END {
+      printf "  %s\n", "────────────────────────────────────────────────────────"
+      printf "  %-35s %6.0f MB %6.0f MB %6.0f MB\n", "TOTAL (shown above)", trss/1024, tswap/1024, ttot/1024
+    }'
 
 echo
