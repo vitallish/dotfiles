@@ -71,15 +71,12 @@ echo -e "\n${BOLD}── GPU Memory (amdgpu_top) ──────────�
 # ── Processes by RAM + swap ───────────────────────────────────────────────────
 echo -e "\n${BOLD}── Top Processes by RAM + Swap ───────────────────────────────${RESET}"
 printf "  %-10s %-24s %8s %8s %8s\n" "PID" "NAME" "RAM" "SWAP" "TOTAL"
-for f in /proc/[0-9]*/status; do
-  pid=$(echo "$f" | cut -d/ -f3)
-  name=$(awk '/^Name:/{print $2}' "$f" 2>/dev/null)
-  rss=$(awk  '/^VmRSS:/{print $2}' "$f" 2>/dev/null)
-  swap=$(awk '/^VmSwap:/{print $2}' "$f" 2>/dev/null)
-  rss=${rss:-0}; swap=${swap:-0}
-  total=$(( rss + swap ))
-  [ "$total" -gt 204800 ] && printf "%d %s %d %d %d\n" "$pid" "$name" "$rss" "$swap" "$total"
-done 2>/dev/null | sort -k5 -rn | head -20 | \
+awk '
+  FNR == 1 { pid = FILENAME; sub(/\/proc\//, "", pid); sub(/\/.*/, "", pid); rss=0; swap=0; name="" }
+  /^Name:/  { name = $2 }
+  /^VmRSS:/ { rss  = $2 }
+  /^VmSwap:/{ swap = $2; total = rss + swap; if (total > 204800) print pid, name, rss, swap, total }
+' /proc/[0-9]*/status 2>/dev/null | sort -k5 -rn | head -20 | \
   awk '{printf "  %-10s %-24s %6.0f MB %6.0f MB %6.0f MB\n", $1, $2, $3/1024, $4/1024, $5/1024}'
 
 echo
