@@ -65,45 +65,53 @@ END {
 ' /proc/meminfo
 
 # ── GPU ───────────────────────────────────────────────────────────────────────
-echo -e "\n${BOLD}── GPU Memory (amdgpu) ───────────────────────────────────────${RESET}"
-for card in /sys/class/drm/card[0-9]; do
-  name=$(basename "$card")
-  vram_total=$(cat "$card/device/mem_info_vram_total" 2>/dev/null)
-  vram_used=$(cat  "$card/device/mem_info_vram_used"  2>/dev/null)
-  gtt_total=$(cat  "$card/device/mem_info_gtt_total"  2>/dev/null)
-  gtt_used=$(cat   "$card/device/mem_info_gtt_used"   2>/dev/null)
-  [ -z "$vram_total" ] && continue
-  pci=$(readlink "$card/device" 2>/dev/null | xargs basename 2>/dev/null)
-  desc=$(lspci -s "$pci" 2>/dev/null | sed 's/.*: //' | cut -c1-50)
-  printf "  %s  %s\n" "$name" "$desc"
-  printf "    VRAM : %6.1f / %6.1f GB used\n" \
-    "$(echo "scale=1; $vram_used/1024/1024/1024" | bc)" \
-    "$(echo "scale=1; $vram_total/1024/1024/1024" | bc)"
-  printf "    GTT  : %6.1f / %6.1f GB used  (GTT = system RAM held by GPU)\n" \
-    "$(echo "scale=1; $gtt_used/1024/1024/1024" | bc)" \
-    "$(echo "scale=1; $gtt_total/1024/1024/1024" | bc)"
-done
+echo -e "\n${BOLD}── GPU Memory (amdgpu_top) ───────────────────────────────────${RESET}"
+export _GPU_JSON
+_GPU_JSON=$(amdgpu_top -p -J -n 1 2>/dev/null)
+python3 <<'PYEOF'
+import json, os
 
-echo -e "\n  ${CYAN}Top processes by VRAM:${RESET}"
-printf "    %-8s %-24s %s\n" "PID" "NAME" "VRAM"
-for piddir in /proc/[0-9]*/fdinfo; do
-  p=$(echo "$piddir" | cut -d/ -f3)
-  name=$(cat "/proc/$p/comm" 2>/dev/null) || continue
-  vram=$(grep 'drm-resident-vram:' "$piddir/"* 2>/dev/null | awk '{sum+=$2} END{print sum+0}')
-  [ "${vram:-0}" -gt 0 ] && echo "$vram $p $name"
-done | sort -rn | head -10 | awk '{printf "    %-8s %-24s %7.0f MB\n", $2, $3, $1/1024}'
+data = json.loads(os.environ['_GPU_JSON'])
+for dev in data.get('devices', []):
+    info  = dev.get('Info', {})
+    vram  = dev.get('VRAM', {})
+    name  = info.get('DeviceName', 'Unknown')
+    pci   = info.get('DevicePath', {}).get('pci', '')
 
-echo -e "\n  ${CYAN}Top processes by GPU GTT (system RAM held):${RESET}"
-declare -A gtt_by_name
-for piddir in /proc/[0-9]*/fdinfo; do
-  p=$(echo "$piddir" | cut -d/ -f3)
-  name=$(cat "/proc/$p/comm" 2>/dev/null) || continue
-  gtt=$(grep 'drm-resident-gtt:' "$piddir/"* 2>/dev/null | awk '{sum+=$2} END{print sum+0}')
-  [ "${gtt:-0}" -gt 0 ] && gtt_by_name["$name"]=$(( ${gtt_by_name[$name]:-0} + gtt ))
-done
-for name in "${!gtt_by_name[@]}"; do
-  echo "${gtt_by_name[$name]} $name"
-done | sort -rn | head -10 | awk '{printf "    %7.0f MB  %s\n", $1/1024, $2}'
+    vram_used  = vram.get('Total VRAM Usage', {}).get('value', 0)
+    vram_total = vram.get('Total VRAM',       {}).get('value', 0)
+    gtt_used   = vram.get('Total GTT Usage',  {}).get('value', 0)
+    gtt_total  = vram.get('Total GTT',        {}).get('value', 0)
+
+    print(f"  {name}  ({pci})")
+    print(f"    VRAM : {vram_used/1024:6.1f} / {vram_total/1024:6.1f} GB used")
+    print(f"    GTT  : {gtt_used/1024:6.1f} / {gtt_total/1024:6.1f} GB used  (GTT = system RAM held by GPU)")
+
+    fdinfo = dev.get('fdinfo', {})
+    if not fdinfo:
+        continue
+
+    print(f"\n  \033[0;36mTop processes by VRAM ({name}):\033[0m")
+    print(f"    {'PID':<10} {'NAME':<24} {'VRAM':>8}")
+    by_vram = sorted(
+        ((pid, d['name'], d['usage']['usage']['VRAM']['value'])
+         for pid, d in fdinfo.items()
+         if d.get('usage', {}).get('usage', {}).get('VRAM', {}).get('value', 0) > 0),
+        key=lambda x: x[2], reverse=True
+    )
+    for pid, pname, mib in by_vram[:10]:
+        print(f"    {pid:<10} {pname:<24} {mib:>6} MiB")
+
+    print(f"\n  \033[0;36mTop processes by GTT ({name}):\033[0m")
+    gtt_by_name = {}
+    for pid, d in fdinfo.items():
+        gtt_mib = d.get('usage', {}).get('usage', {}).get('GTT', {}).get('value', 0)
+        pname   = d.get('name', pid)
+        if gtt_mib > 0:
+            gtt_by_name[pname] = gtt_by_name.get(pname, 0) + gtt_mib
+    for pname, mib in sorted(gtt_by_name.items(), key=lambda x: x[1], reverse=True)[:10]:
+        print(f"    {mib:>6} MiB  {pname}")
+PYEOF
 
 # ── Processes by RAM + swap ───────────────────────────────────────────────────
 echo -e "\n${BOLD}── Top Processes by RAM + Swap ───────────────────────────────${RESET}"
