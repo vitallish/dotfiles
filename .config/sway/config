@@ -368,37 +368,37 @@ bindsym $mod+ctrl+p exec swaymsg [app_id=$pass_id] scratchpad show || exec $pass
 
 set {
   $messaging flatpak run org.ferdium.Ferdium
-  $messaging_class Ferdium
+  $messaging_id ferdium
 }
 
 for_window {  
-  [class=$messaging_class] {
+  [app_id=$messaging_id] {
     move to scratchpad
-    [class=$messaging_class] scratchpad show
+    [app_id=$messaging_id] scratchpad show
     border none
     resize set width 50 ppt height 50 ppt
     move position 50 ppt 50 ppt 
   }
 }
 
-bindsym $mod+ctrl+j exec swaymsg [class=$messaging_class] scratchpad show || exec $messaging
+bindsym $mod+ctrl+j exec swaymsg [app_id=$messaging_id] scratchpad show || exec $messaging
 
 set {
   $slack flatpak run com.slack.Slack
-  $slack_class Slack
+  $slack_id com.slack.Slack
 }
 
 for_window {  
-  [class=$slack_class] {
+  [app_id=$slack_id] {
     move to scratchpad
-    [class=$slack_class] scratchpad show
+    [app_id=$slack_id] scratchpad show
     border none
     resize set width 50 ppt height 50 ppt
     move position 50 ppt 50 ppt 
   }
 }
 
-bindsym $mod+ctrl+u exec swaymsg [class=$slack_class] scratchpad show || exec $slack
+bindsym $mod+ctrl+u exec swaymsg [app_id=$slack_id] scratchpad show || exec $slack
 
 
 # Update on 2025-11-10 - this doesn't seem to be working - unable to actually set a name for qutebrowser

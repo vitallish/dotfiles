@@ -76,6 +76,9 @@ systemctl start sshd.service
 systemctl enable sshd.service
 sudo dnf install gh
 
+# Enable KDE Connect through firewall (required for phone pairing)
+sudo firewall-cmd --permanent --add-service=kdeconnect && sudo firewall-cmd --reload
+
 
 sudo dnf copr enable atim/lazygit -y
 sudo dnf install lazygit
@@ -145,3 +148,7 @@ cargo install outside
 # Requires clang-devel for building
 sudo dnf install clang-devel
 cargo install ouch
+
+# Install tmuxinator for tmux session management
+sudo dnf install rubygems
+gem install tmuxinator

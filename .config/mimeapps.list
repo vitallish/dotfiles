@@ -7,6 +7,7 @@ x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop
 x-scheme-handler/zotero=zotero.desktop
 x-scheme-handler/mailto=userapp-Evolution-FIT8C3.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 
 [Added Associations]
 application/pdf=libreoffice-draw.desktop;

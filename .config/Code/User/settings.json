@@ -61,6 +61,21 @@
         },
         {
             "before": [
+                "<leader>",
+                "e",
+                "m"
+            ],
+            "after": [
+                "$",
+                "a",
+                " ",
+                "|",
+                ">",
+                "<CR>"
+            ]
+        },
+        {
+            "before": [
                 "<CR>"
             ],
             "commands": [
@@ -182,4 +197,7 @@
     "xlsxViewer.xlsx.hyperlinkPreview": true,
     "githubPullRequests.pushBranch": "always",
     "chat.sendElementsToChat.enabled": false,
+    "chat.tools.terminal.autoApprove": {
+        "Rscript": true
+    },
 }
