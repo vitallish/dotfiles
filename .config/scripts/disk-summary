@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+# Summarize disk usage of key home directory locations.
+
+set -euo pipefail
+
+BOLD='\033[1m'
+DIM='\033[2m'
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+RESET='\033[0m'
+
+size_of() {
+  local result
+  result=$(du -sh "$1" 2>/dev/null | tail -1 | cut -f1)
+  echo "${result:-?}"
+}
+
+color_size() {
+  local raw="$1"
+  local num unit
+  num=$(echo "$raw" | sed 's/[A-Za-z]//g')
+  unit=$(echo "$raw" | sed 's/[0-9.]//g')
+
+  case "$unit" in
+    G) echo -e "${RED}${raw}${RESET}" ;;
+    M) local n=${num%.*}
+       if [[ "${n:-0}" -ge 500 ]]; then echo -e "${YELLOW}${raw}${RESET}"
+       else echo "$raw"; fi ;;
+    *) echo "$raw" ;;
+  esac
+}
+
+row() {
+  local label="$1" path="$2"
+  if [[ ! -e "$path" ]]; then return; fi
+  local raw
+  raw=$(size_of "$path")
+  printf "  %-45s %s\n" "$label" "$(color_size "$raw")"
+}
+
+section() {
+  echo -e "\n${BOLD}$1${RESET}"
+}
+
+df_line=$(df -h ~ | tail -1)
+used=$(echo "$df_line" | awk '{print $3}')
+avail=$(echo "$df_line" | awk '{print $4}')
+total=$(echo "$df_line" | awk '{print $2}')
+pct=$(echo "$df_line" | awk '{print $5}')
+
+echo -e "${BOLD}Home partition:${RESET} ${used} used of ${total} (${avail} free) — ${pct}"
+
+section "Home directories"
+row "~/repos"                          ~/repos
+row "~/Documents"                      ~/Documents
+row "~/Downloads"                      ~/Downloads
+row "~/Zotero"                         ~/Zotero
+row "~/notes"                          ~/notes
+row "~/Pictures"                       ~/Pictures
+row "~/Videos"                         ~/Videos
+row "~/Music"                          ~/Music
+row "~/games"                          ~/games
+row "~/go"                             ~/go
+row "~/R"                              ~/R
+row "~/Sync"                           ~/Sync
+
+section "Podman / containers"
+row "  images+overlay"                 ~/.local/share/containers/storage/overlay
+row "  volumes"                        ~/.local/share/containers/storage/volumes
+if command -v podman &>/dev/null; then
+  echo -e "  ${DIM}podman system df:${RESET}"
+  podman system df 2>/dev/null | while IFS= read -r line; do
+    printf "    %s\n" "$line"
+  done
+fi
+
+section "Apps & data (~/.local/share)"
+row "  Steam"                         ~/.local/share/Steam
+row "  Flatpak"                       ~/.local/share/flatpak
+row "  CKAN (KSP mods)"              ~/.local/share/CKAN
+row "  ProtonMail"                    ~/.local/share/protonmail
+row "  Trash"                         ~/.local/share/Trash
+row "  qutebrowser"                   ~/.local/share/qutebrowser
+row "  Waydroid"                      ~/.local/share/waydroid
+row "  Claude"                        ~/.local/share/claude
+row "  Paperless-ngx"                 ~/.local/share/paperless-ngx
+
+section "Documents (~/Documents)"
+while IFS=$'\t' read -r size path; do
+  label="  $(basename "$path")"
+  printf "  %-45s %s\n" "$label" "$(color_size "$size")"
+done < <(du -sh ~/Documents/* 2>/dev/null | sort -rh)
+
+section "Cache (~/.cache)"
+row "  Evolution"                     ~/.cache/evolution
+row "  pip"                           ~/.cache/pip
+row "  debuginfod"                    ~/.cache/debuginfod_client
+row "  Hugging Face"                  ~/.cache/huggingface
+row "  Mozilla"                       ~/.cache/mozilla
+row "  Zotero"                        ~/.cache/zotero
+row "  R"                             ~/.cache/R
+row "  qutebrowser"                   ~/.cache/qutebrowser
+row "  Chromium"                      ~/.cache/chromium
+row "  Homebrew"                      ~/.cache/Homebrew
+row "  Go build"                      ~/.cache/go-build
+
+echo

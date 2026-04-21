@@ -66,52 +66,7 @@ END {
 
 # ── GPU ───────────────────────────────────────────────────────────────────────
 echo -e "\n${BOLD}── GPU Memory (amdgpu_top) ───────────────────────────────────${RESET}"
-export _GPU_JSON
-_GPU_JSON=$(amdgpu_top -p -J -n 1 2>/dev/null)
-python3 <<'PYEOF'
-import json, os
-
-data = json.loads(os.environ['_GPU_JSON'])
-for dev in data.get('devices', []):
-    info  = dev.get('Info', {})
-    vram  = dev.get('VRAM', {})
-    name  = info.get('DeviceName', 'Unknown')
-    pci   = info.get('DevicePath', {}).get('pci', '')
-
-    vram_used  = vram.get('Total VRAM Usage', {}).get('value', 0)
-    vram_total = vram.get('Total VRAM',       {}).get('value', 0)
-    gtt_used   = vram.get('Total GTT Usage',  {}).get('value', 0)
-    gtt_total  = vram.get('Total GTT',        {}).get('value', 0)
-
-    print(f"  {name}  ({pci})")
-    print(f"    VRAM : {vram_used/1024:6.1f} / {vram_total/1024:6.1f} GB used")
-    print(f"    GTT  : {gtt_used/1024:6.1f} / {gtt_total/1024:6.1f} GB used  (GTT = system RAM held by GPU)")
-
-    fdinfo = dev.get('fdinfo', {})
-    if not fdinfo:
-        continue
-
-    print(f"\n  \033[0;36mTop processes by VRAM ({name}):\033[0m")
-    print(f"    {'PID':<10} {'NAME':<24} {'VRAM':>8}")
-    by_vram = sorted(
-        ((pid, d['name'], d['usage']['usage']['VRAM']['value'])
-         for pid, d in fdinfo.items()
-         if d.get('usage', {}).get('usage', {}).get('VRAM', {}).get('value', 0) > 0),
-        key=lambda x: x[2], reverse=True
-    )
-    for pid, pname, mib in by_vram[:10]:
-        print(f"    {pid:<10} {pname:<24} {mib:>6} MiB")
-
-    print(f"\n  \033[0;36mTop processes by GTT ({name}):\033[0m")
-    gtt_by_name = {}
-    for pid, d in fdinfo.items():
-        gtt_mib = d.get('usage', {}).get('usage', {}).get('GTT', {}).get('value', 0)
-        pname   = d.get('name', pid)
-        if gtt_mib > 0:
-            gtt_by_name[pname] = gtt_by_name.get(pname, 0) + gtt_mib
-    for pname, mib in sorted(gtt_by_name.items(), key=lambda x: x[1], reverse=True)[:10]:
-        print(f"    {mib:>6} MiB  {pname}")
-PYEOF
+"$(dirname "$0")/gpu_mem_info"
 
 # ── Processes by RAM + swap ───────────────────────────────────────────────────
 echo -e "\n${BOLD}── Top Processes by RAM + Swap ───────────────────────────────${RESET}"

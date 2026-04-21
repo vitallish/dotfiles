@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# Remove old exited podman containers, then prune dangling images/volumes.
+# Containers whose devcontainer.local_folder still exists on disk are protected.
+#
+# Usage: podman-cleanup [--dry-run] [--days N]
+#   --days N    Remove containers exited more than N days ago (default: 60)
+#   --dry-run   Show what would be removed without removing anything
+
+set -euo pipefail
+
+DAYS=60
+DRY_RUN=false
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --days)    DAYS="$2"; shift 2 ;;
+    --dry-run) DRY_RUN=true; shift ;;
+    -n)        DRY_RUN=true; shift ;;
+    -*)        echo "Unknown option: $1" >&2; exit 1 ;;
+    *)         DAYS="$1"; shift ;;  # positional: treat as days
+  esac
+done
+
+if ! [[ "$DAYS" =~ ^[0-9]+$ ]]; then
+  echo "Error: --days must be a positive integer" >&2
+  exit 1
+fi
+
+CUTOFF=$(date -d "$DAYS days ago" +%s)
+
+echo "Scanning for exited containers older than ${DAYS} days (before $(date -d "@$CUTOFF" '+%Y-%m-%d'))..."
+echo
+
+removed_containers=()
+
+while IFS= read -r id; do
+  name=$(podman inspect --format '{{.Name}}' "$id")
+  finished=$(podman inspect --format '{{.State.FinishedAt}}' "$id")
+
+  # Strip trailing timezone abbreviation (e.g. " EST") that conflicts with numeric offset
+  finished_clean=$(echo "$finished" | sed 's/ [A-Z]\{2,4\}$//')
+  finished_epoch=$(date -d "$finished_clean" +%s 2>/dev/null || echo 0)
+
+  if [[ "$finished_epoch" -eq 0 || "$finished_epoch" -gt "$CUTOFF" ]]; then
+    continue
+  fi
+
+  local_folder=$(podman inspect --format '{{index .Config.Labels "devcontainer.local_folder"}}' "$id")
+  removed_containers+=("$id:$name:$local_folder")
+done < <(podman ps -a --filter status=exited --format '{{.ID}}')
+
+if [[ ${#removed_containers[@]} -eq 0 ]]; then
+  echo "No containers to remove."
+else
+  echo "Containers to remove:"
+  for entry in "${removed_containers[@]}"; do
+    id="${entry%%:*}"
+    rest="${entry#*:}"
+    name="${rest%%:*}"
+    local_folder="${rest#*:}"
+    echo "  REMOVE  $name  ($id)${local_folder:+  →  $local_folder}"
+  done
+  echo
+
+  if $DRY_RUN; then
+    echo "[dry-run] No changes made."
+  else
+    for entry in "${removed_containers[@]}"; do
+      id="${entry%%:*}"
+      rest="${entry#*:}"
+      name="${rest%%:*}"
+      echo "Removing container: $name"
+      podman rm "$id"
+    done
+    echo
+    echo "Pruning dangling images..."
+    podman image prune -f
+
+    echo "Pruning unused volumes..."
+    podman volume prune -f
+
+    echo "Pruning build cache..."
+    podman system prune -f --volumes=false 2>/dev/null || podman system prune -f
+
+    echo
+    echo "Done."
+  fi
+fi
