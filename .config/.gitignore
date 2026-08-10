@@ -20,3 +20,9 @@ xfce4/
 lxqt/
 pavucontrol.ini
 user-dirs.locale
+
+cagent/
+colima/
+containers/
+fish
+uv/
