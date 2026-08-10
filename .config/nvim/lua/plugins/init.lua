@@ -77,7 +77,7 @@ return {
   },
   -- Optional dependencies
   dependencies = {
-    "nvim-treesitter/nvim-treesitter",
+    { "nvim-treesitter/nvim-treesitter", branch = "main" },
     "nvim-tree/nvim-web-devicons"
   },
   {

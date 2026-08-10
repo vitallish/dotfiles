@@ -1,0 +1,21 @@
+# /Users/kctf809/.config/tmuxinator/main.yml
+
+name: main
+root: ~
+
+windows:
+  - scp:
+      layout: tiled
+      panes: 
+        - semlstart; semlstart_r441
+        - ssh seml-bare
+  - domino:
+      root: ~/repos/az/domino-vscode-start/
+      layout: tiled
+      panes:
+        - nvim README.md
+        - nvim projects.sh
+        - copilot
+        - source projects.sh
+  - shell: cd ~
+  - config: tmuxinator open main

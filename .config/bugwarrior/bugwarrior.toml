@@ -1,8 +1,5 @@
-
-# ~/.config/bugwarrior/bugwarrior.toml
-
 [general]
-targets = ["wes_github", "vial_github"]
+targets = ["az_github"]
 taskrc = "~/.config/task/taskrc"
 
 # Set to true to shorten links.
@@ -52,33 +49,17 @@ static_tags = []
 # can be included here.
 # static_fields = ["priority"]
 
-[wes_github]
+[az_github]
 service = "github"
-login = "vitallish"
-token = "@oracle:eval:pass github/pat"
-query = "is:issue state:open archived:false assignee:vitallish sort:updated-desc org:West-End-Statistics" 
+login = "kctf809_azu"
+token = "@oracle:eval:gh auth token"
+username = "kctf809_azu"
 description_template = "{{githubnumber}}: {{githubtitle}}"
-project_template = "wes.{{project}}"
+project_template = "az.{{project}}"
 exclude_pull_requests = true
-include_user_repos = false
-include_user_issues = false
-
-[vial_github]
-service = "github"
-login = "vitallish"
-token = "@oracle:eval:pass github/pat"
-query = "is:issue state:open archived:false assignee:vitallish sort:updated-desc org:vial-technology" 
-description_template = "{{githubnumber}}: {{githubtitle}}"
-project_template = "vial.{{project}}"
-exclude_pull_requests = true
-include_user_repos = false
-include_user_issues = false
-
 
 # due dates can be set in taskwarrior and that is fine
 # export REQUESTS_CA_BUNDLE="/opt/homebrew/etc/openssl@3/cert.pem"
 
 # Crontab to run every 5 minutes
-# path is needed to find the 'task' program
-# sssl issues mean the REQUESTS needs to be there
-# */5 * * * *  export PATH=/opt/homebrew/bin:$PATH; "/Users/vitalydruker/.local/bin/bugwarrior" pull > /dev/null 2>&1
+# */5 * * * *  export PATH=/opt/homebrew/bin:$PATH; export REQUESTS_CA_BUNDLE="/opt/homebrew/etc/openssl@3/cert.pem"; "/Users/kctf809/.local/bin/bugwarrior" pull > /dev/null 2>&1

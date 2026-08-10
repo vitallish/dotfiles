@@ -1,0 +1,10 @@
+{
+  "trustedtaps": [
+    "asmvik/formulae",
+    "felixkratz/formulae",
+    "gabor-boros/brew",
+    "lucassabreu/tap",
+    "r-lib/rig",
+    "teamookla/speedtest"
+  ]
+}

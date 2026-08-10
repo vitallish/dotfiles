@@ -5,9 +5,10 @@ root: ~/repos/az/domino-vscode-start/
 
 windows:
   - main:
-      layout: main-vertical
+      layout: tiled
       panes:
         - nvim README.md
+        - nvim projects.sh
         - copilot
-        - 
+        - source projects.sh
   - config: tmuxinator open domino

@@ -35,6 +35,7 @@ settings:
     https://calendar.google.com: true
     https://claude.ai: true
     https://meet.google.com: true
+    https://messages.google.com: true
     https://www.netmums.com: false
   content.register_protocol_handler:
     https://calendar.google.com?cid=%25s: true

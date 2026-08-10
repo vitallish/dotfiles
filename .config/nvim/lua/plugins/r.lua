@@ -98,84 +98,73 @@ return {
   },
 
   -- Tree-sitter - Required for R.nvim functionality
-  -- Using nvim-treesitter master branch configuration
+  -- Using nvim-treesitter "main" branch (the "master" branch is archived and
+  -- incompatible with newer Neovim treesitter core API changes).
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
     },
     lazy = false,
     build = ":TSUpdate",
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require("nvim-treesitter.configs").setup({
-        auto_install = true,
-        ensure_installed = {
-          "r",
-          "rnoweb",
-          "csv",
-          "markdown",
-          "markdown_inline",
-          "bash",
-          "yaml",
-          "lua",
-          "vim",
-          "vimdoc",
-          "latex",
-          "html",
-          "css",
-          "javascript",
-          "mermaid",
+      local ts_langs = {
+        "r",
+        "rnoweb",
+        "csv",
+        "markdown",
+        "markdown_inline",
+        "bash",
+        "yaml",
+        "lua",
+        "vim",
+        "vimdoc",
+        "latex",
+        "html",
+        "css",
+        "javascript",
+        "mermaid",
+      }
+
+      require("nvim-treesitter").install(ts_langs)
+
+      -- Highlighting and (experimental) indent are provided by Neovim core /
+      -- nvim-treesitter main branch and must be enabled explicitly per filetype.
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = ts_langs,
+        callback = function()
+          vim.treesitter.start()
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+      })
+
+      require("nvim-treesitter-textobjects").setup({
+        select = {
+          lookahead = true,
         },
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-        indent = {
-          enable = true,
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
-          },
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-            },
-          },
-          move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-              ["]m"] = "@function.outer",
-              ["]]"] = "@class.inner",
-            },
-            goto_next_end = {
-              ["]M"] = "@function.outer",
-              ["]["] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.inner",
-            },
-            goto_previous_end = {
-              ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
-            },
-          },
+        move = {
+          set_jumps = true,
         },
       })
+
+      local select = require("nvim-treesitter-textobjects.select")
+      vim.keymap.set({ "x", "o" }, "af", function() select.select_textobject("@function.outer", "textobjects") end)
+      vim.keymap.set({ "x", "o" }, "if", function() select.select_textobject("@function.inner", "textobjects") end)
+      vim.keymap.set({ "x", "o" }, "ac", function() select.select_textobject("@class.outer", "textobjects") end)
+      vim.keymap.set({ "x", "o" }, "ic", function() select.select_textobject("@class.inner", "textobjects") end)
+
+      local move = require("nvim-treesitter-textobjects.move")
+      vim.keymap.set({ "n", "x", "o" }, "]m", function() move.goto_next_start("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "]]", function() move.goto_next_start("@class.inner", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "]M", function() move.goto_next_end("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "][", function() move.goto_next_end("@class.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[m", function() move.goto_previous_start("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[[", function() move.goto_previous_start("@class.inner", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[M", function() move.goto_previous_end("@function.outer", "textobjects") end)
+      vim.keymap.set({ "n", "x", "o" }, "[]", function() move.goto_previous_end("@class.outer", "textobjects") end)
+      -- Note: `incremental_selection` (gnn/grn/grc/grm) was dropped from
+      -- nvim-treesitter's main-branch rewrite and has no built-in replacement.
     end,
   },
 

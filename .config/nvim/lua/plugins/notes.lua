@@ -17,7 +17,7 @@ return {
     "nvim-telescope/telescope.nvim", -- For quick pick of files
     -- overwrite anything vimwiki does - just in case
     -- "vimwiki/vimwiki",
-    "nvim-treesitter/nvim-treesitter"
+    { "nvim-treesitter/nvim-treesitter", branch = "main" }
   },
 
   config = function() 
