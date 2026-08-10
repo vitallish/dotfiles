@@ -73,10 +73,16 @@ output * bg /home/vitalydruker/Downloads/a_forest_with_moss_and_trees.jpg fill
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
+
 ### Key bindings
 #
 # Basics:
 #
+# I don't think this will really work unfortunately
+# bindsym Mod4+x exec wtype -P XF86Cut
+# bindsym Mod4+c exec wtype -P XF86Copy
+# bindsym Mod4+v exec wtype -P XF86Paste
+
     # Start a terminal
     bindsym $mod+Return exec $term
     bindsym $mod+Shift+Return exec $browser
@@ -261,6 +267,8 @@ gaps inner 10
 mouse_warping none
 focus_follows_mouse no
 
+exec /home/vitalydruker/repos/external/i3-alternating-layout/.venv/bin/python3 /home/vitalydruker/repos/external/i3-alternating-layout/alternating_layouts.py
+
 # Make terminals with floating class actually float
 for_window [app_id="floating"] {
   floating enable
@@ -306,6 +314,9 @@ bindsym $mod+Mod4+p  exec grimshot copy output
 # Idle and lock timeout configuration
 set $lock_timeout 600
 set $screen_timeout 120
+
+# Suppress lockscreen when any window is fullscreen
+for_window [shell=".*"] inhibit_idle fullscreen
 
 set {
   # not able to launch yazi directly. Rather I'm able to launch 
@@ -454,4 +465,14 @@ bindsym $mod+ctrl+u exec swaymsg [app_id=$slack_id] scratchpad show || exec $sla
   client.urgent           #f38ba8   #f38ba8    #1e1e2e   #f38ba8   #f38ba8
   client.placeholder      #1e1e2e   #1e1e2e    #cdd6f4   #1e1e2e   #1e1e2e
   client.background       #1e1e2e
+
+# Disable PS4 controller touchpad acting as a mouse
+input "1356:2508:Wireless_Controller_Touchpad" {
+    events disabled
+}
+
+input type:keyboard {
+    xkb_numlock enabled
+}
+
 include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'

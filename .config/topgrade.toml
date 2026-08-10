@@ -15,6 +15,7 @@
 # sudo_command = "sudo"
 
 # Disable specific steps - same options as the command line flag
+disable = ["yazi"]
 # disable = ["system", "emacs"]
 
 # Ignore failures for these steps

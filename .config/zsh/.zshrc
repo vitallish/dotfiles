@@ -60,3 +60,5 @@ else
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+
+. "$HOME/.local/share/../bin/env"

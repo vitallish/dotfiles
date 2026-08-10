@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+GITHUB_USER="vitallish"
+DEFAULT_TEMPLATE="container-vscode-r"
+DEFAULT_CLONE_DIR="$HOME/repos/wes"
+REPO_OWNER="West-End-Statistics"
+
+usage() {
+    echo "Usage: $(basename "$0") <new-repo-name> [--dir <clone-dir>] [--template <template>] [--public]"
+    echo
+    echo "  Creates a GitHub repo from a template, clones it, and opens it in a VS Code devcontainer."
+    echo
+    echo "  Options:"
+    echo "    --dir       Clone destination parent dir (default: $DEFAULT_CLONE_DIR)"
+    echo "    --template  Template repo name (default: $DEFAULT_TEMPLATE)"
+    echo "    --public    Create as public repo (default: private)"
+    exit 1
+}
+
+REPO_NAME=""
+CLONE_DIR="$DEFAULT_CLONE_DIR"
+TEMPLATE="$DEFAULT_TEMPLATE"
+VISIBILITY="--private"
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --dir)      CLONE_DIR="$2"; shift 2 ;;
+        --template) TEMPLATE="$2"; shift 2 ;;
+        --public)   VISIBILITY="--public"; shift ;;
+        -h|--help)  usage ;;
+        -*)         echo "Unknown option: $1"; usage ;;
+        *)
+            [[ -n "$REPO_NAME" ]] && { echo "Unexpected argument: $1"; usage; }
+            REPO_NAME="$1"; shift ;;
+    esac
+done
+
+# Interactive template picker if no name given or user wants to choose
+if [[ -z "$REPO_NAME" ]]; then
+    echo "Repository name: "
+    read -r REPO_NAME
+    [[ -z "$REPO_NAME" ]] && { echo "Error: repository name required"; exit 1; }
+fi
+
+# Fetch available templates across all accessible repos (user + orgs)
+echo "Fetching templates..."
+mapfile -t TEMPLATES < <(
+    gh api "/user/repos" --paginate \
+        --jq '.[] | select(.is_template == true) | .full_name' 2>/dev/null | sort
+)
+
+if [[ ${#TEMPLATES[@]} -eq 0 ]]; then
+    echo "No template repositories found."
+    exit 1
+fi
+
+# fzf: show full_name, pre-filter to default template name
+SELECTED=$(printf '%s\n' "${TEMPLATES[@]}" | \
+    fzf --prompt="Template > " \
+        --height=~10 \
+        --layout=reverse \
+        --query="$TEMPLATE" \
+        --select-1 \
+        --header="Select a template (default: $TEMPLATE)")
+
+[[ -z "$SELECTED" ]] && { echo "No template selected."; exit 1; }
+
+TEMPLATE_NAME="${SELECTED##*/}"  # strip owner prefix
+
+echo "  Template : $SELECTED"
+echo "  New repo : $REPO_OWNER/$REPO_NAME"
+echo "  Clone to : $CLONE_DIR/$REPO_NAME"
+echo "  Visibility: ${VISIBILITY#--}"
+echo
+read -rp "Proceed? [Y/n] " CONFIRM
+[[ "${CONFIRM,,}" == "n" ]] && exit 0
+
+# Create repo from template
+echo "Creating repository..."
+gh repo create "$REPO_OWNER/$REPO_NAME" \
+    --template "$SELECTED" \
+    $VISIBILITY
+
+# Wait for GitHub to finish copying the template contents
+echo "Waiting for repository to be ready..."
+for i in $(seq 1 20); do
+    COMMIT_COUNT=$(gh api "/repos/$REPO_OWNER/$REPO_NAME/commits" --jq 'length' 2>/dev/null || echo 0)
+    [[ "$COMMIT_COUNT" -gt 0 ]] && break
+    printf "  still waiting... (%ds)\n" "$((i * 3))"
+    sleep 3
+done
+if [[ "$COMMIT_COUNT" -eq 0 ]]; then
+    echo "Error: repository never became ready after 60s."
+    exit 1
+fi
+
+# Clone
+mkdir -p "$CLONE_DIR"
+echo "Cloning into $CLONE_DIR/$REPO_NAME..."
+gh repo clone "$REPO_OWNER/$REPO_NAME" "$CLONE_DIR/$REPO_NAME"
+
+# Replace template name with repo name in cloned files
+REPO_PATH="$CLONE_DIR/$REPO_NAME"
+echo "Substituting '$TEMPLATE_NAME' -> '$REPO_NAME' in cloned files..."
+while IFS= read -r -d '' file; do
+    sed -i "s/${TEMPLATE_NAME}/${REPO_NAME}/g" "$file"
+done < <(grep -rlZ --include="*.md" --include="*.yml" --include="*.yaml" \
+    "$TEMPLATE_NAME" "$REPO_PATH" 2>/dev/null)
+
+git -C "$REPO_PATH" add -A
+git -C "$REPO_PATH" commit -m "chore: rename from $TEMPLATE_NAME to $REPO_NAME"
+
+echo "Opening in VS Code..."
+code "$REPO_PATH"

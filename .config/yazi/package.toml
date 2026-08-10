@@ -1,12 +1,12 @@
 [[plugin.deps]]
 use = "WhoSowSee/whoosh"
-rev = "0899338"
-hash = "feeea394d143abfa49a4fddcb353d115"
+rev = "8e31145"
+hash = "376cb4847934906862a3b4df857146d7"
 
 [[plugin.deps]]
 use = "ndtoan96/ouch"
-rev = "0742fff"
-hash = "2bd799b42b8e42b8ef100310be71f8d1"
+rev = "406ce6c"
+hash = "f5afc904d5106ee368c8aa2ded43bd74"
 
 [[plugin.deps]]
 use = "pirafrank/what-size"
@@ -20,8 +20,8 @@ hash = "5805affd3ae8adcb3c72b6997d21c0a6"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:piper"
-rev = "1962818"
-hash = "384464b6df8cb807425c521f8cd790f3"
+rev = "c2c16c8"
+hash = "d99cfbc3812e7738505f9e4bedb759cd"
 
 [[plugin.deps]]
 use = "alberti42/faster-piper"

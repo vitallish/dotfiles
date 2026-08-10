@@ -37,6 +37,8 @@ c.new_instance_open_target = 'tab'
 ##   - last-visible: Open new tabs in the most recently visible window.
 c.new_instance_open_target_window = 'last-focused'
 
+c.url.start_pages = ['https://kagi.com']
+
 
 c.url.searchengines = {
     'DEFAULT':  'https://kagi.com/search?q={}',

@@ -5,7 +5,7 @@ root: ~/notes/personal/
 
 windows:
   - inbox:
-      - cd "$HOME/notes/personal/0. Inbox/"; nvim "_to read.md"
+      - cd "$HOME/notes/personal/0. Inbox/"; nvim "evergreen/_to read.md"
   - scratch:
       layout: even-horizontal
       panes: 

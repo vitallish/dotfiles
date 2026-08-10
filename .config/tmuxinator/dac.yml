@@ -1,0 +1,15 @@
+# /home/vitalydruker/.config/tmuxinator/dac.yml
+
+name: dac
+root: ~/
+
+windows:
+  - dac-notes:
+      - cd "$HOME/notes/personal/1. Projects/WES - DAC/"; nvim dac-scratch.md
+  - dac-documents:
+      - cd "$HOME/Documents/WES/Gates Foundation/"; yazi 
+  - dac-repo:
+      - cd "$HOME/repos/wes/gates-dac-review/"; yazi 
+  - shell:
+      -
+  - config: tmuxinator open dac

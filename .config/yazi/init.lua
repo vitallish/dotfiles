@@ -5,6 +5,7 @@ local bookmarks = {
   { tag = "Documents", path = "~/Documents", key = { "o", "o" } },
   { tag = "Documents/WES", path = "~/Documents/WES", key = { "o", "w" } },
   { tag = "Downloads", path = "~/Downloads", key = "d" },
+  { tag = "tmp", path = "/tmp", key = {"t", "t"} },
 }
 
 -- Windows-specific bookmarks

@@ -9,6 +9,12 @@ source_directories:
     - /home/vitalydruker/Desktop/
     - /home/vitalydruker/.ssh
     - /home/vitalydruker/.config/
+    - /home/vitalydruker/notes/
+    - /home/vitalydruker/scripts/
+    - /home/vitalydruker/bin/
+    - /home/vitalydruker/.local/share/task/
+    - /home/vitalydruker/.local/share/timewarrior/
+    - /home/vitalydruker/syncthing-phone/
 
     # - /etc
 

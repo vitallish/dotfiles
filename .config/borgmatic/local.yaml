@@ -9,6 +9,12 @@ source_directories:
   - /home/vitalydruker/Desktop/
   - /home/vitalydruker/.ssh
   - /home/vitalydruker/.config/
+  - /home/vitalydruker/notes/
+  - /home/vitalydruker/scripts/
+  - /home/vitalydruker/bin/
+  - /home/vitalydruker/.local/share/task/
+  - /home/vitalydruker/.local/share/timewarrior/
+  - /home/vitalydruker/syncthing-phone/
 
 repositories:
     # The local path or Borg URL of the repository.
@@ -26,7 +32,7 @@ keep_monthly: 12
 keep_yearly: 5
 
 
-#healthchecks: 
-#  ping_url: https://hc-ping.com/50c8a473-fd27-467e-8bff-cf7a0dc569e0
+healthchecks:
+  ping_url: https://hc-ping.com/9dc98e19-a1b0-474f-988d-aad698b76eee
 
 

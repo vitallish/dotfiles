@@ -41,5 +41,10 @@ report.wes.columns=id,status.short,project,description,due.relative,urgency
 report.wes.sort=project+\/,urgency+
 report.wes.filter=(project:wes or project:vial) and (status:pending or status:waiting)
 
+report.test.description=Report for testing stuff
+report.test.labels=ID,S,Project,Description,D,U
+report.test.columns=id,status.short,project,description,due.relative,urgency
+report.test.sort=project+\/,urgency+
+report.test.filter=(project:test) and (status:pending or status:waiting)
 
 uda.taskwarrior-tui.task-report.show-info=false
